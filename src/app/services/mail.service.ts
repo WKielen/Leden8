@@ -62,6 +62,24 @@ export class MailService extends DataService {
         }
       )
   }
+
+  /***************************************************************************************************
+  / Send a mail
+  /***************************************************************************************************/
+  notification$(token:any): Observable<Object> {
+    console.log('mail notification');
+    // return this.http.post(environment.mailUrl + '/notification', externalRecord)
+    return this.http.post('http://localhost:5000' + '/notification', token)
+      .pipe(
+        retry(1),
+        tap(
+          data => console.log('Notification: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
 }
 
 /***************************************************************************************************
