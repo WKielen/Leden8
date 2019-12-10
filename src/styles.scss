@@ -1,0 +1,149 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+// $Leden-primary: mat-palette($mat-indigo);
+// $Leden-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// // The warn palette is optional (defaults to red).
+// $Leden-warn: mat-palette($mat-red);
+
+// // Create the theme object (a Sass map containing all of the palettes).
+// $Leden-theme: mat-light-theme($Leden-primary, $Leden-accent, $Leden-warn);
+
+// // Include theme styles for core and each component used in your app.
+// // Alternatively, you can import and @include the theme mixins for each component
+// // that you are using.
+// @include angular-material-theme($Leden-theme);
+
+$custom-theme-primary: mat-palette($mat-blue, 900); 
+$custom-theme-accent: mat-palette($mat-grey); 
+$custom-theme-warn: mat-palette($mat-red); 
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+@include angular-material-theme($custom-theme);
+
+$alt-theme-primary: mat-palette($mat-yellow, 700); 
+$alt-theme: mat-light-theme($alt-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+.alternative {
+    @include angular-material-theme($alt-theme);
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// Hieronder toegevoegd
+
+.box {
+    border:1px solid rgba(0,0,0,.03);
+    box-shadow: 5px 10px 10px lightgrey;
+    margin:25px 25px 5px 25px;
+    background:white;
+    border-radius: 5px;
+  }
+  .boxheader {
+    box-shadow: 5px 0px 10px lightgrey;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    background:#0D47A1;
+    color:white;
+    padding:10px 10px 10px 25px;
+    margin:-1px -1px 1px -1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .boxcontent {
+    padding:25px 25px 15px 25px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  .boxbottom {
+    padding: 0px 0px 15px 10px;
+  }
+  
+  // Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is. 
+  .custom-dialog-container .mat-dialog-container {
+    padding: 0px !important;
+    border-radius: 6px;
+  }
+  
+  // voor de floating action buttons
+  .fab-container {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  
+    > div {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      margin-bottom: 5px;
+  
+      button {
+        margin-bottom: 17px;
+      }
+    }
+  }
+  
+  .mat-form-max-width
+  {
+    width: 100%;
+  }
+  
+  .margin-top-left 
+  {
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+  
+  
+  button.mat-raised-button.box-bottom-button
+  {
+    //margin: 10px 0px 0px 15px; // top 10 and left 15
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+  
+  // zorgt ervoor dat de inhoud van een tabel over de gehele container wordt verdeeld.
+  table
+  {
+    width: 100%;
+  }
+  
+  // hightligted van oneven rows
+  .mat-row:nth-child( even )
+  {
+      background-color: white;
+  }
+  .mat-row:nth-child( odd )
+  {
+      background-color: #f5f5f5;
+  }
+  
+  // als er rechts van de checkbox nog een ander veld staat
+  .margin-right-20  {
+    margin-right: 20px;
+  }
+  
+  .margin-top-15  {
+    margin-top: 15px;
+  }
+  

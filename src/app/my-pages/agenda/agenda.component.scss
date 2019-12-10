@@ -1,0 +1,6 @@
+// dit zorgt ervoor dat op de telefoon een aantal kolommen niet zichtbaar is.
+@media only screen and (max-width: 900px) {
+    .collapsable{
+        display: none;
+    }
+}

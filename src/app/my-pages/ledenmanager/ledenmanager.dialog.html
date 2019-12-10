@@ -1,0 +1,285 @@
+<h2 mat-dialog-title class="boxheader">{{data.method}}</h2>
+<div class="boxcontent">
+    <mat-dialog-content>
+
+        <form [formGroup]="ledenItemForm" (ngSubmit)="onSubmit()" novalidate>
+            <div>
+                <mat-accordion class="headers-align">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Persoonlijke gegevens
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-form-field class="margin-right-20" style="width: 80px;">
+                            <input matInput placeholder="Voornaam" formControlName="voornaam" [formControl]="voornaam"
+                               required>
+                            <mat-error *ngIf="voornaam.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="margin-right-20" style="width: 60px;">
+                            <input matInput placeholder="Tussenvoegsel" formControlName="tussenvoegsel" [formControl]="tussenvoegsel">
+                        </mat-form-field>
+
+                        <mat-form-field class="margin-right-20" style="width: 150px;">
+                            <input matInput placeholder="Achternaam" formControlName="achternaam" [formControl]="achternaam"
+                                required>
+                            <mat-error *ngIf="achternaam.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width: 150px;">
+                            <input matInput placeholder="Adres" formControlName="adres" [formControl]="adres" required>
+                            <mat-error *ngIf="adres.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="margin-right-20" style="width: 60px;">
+                            <input matInput placeholder="Postcode" formControlName="postcode" [formControl]="postcode"
+                                required>
+                            <mat-error *ngIf="postcode.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field style="width: 100px;">
+                            <input matInput placeholder="Woonplaats" formControlName="woonplaats" [formControl]="woonplaats"
+                                required>
+                            <mat-error *ngIf="woonplaats.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width: 110px">
+                            <input matInput placeholder="Geboortedatum" [matDatepicker]="picker" formControlName="geboorteDatum"
+                                [formControl]="geboorteDatum" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="geboorteDatum.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-radio-group class="margin-right-20" placeholder="Geslacht" formControlName="geslacht"
+                            [formControl]="geslacht" required>
+                            <mat-radio-button color="primary" class="margin-right-20" value="M">Man</mat-radio-button>
+                            <mat-radio-button color="primary" value="V">Vrouw</mat-radio-button>
+                        </mat-radio-group>
+
+
+                        <mat-checkbox color="primary" formControlName="magnietopfoto" [formControl]="magnietopfoto">Mag niet op foto</mat-checkbox>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="max-width: 150px;">
+                            <input matInput placeholder="Mobiel" formControlName="mobiel" [formControl]="mobiel">
+                            <mat-error *ngIf="email1.hasError('tel')">
+                                Onjuist telefoonnummer
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field style="max-width: 150px;">
+                            <input matInput placeholder="Telefoon" formControlName="telefoon" [formControl]="telefoon">
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width: 150px;">
+                            <input matInput placeholder="Email 1" formControlName="email1" [formControl]="email1">
+                            <mat-error *ngIf="email1.hasError('email')">
+                                Onjuist email adres
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field style="width: 150px;">
+                            <input matInput placeholder="Email 2" formControlName="email2" [formControl]="email2">
+                            <mat-error *ngIf="email2.hasError('email')">
+                                Onjuist email adres
+                            </mat-error>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field style="width: 300px">
+                            <input matInput placeholder="Opmerking" formControlName="medisch" [formControl]="medisch">
+                        </mat-form-field>
+
+                    </mat-expansion-panel>
+
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Lidmaatschap gegevens
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-form-field class="margin-right-20" style="width: 100px;">
+                            <mat-select placeholder="Lidtype" formControlName="lidtype" required>
+                                <mat-option *ngFor="let item of lidtypeValues" [value]="item.Value">{{item.Label}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="lidtype.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="margin-right-20" style="width: 100px">
+                            <input matInput placeholder="Lid vanaf" [matDatepicker]="picker2" formControlName="lidvanaf"
+                                [formControl]="lidvanaf" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="lidvanaf.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field style="width:50px">
+                            <input matInput type="number" placeholder="Lidnummer" formControlName="lidnr" [formControl]="lidnr"
+                                 [readonly]='!newlid'>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width: 100px">
+                            <mat-select placeholder="Betaalwijze" formControlName="betaalwijze" required>
+                                <mat-option *ngFor="let item of betaalWijzeValues" [value]="item.Value">{{item.Label}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="betaalwijze.hasError('required')">
+                                Veld is verplicht
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="margin-right-20" style="width:150px">
+                            <input matInput type="number" placeholder="Vast bedrag" formControlName="vastbedrag"
+                                [formControl]="vastbedrag">
+                            <mat-hint>Contributie is een vastbedrag</mat-hint>
+                            <span matPrefix>&euro;&nbsp;</span>
+                        </mat-form-field>
+
+                        <mat-form-field style="width:150px">
+                            <input matInput type="number" placeholder="Korting" formControlName="korting" [formControl]="korting">
+                            <mat-hint>Korting op de contributie</mat-hint>
+                            <span matPrefix>&euro;&nbsp;</span>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width: 160px;">
+                            <input matInput placeholder="IBAN" formControlName="iban" [formControl]="iban"
+                            oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+
+                        <!-- <mat-form-field class="margin-right-20" style="width: 80px;">
+                            <input matInput placeholder="BIC" formControlName="bic" [formControl]="bic"
+                            oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field> -->
+
+                        <mat-form-field style="width: 120px;">
+                            <input matInput placeholder="NieuwegeinPas-nummer" formControlName="u_pasNr" [formControl]="u_pasNr">
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-checkbox class="margin-right-20" color="primary" formControlName="vrijwilligerskorting"
+                            [formControl]="vrijwilligerskorting">Vrijwilligerskorting</mat-checkbox>
+
+                        <mat-form-field style="width: 250px;">
+                            <input matInput placeholder="Welke vrijwilligertaak?" formControlName="vrijwillgersToelichting"
+                                [formControl]="vrijwillgersToelichting">
+                        </mat-form-field>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                NTTB gegevens
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-form-field class="margin-right-20" style="width:100px">
+                            <input matInput type="number" placeholder="Bondsnr" formControlName="bondsnr" [formControl]="bondsnr">
+                        </mat-form-field>
+
+                        <mat-checkbox class="margin-right-20" color="primary" formControlName="lidbond" [formControl]="lidbond">Lid
+                            bond</mat-checkbox>
+                        <mat-checkbox class="margin-right-20" color="primary" formControlName="compgerechtigd" [formControl]="compgerechtigd">Comp.Gerechtigd</mat-checkbox>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width:60px">
+                            <input matInput type="number" placeholder="Rating" formControlName="rating" [formControl]="rating">
+                        </mat-form-field>
+
+                        <mat-form-field class="margin-right-20" style="width: 60px;">
+                            <input matInput placeholder="Lic.jun" formControlName="licentiejun" [formControl]="licentiejun">
+                        </mat-form-field>
+
+                        <mat-form-field style="width: 60px;">
+                            <input matInput placeholder="Lic.sen" formControlName="licentiesen" [formControl]="licentiesen">
+                        </mat-form-field>
+                    </mat-expansion-panel>
+
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Gegevens ouders
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+
+                        <mat-form-field class="margin-right-20" style="max-width: 150px;">
+                            <input matInput placeholder="Naam" formControlName="ouder1_naam" [formControl]="ouder1_naam">
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="max-width: 150px;">
+                            <input matInput placeholder="Mobiel" formControlName="ouder1_mobiel" [formControl]="ouder1_mobiel">
+                            <mat-error *ngIf="ouder1_mobiel.hasError('tel')">
+                                Onjuist telefoonnummer
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field style="max-width: 150px;">
+                            <input matInput placeholder="Telefoon" formControlName="ouder1_telefoon" [formControl]="ouder1_telefoon">
+                            <mat-error *ngIf="ouder1_telefoon.hasError('tel')">
+                                Onjuist telefoonnummer
+                            </mat-error>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="margin-right-20" style="width: 150px;">
+                            <input matInput placeholder="Email 1" formControlName="ouder1_email1" [formControl]="ouder1_email1">
+                            <mat-error *ngIf="ouder1_email1.hasError('email')">
+                                Onjuist email adres
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field style="width: 150px;">
+                            <input matInput placeholder="Email 2" formControlName="ouder1_email2" [formControl]="ouder1_email2">
+                            <mat-error *ngIf="ouder1_email2.hasError('email')">
+                                Onjuist email adres
+                            </mat-error>
+                        </mat-form-field>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <button mat-raised-button color="primary" [disabled]='!ledenItemForm.valid'>Save</button>
+            <button mat-raised-button class='box-bottom-button' color="accent" mat-dialog-close>Cancel</button>
+        </form>
+
+    </mat-dialog-content>
+</div>

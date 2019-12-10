@@ -1,0 +1,81 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
+  <div fxFlex="30">
+    <div class="box">
+      <div class="boxheader">Download Ledenlijst</div>
+      <div class="boxcontent">
+        <label id="ledenlijst-label">Kies type lijst</label>
+        <mat-radio-group aria-labelledby="ledenlijst-label" class="radio-group" [(ngModel)]="ledenLijstKeuze">
+          <mat-radio-button class="radio-button" *ngFor="let ledenLijstKeuzeValue of ledenLijstKeuzes"  color="primary"
+            [value]="ledenLijstKeuzeValue">
+            {{ledenLijstKeuzeValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <label id="ledenselectie-label">Kies type selectie</label>
+        <mat-radio-group aria-labelledby="ledenselectie-label" class="radio-group" 
+          [(ngModel)]="ledenSelectieKeuze">
+          <mat-radio-button class="radio-button" *ngFor="let ledenSelectieKeuzeValue of ledenSelectieKeuzes" color="primary"
+            [value]="ledenSelectieKeuzeValue">
+            {{ledenSelectieKeuzeValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="boxbottom">
+        <button mat-raised-button class='box-bottom-button' color="primary" (click)="onClickLedenLijst()">Download</button>
+      </div>
+    </div>
+    <div class="box">
+      <div class="boxheader">Aanmaken Vcard</div>
+      <div class="boxcontent">
+          <app-select-lid-dropdown [leden-array]="ledenArray" (valueSelected)="onUserSelected($event)"></app-select-lid-dropdown>
+      </div>
+      <div class="boxbottom">
+          <button mat-raised-button class='box-bottom-button' color="primary" (click)="onCreateVcard()">Maak Vcard</button>
+      </div>
+  </div>
+
+
+  </div>
+
+  <div fxFlex="30">
+    <div class="box">
+      <div class="boxheader">Download Agenda</div>
+      <div class="boxcontent">
+        Met onderstaande knoppen kan je de agenda downloaden. In de download zijn de velden gescheiden door een
+        punt-komma.
+      </div>
+      <div class="boxbottom">
+        <button mat-raised-button class='box-bottom-button' color="primary" (click)="onClickAgendaLijst()">Download</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div fxFlex="30">
+    <div class="box">
+      <div class="boxheader">Upload Agenda</div>
+      <div class="boxcontent">
+        Met onderstaande knoppen kan je een agenda uploaden. Bij het uploaden worden de agenda regels toegevoegd aan de
+        agenda. Er wordt dus niets vervangen. Het formaat van de upload moet gelijk zijn aan die van de download. Dus om
+        een upload
+        bestand te maken, is het handig om eerst een download te doen en vervolgens dat formaat aanhouden.
+        <br><br>
+        <div>
+          <button mat-raised-button color="primary" (click)="fileInput.click()" class='margin-right-20'>
+            <span>Kies bestand</span>
+            <input #fileInput type="file" (change)="onFileSelected($event.target.files)" style="display:none;"/>
+          </button>
+          <input matInput readonly='true' style='margin: 10px 0px 0px 0px;' value={{uploadFileName}} >  
+        </div>
+      </div>
+
+      <div class="boxbottom">
+        <button mat-raised-button color="primary" (click)="onClickAgendaImport()"
+        class='box-bottom-button'>Uploaden</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>

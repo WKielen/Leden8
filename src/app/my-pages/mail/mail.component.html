@@ -1,0 +1,123 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
+  <div fxFlex="66">
+    <form [formGroup]="mailForm" novalidate>
+      <div class="box">
+        <div class="boxheader">Mail bericht</div>
+        <div class="boxcontent">
+          <mat-dialog-content>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
+              <div fxFlex="30">
+                <mat-form-field class="mat-form-max-width">
+                  <mat-select placeholder="Bewaarde mails" formControlName="SavedMails"
+                    (selectionChange)="onMailNameChanged($event)">
+                    <mat-option *ngFor="let item of savedMailNames.MailNameItems" [value]="item">{{item}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="66">
+
+                <mat-form-field style="width: 50%">
+                  <input matInput type="text" placeholder="Naam mail" formControlName="EmailName"
+                    [formControl]="EmailName">
+                  <mat-error *ngIf="EmailName.hasError('required')">
+                    Veld is verplicht
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-max-width">
+                  <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject"
+                    [formControl]="EmailSubject">
+                  <mat-error *ngIf="EmailSubject.hasError('required')">
+                    Veld is verplicht
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-max-width">
+                  <textarea matInput type="text" placeholder="Email tekst" formControlName="TypeYourMail"
+                    [formControl]="TypeYourMail" matTextareaAutosize matAutosizeMinRows='5'></textarea>
+                  <mat-error *ngIf="TypeYourMail.hasError('required')">
+                    Veld is verplicht
+                  </mat-error>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </mat-dialog-content>
+        </div>
+        <div class="boxbottom">
+          <button mat-raised-button class='box-bottom-button' color="primary" (click)='onSaveEmail()'
+            [disabled]='!mailForm.valid'>Save</button>
+          <button class='box-bottom-button' mat-raised-button color="primary" (click)='onDeleteMail()'>Delete</button>
+        </div>
+      </div>
+    </form>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
+
+      <div fxFlex="50">
+        <form [formGroup]="mailboxparamForm" novalidate>
+          <div class="box">
+            <div class="boxheader">Verstuur Mail</div>
+            <div class="boxcontent">
+              <button mat-raised-button color="primary" (click)="onSendMail($event)" class="alternative"
+                [disabled]='itemsToMail.length == 0' matBadge={{itemsToMail.length}} matBadgePosition="after"
+                matBadgeColor="accent">Verzend mail</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div fxFlex="50">
+          <div class="box">
+            <div class="boxheader">Selectie</div>
+            <div class="boxcontent">
+              <mat-checkbox [(ngModel)]="ckbVolwassenen" (change)="onChangeckbVolwassenen($event)" color='primary'
+                class='margin-right-20'>Volwassenen
+              </mat-checkbox>
+              <mat-checkbox [(ngModel)]="ckbJeugd" (change)="onChangeckbJeugd($event)" color='primary'>
+                Jeugd</mat-checkbox>
+            </div>
+          </div>
+        </div>
+  
+
+    </div>
+  </div>
+  <div fxFlex="30">
+    <div class="box">
+      <div class="boxheader">Leden</div>
+      <div class="boxcontent">
+        <table mat-table #table [dataSource]="dataSource" *ngIf="dataSource">
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null" color='primary'
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="onCheckboxChange($event, row)" color='primary'
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Naam">
+            <th mat-header-cell *matHeaderCellDef> Naam </th>
+            <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="LeeftijdCategorie">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TTVN</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="Description" content="TTVN Nieuwegein, Tafeltennis, Wim Kielen, Nieuwegein">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link  href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" rel="stylesheet">
+</head>
+<body  style="background-color: white">
+  <app-root>
+    <div style="background-color:#FBC02D; height: 64px; line-height: 64px; width: 100%">
+
+        <span style="font-size: 20px; display: inline-block;
+        vertical-align: middle; line-height: 32px; margin: 0px 0px 0px 30px;
+        font-weight: 500; font-family: Roboto, 'Helvetica Neue', sans-serif;">
+TTV Nieuwegein</span>
+    </div>
+
+    <style>
+      .loading-message {
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+          margin-top: -10em;
+        /*set to a negative number 1/2 of your height*/
+        margin-left: -7em;
+        /*set to a negative number 1/2 of your width*/
+      }
+    </style>
+    <div class="loading-message">
+      <img src="./assets/images/loading.jpg" alt="Loading JPG" width="200" height="200">
+      <br>
+      <br>
+      <p style="color: #FBC02D; font-family: Helvetica; margin: 2rem;">
+        Loading the TTVN App...
+      </p>
+    </div>
+
+  </app-root>
+  <noscript>
+    <h3 style="color: #673ab7; font-family: Helvetica; margin: 2rem;">
+        Sorry, but app is not available without javascript
+    </h3>
+  </noscript>
+</html>

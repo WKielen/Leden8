@@ -1,0 +1,42 @@
+<h2 mat-dialog-title class="boxheader">Inloggen</h2>
+<div class="boxcontent">
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <mat-form-field style='width:100%'>
+            <!-- hieronder de formControlName zoals in de formgroup is beschreven -->
+            <input matInput placeholder="Bondsnummer" formControlName="userid" [formControl]="userid"
+                [errorStateMatcher]="matcher">
+            <mat-error *ngIf="userid.hasError('minlength') || userid.hasError('maxlength')">
+                Bondsnummer exact 7 numeriek zijn
+            </mat-error>
+            <mat-error *ngIf="userid.hasError('required')">
+                Bondsnummer is verplicht
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style='width:100%'>
+            <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord" formControlName='password'
+                [errorStateMatcher]="matcher">
+            <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+                Het wachtwoord moet minimaal {{
+                password.errors.minlength.requiredLength }} lang zijn
+            </mat-error>
+            <mat-error *ngIf="password.hasError('required')">
+                Wachtwoord is verplicht
+            </mat-error>
+        </mat-form-field>
+
+        <div class="text-left mb-module" style="padding-bottom: 20px">
+            <mat-checkbox name="keepSignedIn" formControlName='keepSignedIn'>
+                Keep me signed in
+            </mat-checkbox>
+        </div>
+
+        <button mat-raised-button *ngIf="!invalidLogin" color="primary" [disabled]='!loginForm.valid'>Login</button>
+        <button mat-raised-button *ngIf="invalidLogin" color="warn" [disabled]='!loginForm.valid'>Login
+            mislukt, opnieuw</button>
+        <button mat-raised-button type="button" color="accent" (click)="onCancel()" style="margin-left:25px">Cancel</button>
+     </form>
+</div>

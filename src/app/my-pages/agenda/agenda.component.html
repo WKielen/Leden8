@@ -1,0 +1,52 @@
+<div class="box">
+  <div class="boxheader">Agenda</div>
+  <table mat-table #table [dataSource]="dataSource">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef style="padding: 5px 20px 0px">
+      </th>
+      <td mat-cell *matCellDef="let row" style="padding: 5px 20px 0px">
+        <mat-checkbox color="primary" (click)="$event.stopPropagation()" (change)="onCheckboxChange($event, row)"
+          [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Datum">
+      <th mat-header-cell *matHeaderCellDef> Datum </th>
+      <td mat-cell *matCellDef="let element"> {{element.Datum}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Tijd">
+      <th mat-header-cell *matHeaderCellDef class="collapsable"> Tijd </th>
+      <td mat-cell *matCellDef="let element" class="collapsable"> {{ element.Tijd }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="EvenementNaam">
+      <th mat-header-cell *matHeaderCellDef> EvenementNaam </th>
+      <td mat-cell *matCellDef="let element"> {{ element.EvenementNaam }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Lokatie">
+      <th mat-header-cell *matHeaderCellDef class="collapsable"> Lokatie </th>
+      <td mat-cell *matCellDef="let element" class="collapsable"> {{ element.Lokatie }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Organisatie">
+      <th mat-header-cell *matHeaderCellDef class="collapsable"> Organisatie </th>
+      <td mat-cell *matCellDef="let element" class="collapsable">{{ getOrganisatie(element.Extra1) }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+</div>
+<div class="fab-container">
+  <div>
+    <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
+      color="primary" class="fab-secondary">
+      <i class="material-icons">{{ btn.icon }}</i>
+    </button>
+  </div>
+</div>

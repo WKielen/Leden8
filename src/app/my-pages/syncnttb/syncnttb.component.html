@@ -1,0 +1,54 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
+  <div fxFlex="30">
+    <div class="box">
+      <div class="boxheader">Upload XLS Ledenlijst uit NAS</div>
+      <div class="boxcontent">
+        De Sync NTTB functie is om te controleren welke verschillen er zijn in onze eigen ledenadministratie en NAS. Dit
+        is vooral nuttig om te controleren we geen onnodige competitiebonds bijdrage betalen.<br>
+        Met onderstaande knoppen kan je een ledenlijst uploaden die in NAS is gemaakt. In NAS onder 'Overzicht
+        Exporteren' kies 'LedenLijst'. Onder het overzicht staat 'genereer xls'. Het bestand dat je in NAS aanmaakt moet
+        worden ingelezen met onderstaande knop.
+
+        <br><br>
+        <div>
+          <button mat-raised-button color="primary" (click)="fileInput.click()">
+            <span>Kies bestand</span>
+            <input #fileInput type="file" (change)="onFileSelected($event.target.files)"
+              style="display:none; margin: 0px 15px 0px 0px;" />
+          </button>
+          <br><br>
+          <input matInput readonly='true' value={{uploadFileName}}>
+        </div>
+      </div>
+
+      <div class="boxbottom">
+        <button mat-raised-button class='box-bottom-button' color="primary" (click)="onClickLedenLijstImport()">Uploaden</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div fxFlex="50">
+    <div class="box">
+      <div class="boxheader">Verschillen</div>
+      <div class="boxcontent">
+        <table mat-table [dataSource]="ledenDifferences" >
+
+          <ng-container matColumnDef="Naam">
+            <th mat-header-cell *matHeaderCellDef> Naam </th>
+            <td mat-cell *matCellDef="let element"> {{ element.naam }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Verschil">
+            <th mat-header-cell *matHeaderCellDef> Verschil </th>
+            <td mat-cell *matCellDef="let element"> {{ element.verschil }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay" class="element-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['Naam', 'Verschil']"></tr>
+
+        </table>
+      </div>
+    </div>
+  </div>

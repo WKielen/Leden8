@@ -1,0 +1,40 @@
+<div hidden>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" [value]='trainingDagDateTime' (dateChange)="onChangeDate($event)" >
+    <mat-datepicker #picker touchUi="true" ></mat-datepicker>  <!-- touchui places it in center-->
+  </mat-form-field>
+</div>
+<div class="box">
+  <div class="boxheader">{{trainingDag.Datum | date: 'EEEE d MMM yyyy' : 'nl'}}</div>
+  <table mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="Naam">
+      <th mat-header-cell *matHeaderCellDef> Naam </th>
+      <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
+    </ng-container>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="Aanwezig">
+      <th mat-header-cell *matHeaderCellDef class="cell-padding">Aanwezig</th>
+      <td mat-cell *matCellDef="let element" class="cell-padding">
+
+        <mat-checkbox [(ngModel)]="element.Checked" [(indeterminate)]="element.Indeterminate"
+          [color]="element.Checked === false ? 'primary' : 'warn'">
+        </mat-checkbox>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)='onRowClick(row)'>
+    </tr>
+  </table>
+</div>
+<div class="fab-container">
+  <div>
+    <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
+      color="primary" class="fab-secondary">
+      <i class="material-icons">{{ btn.icon }}</i>
+    </button>
+  </div>
+</div>
