@@ -1,6 +1,6 @@
 <div hidden>
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" [value]='trainingDagDateTime' (dateChange)="onChangeDate($event)" >
+    <input matInput [matDatepicker]="picker" (dateChange)="onChangeDate($event)" >
     <mat-datepicker #picker touchUi="true" ></mat-datepicker>  <!-- touchui places it in center-->
   </mat-form-field>
 </div>

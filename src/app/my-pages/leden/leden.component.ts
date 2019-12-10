@@ -33,6 +33,8 @@ export class LedenComponent extends ParentComponent implements OnInit {
   public ledenDataArrayOpgezegd: LedenItem[] = [];
   public columnsToDisplay: string[] = ['Naam', 'Leeftijd'];
   public categories = new CountingValues([]);
+  public expandedElement; // added on the angular 8 upgrade to suppres error message
+
 
   nameFilter = new FormControl('');
   ageFilter = new FormControl('');

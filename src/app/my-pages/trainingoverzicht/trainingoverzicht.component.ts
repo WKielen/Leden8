@@ -23,9 +23,9 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
   @ViewChild(MatGridList, {static: false}) table: MatGridList;
   public NAME_COL_SIZE: number = 3;
 
-  private columns: Array<Date> = [];   // De kolommen waar de datums in staan
-  private headerTiles: Array<Tile> = [];
-  private deelNameTiles: Array<Tile> = [];
+  public columns: Array<Date> = [];   // De kolommen waar de datums in staan
+  public headerTiles: Array<Tile> = [];
+  public deelNameTiles: Array<Tile> = [];
   private ledenList: Array<LedenItemExt> = [];
   private databaseRecord = new DatabaseRecord();
   private aanwezigheidsList = new Dictionary([]);  // lijst key is lidnr, value is datumlijst met status  

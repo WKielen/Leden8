@@ -27,6 +27,7 @@ export class HomeComponent extends ParentComponent implements OnInit {
 
   public agendaDataArray?= null;
   public columnsToDisplay: string[] = ['Datum', 'EvenementNaam'];
+  public expandedElement; // added on the angular 8 upgrade to suppres error message
 
   ngOnInit(): void {
 

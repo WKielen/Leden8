@@ -22,6 +22,7 @@ export class OudLedenComponent implements OnInit {
 
   public ledenDataArray: LedenItem[] = null;
   public columnsToDisplay: string[] = [ 'Naam' , 'LidTot' ];
+  public expandedElement; // added on the angular 8 upgrade to suppres error message
 
   ngOnInit(): void {
     this.ledenService.getRetiredMembers$()
@@ -30,10 +31,10 @@ export class OudLedenComponent implements OnInit {
       });
   }
 
-/***************************************************************************************************
-/ Used in the HTML to display proper text
-/***************************************************************************************************/
-  private getLidType(value: string): string {
+  /***************************************************************************************************
+  / Used in the HTML to display proper text
+  /***************************************************************************************************/
+  public getLidType(value: string): string {
     return LidTypeValues.GetLabel(value);
   }
 }

@@ -7,10 +7,6 @@ import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error'
 import { NoChangesMadeError } from '../common/error-handling/no-changes-made-error';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-
 export class DataService {
 
   constructor(protected url: string,
