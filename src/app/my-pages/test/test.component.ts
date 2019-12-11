@@ -41,8 +41,8 @@ export class TestComponent implements OnInit {
         this.token = JSON.stringify(sub);
         let notificationRecord = new NotificationRecord();
         notificationRecord.UserId = this.authService.userId;
-        notificationRecord.Token = this.token;
-        this.notificationService.create$(sub).subscribe()
+        notificationRecord.Token = btoa(JSON.stringify(this.token));
+        this.notificationService.create$(notificationRecord).subscribe()
         console.log('subscribe', sub, JSON.stringify(sub))
       })
       .catch(err => console.error("Could not subscribe to notifications", err));
