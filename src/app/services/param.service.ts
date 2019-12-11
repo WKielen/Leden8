@@ -27,7 +27,7 @@ export class ParamService extends DataService {
           return atob((response as ParamItem).Value);      // atob  = decrypt
         }),
         tap(
-          data => console.log('Received: ', data),
+          data => console.log('Receivedp: ', data),
           error => {
             console.log('Not found, create one our selves: ', error)
             // De parameter niet gevonden dus maken we hem zelf aan zodat deze gebruikt kan worden.

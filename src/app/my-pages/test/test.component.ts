@@ -4,6 +4,7 @@ import { AppError } from 'src/app/common/error-handling/app-error';
 import { MailService } from 'src/app/services/mail.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SwPush } from '@angular/service-worker';
+import { NotificationService, NotificationRecord } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-test',
@@ -15,8 +16,8 @@ export class TestComponent implements OnInit {
   token: any;
 
   constructor(
-    private mailService: MailService,
     private authService: AuthService,
+    private notificationService: NotificationService,
     private swPush: SwPush,
     protected snackBar: MatSnackBar,
   ) {
@@ -36,25 +37,19 @@ export class TestComponent implements OnInit {
     this.swPush.requestSubscription({
       serverPublicKey: this.VAPID_PUBLIC_KEY
     })
-      // .then(sub => this.newsletterService.addPushSubscriber(sub).subscribe())
       .then(sub => {
         this.token = JSON.stringify(sub);
+        let notificationRecord = new NotificationRecord();
+        notificationRecord.UserId = this.authService.userId;
+        notificationRecord.Token = this.token;
+        this.notificationService.create$(sub).subscribe()
         console.log('subscribe', sub, JSON.stringify(sub))
       })
       .catch(err => console.error("Could not subscribe to notifications", err));
   }
 
-
-  public onSendNotification() {
-    this.mailService.notification$({'sub_token':this.token})
-      .subscribe(data => {
-        let result = data as string;
-        console.log('result van mailService', result, JSON.stringify(result));
-
-      },
-        (error: AppError) => {
-          console.log("error", error);
-        }
-      );
+  public onSendNotifications() {
+    let audiance: Array<string> = ['AD'];
+    this.notificationService.sendNotifications(audiance, 'Dit is mijn bericht');
   }
 }

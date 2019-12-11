@@ -34,6 +34,8 @@ import { AgendaService } from './services/agenda.service';
 import { ParamService } from './services/param.service';
 import { TrainingService } from './services/training.service';
 import { MailService } from './services/mail.service';
+import { NotificationService } from './services/notification.service';
+
 import { AppErrorHandler } from './common/error-handling/app-error-handler';
 import { SelectLidDropdownComponent } from './components/select.lid.dropdown.component';
 import { CheckboxListComponent } from './components/checkbox.list.component';
@@ -83,6 +85,7 @@ import { ReadTextFileService } from './services/readtextfile.service';
                 ParamService,
                 MailService,
                 TrainingService,
+                NotificationService,
                 {
                   provide: HTTP_INTERCEPTORS,
                   useClass: TokenInterceptorService,
