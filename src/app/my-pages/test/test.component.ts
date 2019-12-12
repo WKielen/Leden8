@@ -34,18 +34,20 @@ export class TestComponent implements OnInit {
   }
 
   public subscribeToNotifications(): void {
-    this.swPush.requestSubscription({
-      serverPublicKey: this.VAPID_PUBLIC_KEY
-    })
-      .then(sub => {
-        this.token = JSON.stringify(sub);
-        let notificationRecord = new NotificationRecord();
-        notificationRecord.UserId = this.authService.userId;
-        notificationRecord.Token = btoa(JSON.stringify(this.token));
-        this.notificationService.create$(notificationRecord).subscribe()
-        console.log('subscribe', sub, JSON.stringify(sub))
+    if (this.swPush.isEnabled) {
+      this.swPush.requestSubscription({
+        serverPublicKey: this.VAPID_PUBLIC_KEY
       })
-      .catch(err => console.error("Could not subscribe to notifications", err));
+        .then(sub => {
+          this.token = JSON.stringify(sub);
+          let notificationRecord = new NotificationRecord();
+          notificationRecord.UserId = this.authService.userId;
+          notificationRecord.Token = btoa(this.token);
+          this.notificationService.create$(notificationRecord).subscribe()
+          console.log('subscribe', sub, JSON.stringify(sub))
+        })
+        .catch(err => console.error("Could not subscribe to notifications", err));
+    }
   }
 
   public onSendNotifications() {

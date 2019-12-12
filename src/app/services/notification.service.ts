@@ -48,7 +48,7 @@ export class NotificationService extends DataService {
 
   private static Create_WS_Payload(message: string): string {
     let payload = '{"notification":';
-    payload += '{"title": "TTVN Nieuwegein"';
+    payload += '{"title": "TTVN Nieuwegein",';
     payload += '"body": "' + message + '",';
     payload += '"icon": "assets/icons/app-logo-72x72.png",';
     payload += '"vibrate": [100, 50, 100],';
@@ -60,6 +60,22 @@ export class NotificationService extends DataService {
   }
 
   public sendNotifications(audiance :string[], message:string): void {
+    let notificationRecords:Array<NotificationRecord> = [];
+    this.getAll$()
+      .subscribe(data => {
+        notificationRecords = data as Array<NotificationRecord>;
+        notificationRecords.forEach(record => {
+          record.Token = atob(record.Token);
+          this.sendNotification(record.Token, message);
+        })
+
+
+      },
+        (error: AppError) => {
+          console.log("error", error);
+        }
+      );
+
 
     // audiance.forEach(element => {
     //   if (element typeof Number)
@@ -83,6 +99,8 @@ export class NotificationService extends DataService {
   }
 
   private sendNotification(token :string, message:string): void {
+    console.log('token', token);
+    console.log('payload', NotificationService.Create_WS_Payload(message));
     this.mailService.notification$({'sub_token':token, 'message': NotificationService.Create_WS_Payload(message)})
       .subscribe(data => {
         let result = data as string;

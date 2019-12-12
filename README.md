@@ -75,8 +75,9 @@ ng build --prod
 http-server -p 8080 -c-1 dist/leden
 
 Omdat het path naar de service-worker altijd naar 'app' wijst. (Lokatie op productie) moet de 
-ngsw-worker.js en ngsw.json naar de 'app' folder worden gekopieerd om de service worker te laten werken.
-
+ngsw-worker.js en ngsw.json naar de 'app' folder worden gekopieerd om de service worker te laten werken. 
+ manifest.webmanifest "start_url": "/index.html",   /app toevoegen
+  index.html  <base href="/">  moet /app/ zijn
 
 
 

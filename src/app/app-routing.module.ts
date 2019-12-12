@@ -30,6 +30,7 @@ import { SyncNttbComponent } from './my-pages/syncnttb/syncnttb.component';
 import { TrainingDeelnameComponent } from './my-pages/trainingdeelname/trainingdeelname.component';
 import { TrainingOverzichtDialogComponent } from './my-pages/trainingoverzicht/trainingoverzicht.dialog';
 import { TrainingOverzichtComponent } from './my-pages/trainingoverzicht/trainingoverzicht.component';
+import { NotificationDialogComponent } from './app-nav/notification.dialog';
 
 
 const routes: Routes = [
@@ -60,7 +61,7 @@ const routes: Routes = [
   entryComponents: [SignInDialogComponent, AgendaDialogComponent, WebsiteDialogComponent, 
                     MailDialogComponent, LedenDialogComponent, LedenDeleteDialogComponent,
                     RolesDialogComponent, ConfigDialogComponent, SingleMailDialogComponent,
-                    TrainingOverzichtDialogComponent,
+                    TrainingOverzichtDialogComponent, NotificationDialogComponent,
                   ],
   declarations: [OfflineComponent],
 })
@@ -94,4 +95,5 @@ export const myRoutingComponents = [
   TrainingDeelnameComponent,
   TrainingOverzichtDialogComponent,
   TrainingOverzichtComponent,
+  NotificationDialogComponent,
 ];

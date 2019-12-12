@@ -5,7 +5,7 @@
   "background_color": "#efefef",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/app/index.html",
+  "start_url": "/index.html",
   "icons": [
     {
       "src": "assets/icons/app-logo-72x72.png",

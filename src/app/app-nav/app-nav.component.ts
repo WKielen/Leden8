@@ -10,6 +10,7 @@ import { environment } from './../../environments/environment';
 import { MatDrawer } from '@angular/material';
 import { ROUTE, PAGEROLES } from 'src/app/common/classes/Page-Role-Variables';
 import { ConfigDialogComponent } from './config.dialog';
+import { NotificationDialogComponent } from './notification.dialog';
 
 @Component({
   selector: 'app-nav',
@@ -119,7 +120,12 @@ export class AppNavComponent {
   })
   }
 
-
+  onNotification(): void {
+    this.configDialog.open(NotificationDialogComponent, {
+      panelClass: 'custom-dialog-container', width: '400px',
+      data: {}
+  })
+  }
 
   setUserInfo(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
