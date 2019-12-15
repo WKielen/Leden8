@@ -64,12 +64,14 @@ export class MailService extends DataService {
   }
 
   /***************************************************************************************************
-  / Send a mail
+  / Send a notification to the email server. 
+  / De mailserver dient als vehicle om een bericht te sturen naar Firebase Message Service
+  / Deze service stuurt het bericht naar de browser die het laten zien op het scherm.
   /***************************************************************************************************/
   notification$(token:any): Observable<Object> {
     console.log('mail notification');
-    // return this.http.post(environment.mailUrl + '/notification', externalRecord)
-    return this.http.post('http://localhost:5000' + '/notification', token)
+    // return this.http.post(environment.mailUrl + '/notification', externalRecord)  
+    return this.http.post('http://localhost:5000' + '/notification', token)  //TODO
       .pipe(
         retry(1),
         tap(
@@ -79,6 +81,23 @@ export class MailService extends DataService {
         catchError(this.errorHandler)
       );
   }
+  /***************************************************************************************************
+  / Send a notification to the email server. 
+  / De mailserver dient als vehicle om een bericht te sturen naar Firebase Message Service
+  / Deze service stuurt het bericht naar de browser die het laten zien op het scherm.
+  /***************************************************************************************************/
+  getPublicKey$(): Observable<Object> {
+    return this.http.get('http://localhost:5000' + '/notification')  //TODO
+      .pipe(
+        retry(1),
+        tap(
+          data => console.log('Notification: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
 
 }
 

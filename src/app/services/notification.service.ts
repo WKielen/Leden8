@@ -2,11 +2,10 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
-import { map, tap, retry } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
 import { MailService } from './mail.service';
 import { AppError } from '../common/error-handling/app-error';
-import { RolesDialogComponent } from '../my-pages/users/roles.dialog';
+import { Observable } from 'rxjs';
+import { retry, tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,56 +19,68 @@ export class NotificationService extends DataService {
     super(environment.baseUrl + '/notification', http);
   }
 
-
-//   /***************************************************************************************************
-//   / Het object wordt gekopieerd naar een vorm die kan worden opgeslagen
-//   /***************************************************************************************************/
-//   public updateRec$(trainingsDag:NotificationRecord): Observable<Object> {
-//     return this.update$(this.createSavableRecord(trainingsDag));
-//   }
-
-//   /***************************************************************************************************
-//   / Het object wordt gekopieerd naar een vorm die kan worden opgeslagen
-//   /***************************************************************************************************/
-//   public insertRec$(trainingsDag:NotificationRecord): Observable<Object> {
-//     return this.create$(this.createSavableRecord(trainingsDag));
-//   }
-
-// /***************************************************************************************************
-// / The Trainingsdag object can't be stored directly into the database, so I transform it to a Trainingsrecord.
-// /***************************************************************************************************/
-//   private createSavableRecord(trainingDag: NotificationRecord): NotificationRecord {
-//     let response = new NotificationRecord();
-//     response.Id = trainingDag.Id;
-//     response.Datum = trainingDag.Datum;
-//     response.Value = JSON.stringify(trainingDag.DeelnameList);
-//     return response;
-//   }
-
-  private static Create_WS_Payload(message: string): string {
-    let payload = '{"notification":';
-    payload += '{"title": "TTVN Nieuwegein",';
-    payload += '"body": "' + message + '",';
-    payload += '"icon": "assets/icons/app-logo-72x72.png",';
-    payload += '"vibrate": [100, 50, 100],';
-    payload += '"data": {"primaryKey": "1"},';
-    payload += '"actions": ';
-    payload += '[{"action": "explore",';
-    payload += '"title": "Go to the site"}]}}';
-    return payload; 
+  /***************************************************************************************************
+  / De public key is nodig om de service worker het token te laten maken
+  /***************************************************************************************************/
+  public GetPublicKey$(): Observable<Object> {
+    return this.mailService.getPublicKey$();
   }
 
-  public sendNotifications(audiance :string[], message:string): void {
-    let notificationRecords:Array<NotificationRecord> = [];
+  /***************************************************************************************************
+  / Bewaar de subscription. Voordat we bewaren controleren we eerst of de browser al geregistreerd is. 
+  /***************************************************************************************************/
+  public SaveSubscription(resource): boolean {
+    // todo: controleren of the subscription al in de DB zit. zo ja dan return false
+    super.create$(resource)
+      .subscribe();
+    return true;
+    // todo : error handling
+  }
+
+  /***************************************************************************************************
+  / Ik gooi alle records weg die van deze UserId. Dus alle subscriptions worden weggegooid. 
+  /***************************************************************************************************/
+  public Unsubscribe(UserId: string): Observable<Object> {
+    return this.http.delete(this.url + '/deletefromuserid?userid=' + "'" + UserId + "'")
+      .pipe(
+        retry(3),
+        tap(
+          data => console.log('Deleted: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
+  /***************************************************************************************************
+  / We creeeren een payload voor de service worker. Deze snapt dit bericht.
+  /***************************************************************************************************/
+  private static Create_WS_Payload(header: string, message: string): string {
+    let payload = '{"notification": {"title": "';
+    payload += header;
+    payload += '","body": "';
+    payload += message;
+    payload += '"';
+    payload += ', "icon": "assets/icons/app-logo-72x72.png"';
+    payload += ', "vibrate": [100, 50, 100]';
+    payload += ', "data": {"primaryKey": "1"}';
+    payload += ', "actions": [{"action": "explore","title": "Go to the site"}]';
+    payload += '}}';
+    return payload;
+  }
+
+  /***************************************************************************************************
+  / TODO
+  /***************************************************************************************************/
+  public sendNotifications(audiance: string[], header: string, message: string): void {
+    let notificationRecords: Array<NotificationRecord> = [];
     this.getAll$()
       .subscribe(data => {
         notificationRecords = data as Array<NotificationRecord>;
         notificationRecords.forEach(record => {
           record.Token = atob(record.Token);
-          this.sendNotification(record.Token, message);
+          this.sendNotification(record.Token, header, message);
         })
-
-
       },
         (error: AppError) => {
           console.log("error", error);
@@ -98,23 +109,22 @@ export class NotificationService extends DataService {
 
   }
 
-  private sendNotification(token :string, message:string): void {
-    console.log('token', token);
-    console.log('payload', NotificationService.Create_WS_Payload(message));
-    this.mailService.notification$({'sub_token':token, 'message': NotificationService.Create_WS_Payload(message)})
+  /***************************************************************************************************
+  / Stuur een notificatie naar de mail server die het door zal sturen naar de Firebase Notification Service
+  /***************************************************************************************************/
+  private sendNotification(token: string, header: string, message: string): void {
+    // console.log('token', token);
+    // console.log('payload', NotificationService.Create_WS_Payload(header, message));
+    this.mailService.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
       .subscribe(data => {
-        let result = data as string;
-        console.log('result van mailService', result, JSON.stringify(result));
-
+        // let result = data as string;
+        // console.log('result van mailService', result, JSON.stringify(result));
       },
         (error: AppError) => {
           console.log("error", error);
         }
       );
   }
-
-
-
 }
 
 /***************************************************************************************************

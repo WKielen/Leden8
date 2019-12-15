@@ -5,7 +5,6 @@ import { throwError as observableThrowError } from 'rxjs';
 import { NotFoundError } from '../common/error-handling/not-found-error';
 import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error';
 import { NoChangesMadeError } from '../common/error-handling/no-changes-made-error';
-import { Injectable } from '@angular/core';
 
 export class DataService {
 
@@ -37,7 +36,7 @@ export class DataService {
     );
   }
 
-  create$( resource ) {
+  public create$( resource ) {
     return  this.http.post(this.url + '/Insert', resource)
       .pipe(
         retry( 3 ),
@@ -48,6 +47,7 @@ export class DataService {
         catchError(this.errorHandler)
       );
   }
+
   delete$( id ) {
     return  this.http.delete(this.url + '/Delete?Id=' + '"' + id + '"')
       .pipe(
@@ -61,7 +61,7 @@ export class DataService {
   }
 
   protected errorHandler(error: HttpErrorResponse) {
-
+        
     if (error.status === 404) {
     return observableThrowError(new NotFoundError());
     }
