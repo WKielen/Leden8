@@ -147,6 +147,7 @@ export class NotificationService extends DataService {
     payload += message;
     payload += '"';
     payload += ', "icon": "assets/icons/app-logo-72x72.png"';
+    payload += ', "badge": "assets/icons/badge-logo.png"';
     payload += ', "vibrate": [100, 50, 100]';
     payload += ', "data": {"primaryKey": "1"}';
     payload += ', "actions": [{"action": "explore","title": "Go to the site"}]';
@@ -163,4 +164,3 @@ export class NotificationRecord {
   UserId: string;
   Token: string;
 }
-
