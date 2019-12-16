@@ -6,6 +6,7 @@ import { MailService } from './mail.service';
 import { AppError } from '../common/error-handling/app-error';
 import { Observable } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
+import { LedenItem, LedenService } from './leden.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class NotificationService extends DataService {
 
   constructor(
     private mailService: MailService,
+    private ledenService: LedenService,
     http: HttpClient) {
     super(environment.baseUrl + '/notification', http);
   }
@@ -24,17 +26,6 @@ export class NotificationService extends DataService {
   /***************************************************************************************************/
   public GetPublicKey$(): Observable<Object> {
     return this.mailService.getPublicKey$();
-  }
-
-  /***************************************************************************************************
-  / Bewaar de subscription. Voordat we bewaren controleren we eerst of de browser al geregistreerd is. 
-  /***************************************************************************************************/
-  public SaveSubscription(resource): boolean {
-    // todo: controleren of the subscription al in de DB zit. zo ja dan return false
-    super.create$(resource)
-      .subscribe();
-    return true;
-    // todo : error handling
   }
 
   /***************************************************************************************************
@@ -53,6 +44,100 @@ export class NotificationService extends DataService {
   }
 
   /***************************************************************************************************
+  / Hier stuur ik een notificatie aan iedereen met een bepaalde rol. Om dit te doen, lees ik eerst alle
+  / leden in met zijn rol. Per lid ga ik de rollen van het lid 'crossreferencen' met de opgegeven rollen.
+  /***************************************************************************************************/
+  public sendNotificationsForRole(audiance: string[], header: string, message: string): void {
+    let sub = this.ledenService.getRol$()
+      .subscribe((data: Array<LedenItem>) => {
+        const ledenLijst: Array<LedenItem> = data;
+        ledenLijst.forEach(lid => {
+          this.processLid(lid, audiance, header, message);
+        })
+      });
+    this.registerSubscription(sub);
+  }
+
+  /***************************************************************************************************
+  / Per lid ga ik de rollen van het lid 'crossreferencen' met de opgegeven rollen. Als ik een overeenstemming
+  / vind dan wordt er een notification gestuurd en ga ik door met het volgende lid.
+  /***************************************************************************************************/
+  private processLid(lid: LedenItem, audiance: string[], header: string, message: string): void {
+    if (!lid.Rol) {
+      return;
+    }
+    const userRoles = lid.Rol.split(',');  //  AD, YY
+    for (let i = 0; i < userRoles.length; i++) {
+      for (let j = 0; j < audiance.length; j++) {
+        if (userRoles[i] == audiance[j]) {
+          this.sendNotificationToUserId(lid.BondsNr, header, message);
+          return;
+        }
+      }
+    }
+  }
+
+  /***************************************************************************************************
+  / Stuur een notificatie naar alle registraties van een userid. Ik lees eerst alle registraties met 
+  / dit userid in en dan stuur ik elke browser een melding
+  /***************************************************************************************************/
+  public sendNotificationToUserIds(UserIdArray: string[], header: string, message: string): void {
+    UserIdArray.forEach(userid => {
+      this.sendNotificationToUserId(userid, header, message);
+    })
+  }
+
+  /***************************************************************************************************
+  / Stuur een notificatie naar alle registraties van een userid. Ik lees eerst alle registraties met 
+  / dit userid in en dan stuur ik elke browser een melding
+  /***************************************************************************************************/
+  public sendNotificationToUserId(UserId: string, header: string, message: string): void {
+    // console.log('sendNotificationToUserId',UserId,  header, message );
+    let sub = this.getSubscribtionsUserId$(UserId)
+      .subscribe(data => {
+        let tokenArray = data as Array<string>;
+        if (tokenArray) {
+          tokenArray.forEach(token => {
+            this.sendNotification(atob(token['Token']), header, message);
+          })
+        }
+      },
+        (error: AppError) => {
+          console.log("error", error);
+        })
+    this.registerSubscription(sub);
+  }
+
+  /***************************************************************************************************
+  / Get alle registraties van een userid
+  /***************************************************************************************************/
+  private getSubscribtionsUserId$(UserId: string): Observable<Object> {
+    return this.http.get(this.url + '/getuserid?userid=' + "'" + UserId + "'")
+      .pipe(
+        retry(3),
+        tap(
+          data => console.log('Received: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
+  /***************************************************************************************************
+  / Stuur een notificatie naar de mail server die het door zal sturen naar de Firebase Notification Service
+  /***************************************************************************************************/
+  private sendNotification(token: string, header: string, message: string): void {
+    let sub = this.mailService.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
+      .subscribe(data => {
+      },
+        (error: AppError) => {
+          console.log("error", error);
+        }
+      );
+    this.registerSubscription(sub);
+  }
+
+  /***************************************************************************************************
   / We creeeren een payload voor de service worker. Deze snapt dit bericht.
   /***************************************************************************************************/
   private static Create_WS_Payload(header: string, message: string): string {
@@ -68,63 +153,6 @@ export class NotificationService extends DataService {
     payload += '}}';
     return payload;
   }
-
-  /***************************************************************************************************
-  / TODO
-  /***************************************************************************************************/
-  public sendNotifications(audiance: string[], header: string, message: string): void {
-    let notificationRecords: Array<NotificationRecord> = [];
-    this.getAll$()
-      .subscribe(data => {
-        notificationRecords = data as Array<NotificationRecord>;
-        notificationRecords.forEach(record => {
-          record.Token = atob(record.Token);
-          this.sendNotification(record.Token, header, message);
-        })
-      },
-        (error: AppError) => {
-          console.log("error", error);
-        }
-      );
-
-
-    // audiance.forEach(element => {
-    //   if (element typeof Number)
-    //     leesDB voor bondsnr
-    //     tokens.forEach(element => {
-    //       send
-    //     });
-    //   else {
-    //     ledenArray.forEach(element => {
-    //       als rol is onze rol   !! n op m relatie
-    //         send          
-    //     });
-
-    //   }  
-
-
-    // });
-
-
-
-  }
-
-  /***************************************************************************************************
-  / Stuur een notificatie naar de mail server die het door zal sturen naar de Firebase Notification Service
-  /***************************************************************************************************/
-  private sendNotification(token: string, header: string, message: string): void {
-    // console.log('token', token);
-    // console.log('payload', NotificationService.Create_WS_Payload(header, message));
-    this.mailService.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
-      .subscribe(data => {
-        // let result = data as string;
-        // console.log('result van mailService', result, JSON.stringify(result));
-      },
-        (error: AppError) => {
-          console.log("error", error);
-        }
-      );
-  }
 }
 
 /***************************************************************************************************
@@ -132,7 +160,7 @@ export class NotificationService extends DataService {
 /***************************************************************************************************/
 export class NotificationRecord {
   Id: number;
-  UserId: number;
+  UserId: string;
   Token: string;
 }
 

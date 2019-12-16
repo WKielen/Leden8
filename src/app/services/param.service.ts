@@ -31,7 +31,7 @@ export class ParamService extends DataService {
           error => {
             console.log('Not found, create one our selves: ', error)
             // De parameter niet gevonden dus maken we hem zelf aan zodat deze gebruikt kan worden.
-            this.createParamData$(Id, Default, Description).subscribe();
+            this.registerSubscription(this.createParamData$(Id, Default, Description).subscribe());
           }
         ),
 

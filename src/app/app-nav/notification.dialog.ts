@@ -6,6 +6,7 @@ import { ParentComponent } from '../components/parent.component';
 import { SwPush } from '@angular/service-worker';
 import { NotificationRecord, NotificationService } from '../services/notification.service';
 import { NotFoundError } from '../common/error-handling/not-found-error';
+import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error';
 
 @Component({
     selector: 'notification-dialog',
@@ -40,7 +41,9 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
     /***************************************************************************************************
     / Hier vraag ik aan de service-worker om een abonnement op meldingen voor deze browser. Het abonnement
     / bevat een url naar de service-worker zelf. Dit abonnement sla ik op in de DB. Zodoende kan ik op een
-    / later tijdstip een bericht sturen naar alle geregistreerde browsers
+    / later tijdstip een bericht sturen naar alle geregistreerde browsers.
+    / Op de tabel in MySQL zit een index op het Token veld die aangeeft dat de waarde uniek moet zijn.
+    / Als er 2x wordt geregistreerd, komt er een duplicate key error.
     /***************************************************************************************************/
     onSubscribe(): void {
         if (this.swPush.isEnabled) {
@@ -53,16 +56,17 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
                     notificationRecord.Token = btoa(JSON.stringify(subscription));
                     let sub1 = this.notificationService.create$(notificationRecord)
                         .subscribe(data => {
-                            let audiance: Array<string> = ['AD'];
-                            this.notificationService.sendNotifications(audiance, 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser');
+                            this.notificationService.sendNotificationToUserId(notificationRecord.UserId, 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser');
                             this.showSnackBar('Aanmelding geregistreerd');
                         },
                             (error: AppError) => {
+                                if (error instanceof DuplicateKeyError) {
+                                    this.showSnackBar('Deze browser was al geregistreerd');
+                                }                                
                                 console.log("error", error);
                             }
                         )
                     this.registerSubscription(sub1);
-
                 })
                 .catch(err => console.error("Could not subscribe to notifications", err));
         } else {

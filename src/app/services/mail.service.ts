@@ -50,7 +50,7 @@ export class MailService extends DataService {
   / Lees de mail box credetials uit de Param tabel
   /***************************************************************************************************/
   private readMailLoginData(): void {
-    this.paramService.readParamData$('mailboxparam' + this.authService.userId,
+    let sub = this.paramService.readParamData$('mailboxparam' + this.authService.userId,
       JSON.stringify(new MailBoxParam()),
       'Om in te loggen in de mailbox')
       .subscribe(data => {
@@ -60,7 +60,8 @@ export class MailService extends DataService {
         (error: AppError) => {
           console.log("error", error);
         }
-      )
+      );
+      this.registerSubscription(sub);
   }
 
   /***************************************************************************************************
