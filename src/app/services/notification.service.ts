@@ -129,6 +129,7 @@ export class NotificationService extends DataService {
   private sendNotification(token: string, header: string, message: string): void {
     let sub = this.mailService.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
       .subscribe(data => {
+        console.log('failed text', data['failed']);  // todo if 410  or 404 dat weggooien
       },
         (error: AppError) => {
           console.log("error", error);
@@ -149,8 +150,8 @@ export class NotificationService extends DataService {
     payload += ', "icon": "assets/icons/app-logo-72x72.png"';
     payload += ', "badge": "assets/icons/badge-logo.png"';
     payload += ', "vibrate": [100, 50, 100]';
-    payload += ', "data": {"primaryKey": "1"}';
-    payload += ', "actions": [{"action": "explore","title": "Go to the site"}]';
+    payload += ', "data": {"primaryKey": "3198048"}';
+    // payload += ', "actions": [{"action": "explore","title": "Go to the site"}]';
     payload += '}}';
     return payload;
   }

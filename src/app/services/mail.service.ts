@@ -70,7 +70,6 @@ export class MailService extends DataService {
   / Deze service stuurt het bericht naar de browser die het laten zien op het scherm.
   /***************************************************************************************************/
   notification$(token:any): Observable<Object> {
-    console.log('mail notification');
     // return this.http.post(environment.mailUrl + '/notification', externalRecord)  
     return this.http.post('http://localhost:5000' + '/notification', token)  //TODO
       .pipe(
