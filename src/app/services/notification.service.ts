@@ -7,6 +7,7 @@ import { AppError } from '../common/error-handling/app-error';
 import { Observable } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { LedenItem, LedenService } from './leden.service';
+import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,27 @@ export class NotificationService extends DataService {
 
   /***************************************************************************************************
   / Ik gooi alle records weg die van deze UserId. Dus alle subscriptions worden weggegooid. 
+  / Dit gebeurt dmv button op notification.dialog.ts
   /***************************************************************************************************/
   public Unsubscribe(UserId: string): Observable<Object> {
     return this.http.delete(this.url + '/deletefromuserid?userid=' + "'" + UserId + "'")
+      .pipe(
+        retry(3),
+        tap(
+          data => console.log('Deleted: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
+  /***************************************************************************************************
+  / Na het versturen van de notification, de firebase notification server kan een error teruggeven.
+  / Error 404 of 410 geeft aan dat de subscription niet meer geldig is. Daarom moet de entry van deze
+  / subscription uit de DB worden verwijderd.
+  /***************************************************************************************************/
+  public deleteToken$(Token: string): Observable<Object> {
+    return this.http.delete(this.url + '/deletetoken?token=' + "'" + btoa(Token) + "'")
       .pipe(
         retry(3),
         tap(
@@ -128,8 +147,16 @@ export class NotificationService extends DataService {
   /***************************************************************************************************/
   private sendNotification(token: string, header: string, message: string): void {
     let sub = this.mailService.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
-      .subscribe(data => {
-        console.log('failed text', data['failed']);  // todo if 410  or 404 dat weggooien
+      .subscribe((data: string) => {
+        let message:string = data['failed'];
+        if (message != null) {
+
+          if (message.indexOf('failed') !== -1 && (message.indexOf('404') !== -1 || message.indexOf('410') !== -1)) {
+            let sub2 = this.deleteToken$(token).subscribe();
+            this.registerSubscription(sub2);
+          }
+          // console.log('failed text', data['failed']);  // todo if 410  or 404 dat weggooien
+        }
       },
         (error: AppError) => {
           console.log("error", error);
@@ -155,6 +182,41 @@ export class NotificationService extends DataService {
     payload += '}}';
     return payload;
   }
+
+
+
+  public sendNotificationToUserId2(UserId: string, header: string, message: string): void {
+    console.log('sendNotificationToUserId',UserId,  header, message );
+    let sub = this.getSubscribtionsUserId$(UserId)
+      .subscribe(data => {
+        console.log('received data',data);
+        let tokenArray = data as Array<string>;
+        if (tokenArray) {
+          tokenArray.forEach(token => {
+            this.sendNotification2$(token, header, message).subscribe();
+          })
+        }
+      },
+        (error: AppError) => {
+          console.log("error", error);
+        })
+    this.registerSubscription(sub);
+  }
+
+
+  public sendNotification2$(token: string, header: string, message: string): Observable<Object> {
+
+    return this.http.post(this.url + '/sendnotification', '{"token": "' + token['Token'] + '"}')  
+      .pipe(
+        retry(1),
+        tap(
+          data => console.log('Notification: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
 }
 
 /***************************************************************************************************

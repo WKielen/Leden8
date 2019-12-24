@@ -34,6 +34,7 @@ export class AppNavComponent {
   isVisable = true;
   isHandset = false;
   menuOpened = false;
+  test = !environment.production;
 
   // Mag de optie in het menu worden getoond?
   showRouteLeden: boolean = false;

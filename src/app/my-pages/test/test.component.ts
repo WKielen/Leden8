@@ -40,8 +40,10 @@ export class TestComponent implements OnInit {
     let userids:Array<string> = ['3198048', '3198048']
 
     this.notificationService.sendNotificationsForRole(['AD'], 'Rol message', 'Bericht voor rol AD');
+  }
 
-    //this.notificationService.sendNotificationToUserIds(userids, 'Ledenadministratie','Dit is mijn bericht');
+  public onSendNotifications2() {
+    this.notificationService.sendNotificationToUserId2('3198048', 'Rol message', 'Bericht voor rol AD');
   }
 
   /***************************************************************************************************

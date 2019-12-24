@@ -304,7 +304,7 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
 / Met deze class worden enkele velden in de param tabel opgeslagen.
 /***************************************************************************************************/
 class SecondaryFeeParams {
-  Description: string;
-  ExtraText: string;
-  RequestedDirectDebitDate: string;
+  Description: string = '';
+  ExtraText: string = '' ;
+  RequestedDirectDebitDate: string = '';
 }

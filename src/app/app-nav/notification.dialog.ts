@@ -14,7 +14,8 @@ import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error'
 })
 export class NotificationDialogComponent extends ParentComponent implements OnInit {
 
-    VAPID_PUBLIC_KEY: string = 'BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw';
+    VAPID_PUBLIC_KEY: string = '';
+    //VAPID_PUBLIC_KEY: string = 'BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw';
 
     constructor(
         public dialogRef: MatDialogRef<NotificationDialogComponent>,
@@ -30,7 +31,7 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
     ngOnInit() {
         let sub = this.notificationService.GetPublicKey$()
             .subscribe(data => { // haal de sleutel uit de db. In mijn geval staat hij in de config.yml van de mailserver op de raspberry pi
-                // this.VAPID_PUBLIC_KEY = data as string; // todo zien waaom we een verkeerde sleutel krijden
+                this.VAPID_PUBLIC_KEY = data as string;
             },
                 (error: AppError) => {
                     this.showSnackBar('Controleer of mailserver aanwezig is!');
