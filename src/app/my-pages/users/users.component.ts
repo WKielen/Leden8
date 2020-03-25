@@ -157,11 +157,11 @@ export class UsersComponent extends ParentComponent implements OnInit {
 /***************************************************************************************************
 / 
 /***************************************************************************************************/
-export interface LidExtract {
-    LidNr: number;
-    Voornaam: string;
-    Achternaam: string;
-    Tussenvoegsel: string;
-    Rol: string;
-}
+// export interface LidExtract {
+//     LidNr: number;
+//     Voornaam: string;
+//     Achternaam: string;
+//     Tussenvoegsel: string;
+//     Rol: string;
+// }
 
