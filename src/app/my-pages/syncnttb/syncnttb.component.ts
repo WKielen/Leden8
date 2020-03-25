@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { LedenService, LedenItemExt, LedenItem } from '../../services/leden.service';
-import { AppError } from '../../common/error-handling/app-error';
-import { DuplicateKeyError } from '../../common/error-handling/duplicate-key-error';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { AppError } from '../../shared/error-handling/app-error';
+import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { read, write, utils, WorkBook } from 'xlsx'
 import { ParamService } from 'src/app/services/param.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { NotFoundError } from 'src/app/common/error-handling/not-found-error';
-import { NoChangesMadeError } from 'src/app/common/error-handling/no-changes-made-error';
+import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 
 @Component({
     selector: 'app-syncnttb-page',

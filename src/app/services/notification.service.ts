@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
 import { MailService } from './mail.service';
-import { AppError } from '../common/error-handling/app-error';
+import { AppError } from '../shared/error-handling/app-error';
 import { Observable } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { LedenItem, LedenService } from './leden.service';

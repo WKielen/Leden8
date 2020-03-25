@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, MatDialog, MatSnackBar, MatTable } from '@angular/material';
-import { AppError } from '../../common/error-handling/app-error';
+import { AppError } from '../../shared/error-handling/app-error';
 import { ParamService, ParamItem } from 'src/app/services/param.service';
-import { WebsiteText } from 'src/app/common/classes/WebsiteText';
+import { WebsiteText } from 'src/app/shared/classes/WebsiteText';
 import { WebsiteDialogComponent } from './website.dialog';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
-import { NoChangesMadeError } from 'src/app/common/error-handling/no-changes-made-error';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 
 @Component({
     selector: 'app-website',

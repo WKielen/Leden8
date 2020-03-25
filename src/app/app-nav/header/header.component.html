@@ -1,0 +1,44 @@
+<div class="alternative">
+
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <button mat-icon-button (click)="toggleSideBar()" *ngIf="logonData.IsLoggedOn">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <img src="./../../../../assets/images/Logo TTVN.png" alt="TTVN logo">
+
+            <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+                <ul fxLayout="row" fxLayoutGap="20px">
+                    <li>
+                        <button *ngIf="logonData.IsLoggedOn" mat-button [matMenuTriggerFor]="menu">
+                            <mat-icon>person</mat-icon>
+                            <span style="font-size: 11pt">{{logonData.Name}}</span>
+                        </button>
+
+                        <button *ngIf="!logonData.IsLoggedOn" mat-button (click)="openSigninDialog()">
+                            <mat-icon>person</mat-icon>
+                            <span style="font-size: 11pt">Sign in</span>
+                        </button>
+
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onConfig()">
+                                <mat-icon>settings</mat-icon>
+                                Settings
+                            </button>
+                            <button mat-menu-item (click)="onNotification()">
+                                <mat-icon>notifications</mat-icon>
+                                Meldingen
+                            </button>
+                            <button mat-menu-item (click)="onSignOff()">
+                                <mat-icon>exit_to_app</mat-icon>
+                                Uitloggen
+                            </button>
+                        </mat-menu>
+
+                    </li>
+                </ul>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</div>

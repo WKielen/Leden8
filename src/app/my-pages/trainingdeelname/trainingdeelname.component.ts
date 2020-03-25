@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { LedenService, LedenItemExt } from '../../services/leden.service';
 import { TrainingService, TrainingDag, TrainingItem } from '../../services/training.service';
 import { MatTableDataSource, MatSnackBar, MatTable, DateAdapter, MatDatepickerInputEvent, MatDatepicker } from '@angular/material';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material';
 
-import { AppError } from 'src/app/common/error-handling/app-error';
-import { NotFoundError } from 'src/app/common/error-handling/not-found-error';
-import { NoChangesMadeError } from 'src/app/common/error-handling/no-changes-made-error';
+import { AppError } from 'src/app/shared/error-handling/app-error';
+import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 
 @Component({
   selector: 'app-trainingdeelname',

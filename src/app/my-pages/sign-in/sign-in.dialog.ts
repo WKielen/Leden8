@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MyErrorStateMatcher } from '../../common/error-handling/Field.Error.State.Matcher';
+import { MyErrorStateMatcher } from '../../shared/error-handling/Field.Error.State.Matcher';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';

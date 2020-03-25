@@ -54,6 +54,21 @@ export class AuthService {
     return jsonToken.userid;
   }
 
+  get fullName() {
+    const token = localStorage.getItem('token');
+    if (!this.token) {
+      return false;
+    }
+    const jsonToken = this.jwtHelper.decodeToken(token);
+
+    let name = jsonToken.firstname;
+    if (jsonToken.prefix) {
+      name += ' ' + jsonToken.prefix;
+    }
+    name += ' ' + jsonToken.lastname;
+    return name;
+  }
+
   get roles() {
     const token = localStorage.getItem('token');
     if (!this.token) {
@@ -67,9 +82,9 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-/***************************************************************************************************
-/ Mag de pagina in het menu worden getoond voor deze gebruiker.
-/***************************************************************************************************/
+  /***************************************************************************************************
+  / Mag de pagina in het menu worden getoond voor deze gebruiker.
+  /***************************************************************************************************/
   showRoute(allowRoles: string[]): boolean {
     for (let i = 0; i <= allowRoles.length; i++) {
       if (this.roles.indexOf(allowRoles[i]) !== -1) {

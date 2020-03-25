@@ -2,7 +2,7 @@ import { DoelgroepValues } from './../../services/agenda.service';
 import { Component, OnInit } from '@angular/core';
 import { AgendaService, TypeValues } from '../../services/agenda.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

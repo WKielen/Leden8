@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter } from '@angular/material';
-import { DynamicDownload } from 'src/app/common/modules/DynamicDownload';
+import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 import { DialogRecord } from "./DialogRecord";
 
 

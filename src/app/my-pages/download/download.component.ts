@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { LedenService, LedenItemExt, LedenItem, LidTypeValues } from '../../services/leden.service';
 import { ExportToCsv } from 'export-to-csv';
-import { DynamicDownload } from 'src/app/common/modules/DynamicDownload';
+import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 import { AgendaService } from 'src/app/services/agenda.service';
 import * as moment from 'moment';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
-import { ReplaceKeywords } from 'src/app/common/modules/ReplaceKeywords';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
 import { ReadTextFileService } from 'src/app/services/readtextfile.service';
-import { CheckImportedAgenda, AddImportedAgendaToDB } from 'src/app/common/modules/AgendaRoutines';
+import { CheckImportedAgenda, AddImportedAgendaToDB } from 'src/app/shared/modules/AgendaRoutines';
 
 @Component({
     selector: 'app-download-page',

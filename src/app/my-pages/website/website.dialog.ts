@@ -2,7 +2,7 @@ import { TypeValues, OrginisatieValues, DoelgroepValues } from '../../services/a
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormValueToDutchDateString } from 'src/app/common/modules/DateRoutines';
+import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 
 
 @Component({

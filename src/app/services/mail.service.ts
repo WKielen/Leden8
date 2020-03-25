@@ -5,7 +5,7 @@ import { DataService } from './data.service';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ParamService } from './param.service';
-import { AppError } from '../common/error-handling/app-error';
+import { AppError } from '../shared/error-handling/app-error';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({

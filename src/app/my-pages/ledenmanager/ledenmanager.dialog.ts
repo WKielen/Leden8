@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BetaalWijzeValues, LidTypeValues } from 'src/app/services/leden.service';
 //import { ValidatorService } from 'angular-iban';
-import { FormValueToDutchDateString } from 'src/app/common/modules/DateRoutines';
+import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 
 @Component({
     selector: 'app-ledenmanager-dialog',

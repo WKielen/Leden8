@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LedenService, LedenItem, LidTypeValues, BetaalWijzeValues } from '../../services/leden.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CountingValues } from 'src/app/common/modules/CountingValues';
+import { CountingValues } from 'src/app/shared/modules/CountingValues';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 
 @Component({
   selector: 'app-leden',

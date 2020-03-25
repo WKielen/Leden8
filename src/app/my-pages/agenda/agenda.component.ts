@@ -3,12 +3,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AgendaService, OrginisatieValues, AgendaItem } from './../../services/agenda.service';
 import { MatTableDataSource, MatDialog, MatSnackBar, MatTable } from '@angular/material';
 import { AgendaDialogComponent } from '../agenda/agenda.dialog';
-import { AppError } from '../../common/error-handling/app-error';
-import { DuplicateKeyError } from '../../common/error-handling/duplicate-key-error';
-import { NotFoundError } from '../../common/error-handling/not-found-error';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
-import { NoChangesMadeError } from 'src/app/common/error-handling/no-changes-made-error';
+import { AppError } from '../../shared/error-handling/app-error';
+import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
+import { NotFoundError } from '../../shared/error-handling/not-found-error';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 
 @Component({
     selector: 'app-agenda',

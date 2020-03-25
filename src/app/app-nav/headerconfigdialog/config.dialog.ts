@@ -3,13 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ParamService } from 'src/app/services/param.service';
-import { MailBoxParam } from '../my-pages/mail/mail.component';
-import { AppError } from '../common/error-handling/app-error';
-import { NotFoundError } from '../common/error-handling/not-found-error';
-import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error';
-import { SnackbarTexts } from '../common/error-handling/SnackbarTexts';
-import { ParentComponent } from '../components/parent.component';
-import { NoChangesMadeError } from '../common/error-handling/no-changes-made-error';
+import { MailBoxParam } from '../../my-pages/mail/mail.component';
+import { AppError } from '../../shared/error-handling/app-error';
+import { NotFoundError } from '../../shared/error-handling/not-found-error';
+import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
+import { SnackbarTexts } from '../../shared/error-handling/SnackbarTexts';
+import { ParentComponent } from '../../shared/components/parent.component';
+import { NoChangesMadeError } from '../../shared/error-handling/no-changes-made-error';
 
 @Component({
     selector: 'config-dialog',

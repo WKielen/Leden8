@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { PAGEROLES } from 'src/app/common/classes/Page-Role-Variables';
-import { Dictionary } from 'src/app/common/modules/Dictionary';
-import { CheckboxDictionairy } from 'src/app/components/checkbox.list.component';
+import { PAGEROLES } from 'src/app/shared/classes/Page-Role-Variables';
+import { Dictionary } from 'src/app/shared/modules/Dictionary';
+import { CheckboxDictionairy } from 'src/app/shared/components/checkbox.list.component';
 
 
 @Component({

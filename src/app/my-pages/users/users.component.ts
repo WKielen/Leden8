@@ -1,18 +1,18 @@
 import { PasswordValidators } from './../users/password.validator';
-import { LidExtract } from '../../components/select.lid.dropdown.component';
+import { LidExtract } from '../../shared/components/select.lid.dropdown.component';
 import { Component, OnInit } from '@angular/core';
 import { LedenService } from '../../services/leden.service';
-import { CheckboxDictionairy } from '../../components/checkbox.list.component';
+import { CheckboxDictionairy } from '../../shared/components/checkbox.list.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MyErrorStateMatcher } from '../../common/error-handling/Field.Error.State.Matcher';
+import { MyErrorStateMatcher } from '../../shared/error-handling/Field.Error.State.Matcher';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { AppError } from '../../common/error-handling/app-error';
-import { DuplicateKeyError } from 'src/app/common/error-handling/duplicate-key-error';
-import { ROLES } from 'src/app/common/classes/Page-Role-Variables';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { AppError } from '../../shared/error-handling/app-error';
+import { DuplicateKeyError } from 'src/app/shared/error-handling/duplicate-key-error';
+import { ROLES } from 'src/app/shared/classes/Page-Role-Variables';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { RolesDialogComponent } from './roles.dialog';
-import { NoChangesMadeError } from 'src/app/common/error-handling/no-changes-made-error';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 
 @Component({
     selector: 'app-users-page',

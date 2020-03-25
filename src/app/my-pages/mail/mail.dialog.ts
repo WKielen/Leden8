@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { DynamicDownload } from 'src/app/common/modules/DynamicDownload';
+import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 import { MailItem, MailService } from 'src/app/services/mail.service';
-import { AppError } from 'src/app/common/error-handling/app-error';
+import { AppError } from 'src/app/shared/error-handling/app-error';
 import { environment } from 'src/environments/environment';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 
 @Component({
     selector: 'app-mail-dialog',

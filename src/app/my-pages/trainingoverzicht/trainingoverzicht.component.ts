@@ -4,14 +4,14 @@ import { MatSnackBar, MatGridList, MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { Observable, forkJoin } from 'rxjs';
 import { TrainingService, TrainingItem } from 'src/app/services/training.service';
-import { calcBetweenDates } from 'src/app/common/modules/DateRoutines';
-import { Dictionary } from 'src/app/common/modules/Dictionary';
+import { calcBetweenDates } from 'src/app/shared/modules/DateRoutines';
+import { Dictionary } from 'src/app/shared/modules/Dictionary';
 import { ParamService } from 'src/app/services/param.service';
-import { AppError } from 'src/app/common/error-handling/app-error';
+import { AppError } from 'src/app/shared/error-handling/app-error';
 import { AuthService } from 'src/app/services/auth.service';
 import { TrainingOverzichtDialogComponent } from './trainingoverzicht.dialog';
 import { DialogRecord } from './DialogRecord';
-import { ParentComponent } from 'src/app/components/parent.component';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
 
 @Component({
   selector: 'app-trainingoverzicht',

@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParamService, ParamItem } from 'src/app/services/param.service';
-import { Ladder, LadderItem } from 'src/app/common/classes/JeugdLadder';
+import { Ladder, LadderItem } from 'src/app/shared/classes/JeugdLadder';
 import { MatSnackBar, MatTable, MatTableDataSource } from '@angular/material';
-import { AppError } from 'src/app/common/error-handling/app-error';
+import { AppError } from 'src/app/shared/error-handling/app-error';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SnackbarTexts } from 'src/app/common/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/components/parent.component';
-import { NoChangesMadeError } from 'src/app/common/error-handling/no-changes-made-error';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 
 @Component({
   selector: 'app-ladder',

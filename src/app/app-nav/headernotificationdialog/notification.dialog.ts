@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
-import { AppError } from '../common/error-handling/app-error';
-import { ParentComponent } from '../components/parent.component';
+import { AppError } from '../../shared/error-handling/app-error';
+import { ParentComponent } from '../../shared/components/parent.component';
 import { SwPush } from '@angular/service-worker';
-import { NotificationRecord, NotificationService } from '../services/notification.service';
-import { NotFoundError } from '../common/error-handling/not-found-error';
-import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error';
+import { NotificationRecord, NotificationService } from '../../services/notification.service';
+import { NotFoundError } from '../../shared/error-handling/not-found-error';
+import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
 
 @Component({
     selector: 'notification-dialog',

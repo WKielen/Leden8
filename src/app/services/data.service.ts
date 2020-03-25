@@ -1,10 +1,10 @@
-import { AppError } from '../common/error-handling/app-error';
+import { AppError } from '../shared/error-handling/app-error';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError, retry } from 'rxjs/operators';
 import { throwError as observableThrowError, Subscription } from 'rxjs';
-import { NotFoundError } from '../common/error-handling/not-found-error';
-import { DuplicateKeyError } from '../common/error-handling/duplicate-key-error';
-import { NoChangesMadeError } from '../common/error-handling/no-changes-made-error';
+import { NotFoundError } from '../shared/error-handling/not-found-error';
+import { DuplicateKeyError } from '../shared/error-handling/duplicate-key-error';
+import { NoChangesMadeError } from '../shared/error-handling/no-changes-made-error';
 
 export class DataService {
 

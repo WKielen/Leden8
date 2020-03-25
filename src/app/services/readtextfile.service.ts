@@ -1,8 +1,8 @@
-import { AppError } from '../common/error-handling/app-error';
+import { AppError } from '../shared/error-handling/app-error';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError, retry } from 'rxjs/operators';
 import { throwError as observableThrowError, Observable } from 'rxjs';
-import { NotFoundError } from '../common/error-handling/not-found-error';
+import { NotFoundError } from '../shared/error-handling/not-found-error';
 import { Injectable } from '@angular/core';
 
 @Injectable({

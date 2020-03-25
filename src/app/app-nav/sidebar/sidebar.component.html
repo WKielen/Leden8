@@ -1,0 +1,28 @@
+<mat-nav-list>
+    <div class="profile-card">
+        <div class="header">
+            <h2>{{name}}</h2>
+        </div>
+        <img src="./../../../../assets/images/Logo TTVN.png" alt="TTVN logo">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <a mat-list-item (click)="route('home')">Home</a>
+    <a mat-list-item *ngIf="showRouteLeden" (click)="route(routeLeden)">Leden</a>
+    <a mat-list-item *ngIf="showRouteLedenmanager" (click)="route(routeLedenmanager)">Leden manager</a>
+    <a mat-list-item *ngIf="showRouteMail" (click)="route(routeMail)">Mail</a>
+    <a mat-list-item *ngIf="showRouteAgenda" (click)="route(routeAgenda)">Agenda manager</a>
+    <a mat-list-item *ngIf="showRouteWebsite" (click)="route(routeWebsite)">Website</a>
+    <a mat-list-item *ngIf="showRouteLadder" (click)="route(routeLadder)">Ladder</a>
+    <a mat-list-item *ngIf="showRouteMultiupdate" (click)="route(routeMultiupdate)">Multi Update</a>
+    <a mat-list-item *ngIf="showRouteDownload" (click)="route(routeDownload)">Download</a>
+    <a mat-list-item *ngIf="showRouteContrbedragen" (click)="route(routeContrbedragen)">Contributie</a>
+    <a mat-list-item *ngIf="showRouteOudleden" (click)="route(routeOudleden)">Oud Leden</a>
+    <a mat-list-item *ngIf="showRouteUsers" (click)="route(routeUsers)">Gebruikers</a>
+    <a mat-list-item *ngIf="showRouteSyncNttb" (click)="route(routeSyncNttb)">Sync NTTB</a>
+    <a mat-list-item *ngIf="showRouteTrainingDeelname" (click)="route(routeTrainingDeelname)">Deelname training</a>
+    <a mat-list-item *ngIf="showRouteTrainingOverzicht" (click)="route(routeTrainingOverzicht)">Training overzicht</a>
+    <a mat-list-item *ngIf="showRouteTest" (click)="route(routeTest)">Test</a>
+
+</mat-nav-list>

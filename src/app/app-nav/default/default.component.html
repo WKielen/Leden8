@@ -1,0 +1,12 @@
+<app-header (toggleSideBarForMe)="sideBarToggler()" (logonStatusToSideBar)="logonStatus($event)"></app-header>
+
+<mat-drawer-container>
+    <mat-drawer mode="side" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="sideBarOpen">
+        <app-sidebar [isHandset]="isHandset" (displaySideBar)="sideBarSetVisibilty($event)"></app-sidebar>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+<app-footer></app-footer>
