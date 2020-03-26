@@ -9,11 +9,11 @@ import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
-import { HeaderComponent } from '../app-nav/header/header.component';
-import { FooterComponent } from '../app-nav/footer/footer.component';
-import { SidebarComponent } from '../app-nav/sidebar/sidebar.component';
-import { ConfigDialogComponent } from '../app-nav/headerconfigdialog/config.dialog';
-import { NotificationDialogComponent } from '../app-nav/headernotificationdialog/notification.dialog';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ConfigDialogComponent } from './headerconfigdialog/config.dialog';
+import { NotificationDialogComponent } from './headernotificationdialog/notification.dialog';
 import { MatDialogModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatSidenavModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -62,4 +62,4 @@ import { DefaultComponent } from './default/default.component';
   ]
 })
 
-export class DefaultModule { }
+export class AppNavModule { }
