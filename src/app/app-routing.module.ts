@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './services/auth.guard';
+import { DashboardComponent } from './my-pages/dashboard/dashboard.component';
 import { LedenComponent } from './my-pages/leden/leden.component';
 import { LedenManagerComponent } from './my-pages/ledenmanager/ledenmanager.component';
 import { AgendaComponent } from './my-pages/agenda/agenda.component';
@@ -39,8 +40,8 @@ const routes: Routes = [
     component: DefaultComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: ROUTE.homePageRoute, component: HomeComponent },
-
+      { path: ROUTE.landingPageRoute, component: HomeComponent },
+      { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
       { path: ROUTE.mailPageRoute, component: MailComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.mailPageRoles } },

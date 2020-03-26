@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppNavModule } from './app-nav/app-nav.module';
 import { MyPagesModule } from './my-pages/my-pages.module';
 
-import { CustomMaterialModule } from './material.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -37,7 +36,6 @@ registerLocaleData(localeNl);
     AppRoutingModule,
     AppNavModule,
     MyPagesModule,
-    // CustomMaterialModule,
     // Registratie van sw veranderd omdat we niet in de base href zitten maar in admin.
     ServiceWorkerModule.register('/app/ngsw-worker.js', { enabled: environment.production })
   ],

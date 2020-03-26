@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  homePage: 'home',
+  landingPage: 'home',
+  dashboardPage: 'dashboard',
   baseUrl: 'https://www.ttvn.nl/api',
   loginUrl: 'https://www.ttvn.nl/api/login',
   databaseName: 'ttest',

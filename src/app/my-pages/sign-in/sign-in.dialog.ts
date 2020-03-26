@@ -46,7 +46,7 @@ export class SignInDialogComponent {
           .subscribe(result => {
             if (result) {
               const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-              this.router.navigate([returnUrl || environment.homePage ]);
+              this.router.navigate([returnUrl || environment.dashboardPage ]);
               this.dialogRef.close(true);
             } else {
               this.invalidLogin = true;

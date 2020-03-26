@@ -39,10 +39,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
     HomeComponent,
+    DashboardComponent,
     LedenComponent,
     LedenManagerComponent,
     MailComponent,
@@ -72,7 +76,6 @@ import { HttpClientModule } from '@angular/common/http';
     SelectLidDropdownComponent,
     CheckboxListComponent,
     ParentComponent,
-
   ],
   imports: [
     CommonModule,
@@ -84,6 +87,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
+    SharedModule,
     // AngularIbanModule,
   ],
   // exports: [

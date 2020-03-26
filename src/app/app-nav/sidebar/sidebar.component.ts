@@ -36,6 +36,7 @@ export class SidebarComponent implements OnInit {
   showRouteTrainingOverzicht: boolean = false;
 
   // De routes naar de pagina's 
+  routeDashboard = ROUTE.dashboardPageRoute;
   routeLeden = ROUTE.ledenPageRoute;
   routeLedenmanager = ROUTE.ledenmanagerPageRoute;
   routeMail = ROUTE.mailPageRoute;

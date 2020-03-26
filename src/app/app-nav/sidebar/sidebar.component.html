@@ -8,7 +8,7 @@
 
     <mat-divider></mat-divider>
 
-    <a mat-list-item (click)="route('home')">Home</a>
+    <a mat-list-item                        (click)="route(routeDashboard)">Dashboard</a>
     <a mat-list-item *ngIf="showRouteLeden" (click)="route(routeLeden)">Leden</a>
     <a mat-list-item *ngIf="showRouteLedenmanager" (click)="route(routeLedenmanager)">Leden manager</a>
     <a mat-list-item *ngIf="showRouteMail" (click)="route(routeMail)">Mail</a>

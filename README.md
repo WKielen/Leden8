@@ -17,6 +17,9 @@ npm install --save export-to-csv
 npm install --save web-push
 npm install --save xlsx
 npm install --save angular-iban         // werkt niet meer
+npm install --save highcharts-angular
+npm install --save highcharts
+
 
 assets kopieren
 inhoud environment files kopieren
