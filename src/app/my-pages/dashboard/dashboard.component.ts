@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LedenItem, LedenService } from 'src/app/services/leden.service';
 import * as moment from 'moment';
 import { formatDate } from '@angular/common';
+import { DateRoutines } from 'src/app/services/leden.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,25 +11,36 @@ import { formatDate } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
 
+  // input voor de linechart
   public bigChart = null;
+  public xAxis = null;
 
   public ledenDataArray: LedenItem[] = [];
   public referenceDateArray: Date[] = [];
   public xAxisValueArray: string[] = [];
-  public memberCountArray: number[] = [];
+  public countMemberArray: number[] = [];
+  public countJuniorMemberArray: number[] = [];
+  public countSeniorMemberArray: number[] = [];;
+
+  // input voor pie chart
+  public pieChart = [71, 78, 39, 66];
+
+
+
 
   constructor(
     public ledenService: LedenService) {
   }
 
   ngOnInit() {
- 
+
     let sub = this.ledenService.getAll$()
       .subscribe((data: Array<LedenItem>) => {
         this.ledenDataArray = data;
 
 
         this.bigChart = this.FillDataArrays();
+        this.xAxis = this.xAxisValueArray;
 
       });
 
@@ -37,35 +49,51 @@ export class DashboardComponent implements OnInit {
 
 
   FillDataArrays() {
-    let tmp =         [{
-      name: 'Asia',
-      data: [502, 635, 809, 947, 1402, 3634, 5268]
+    let tmp = [{
+      name: 'Totaal',
+      data: []
     }, {
-      name: 'Africa',
-      data: [106, 107, 111, 133, 221, 767, 1766]
+      name: 'Volwassenen',
+      data: []
     }, {
-      name: 'Europe',
-      data: [163, 203, 276, 408, 547, 729, 628]
-    }, {
-      name: 'America',
-      data: [18, 31, 54, 156, 339, 818, 1201]
-    }, {
-      name: 'Oceania',
-      data: [2, 2, 2, 6, 13, 30, 46]
-    }];
+      name: 'Jeugd',
+      data: []
+    }
+    ];
 
 
     this.CreateArrayWithReferenceDates();
     this.referenceDateArray.forEach(referenceDate => {
-      let count = 0;
+      let countLeden = 0;
+      let countJuniorLeden = 0;
+      let countSeniorLeden = 0;
       this.ledenDataArray.forEach(lid => {
-        count += 1;
+        let lidvanaf: Date = new Date(lid.LidVanaf);
+        let lidtot: Date = new Date(lid.LidTot);
+
+        if (lidvanaf < referenceDate && (referenceDate < lidtot || lid.Opgezegd == '0')) {
+          countLeden += 1;
+
+          let age = DateRoutines.AgeRel(lid.GeboorteDatum, referenceDate);
+          if (age <= 17) {
+            countJuniorLeden += 1;
+          } else {
+            countSeniorLeden += 1;
+          }
+
+        }
       });
-      this.memberCountArray.push(count);
+      this.countMemberArray.push(countLeden);
+      this.countJuniorMemberArray.push(countJuniorLeden);
+      this.countSeniorMemberArray.push(countSeniorLeden);
     });
-    tmp[0].data = this.memberCountArray
+    tmp[0].data = this.countMemberArray;
+    tmp[1].data = this.countSeniorMemberArray;
+    tmp[2].data = this.countJuniorMemberArray;
     return tmp;
   }
+
+
 
   CreateArrayWithReferenceDates(): void {
     let mydate = moment('2013-01-01');

@@ -12,6 +12,7 @@ export class AreaComponent implements OnInit {
 
   chartOptions: {};
   @Input() data: any = [];
+  @Input() xAxis: any = [];
 
   Highcharts = Highcharts;
 
@@ -31,7 +32,7 @@ export class AreaComponent implements OnInit {
 
 
       xAxis: {
-        categories: ['2013-01', '2013-02', '2014-01', '2014-02','2015-01', '2015-02', '2016-01'],
+        categories: this.xAxis,
         tickmarkPlacement: 'on',
         title: {
           enabled: false
