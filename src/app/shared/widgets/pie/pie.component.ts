@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { GraphData } from 'src/app/my-pages/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-widget-pie',
@@ -12,7 +13,7 @@ export class PieComponent implements OnInit {
   Highcharts = Highcharts;
   chartOptions = {};
 
-  @Input() data = [];
+  @Input() data: GraphData;
 
   constructor() { }
 
@@ -25,10 +26,10 @@ export class PieComponent implements OnInit {
         type: 'pie'
       },
       title: {
-        text: 'RANDOM DATA'
+        text: this.data.Title
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: this.data.TooltipFormat
       },
       plotOptions: {
         pie: {
@@ -36,7 +37,7 @@ export class PieComponent implements OnInit {
           cursor: 'pointer',
           dataLabels: {
             enabled: true,
-            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            format: this.data.LabelFormat
           }
         }
       },
@@ -47,9 +48,9 @@ export class PieComponent implements OnInit {
         enabled: false
       },
       series: [{
-        name: 'Brands',
+        name: this.data.yAxisTitle,
         colorByPoint: true,
-        data: this.data
+        data: this.data.Data
       }]
     };
 

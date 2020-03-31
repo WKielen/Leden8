@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { GraphData } from 'src/app/my-pages/dashboard/dashboard.component';
 
 
 @Component({
@@ -11,8 +12,8 @@ import HC_exporting from 'highcharts/modules/exporting';
 export class AreaComponent implements OnInit {
 
   chartOptions: {};
-  @Input() data: any = [];
-  @Input() xAxis: any = [];
+  
+  @Input() data: GraphData;
 
   Highcharts = Highcharts;
 
@@ -24,15 +25,15 @@ export class AreaComponent implements OnInit {
         type: 'area'
       },
       title: {
-        text: 'Ledenontwikkeling'
+        text: this.data.Title
       },
       subtitle: {
-        text: 'vanaf 2013'
+        text: this.data.SubTitle
       },
 
 
       xAxis: {
-        categories: this.xAxis,
+        categories: this.data.xAxis,
         tickmarkPlacement: 'on',
         title: {
           enabled: false
@@ -40,13 +41,13 @@ export class AreaComponent implements OnInit {
       },
       yAxis: {
         title: {
-          text: 'Leden'
+          text: this.data.yAxisTitle
         }
       },
 
       tooltip: {
         split: true,
-        valueSuffix: ' leden'
+        valueSuffix: this.data.LegendaSuffix
       },
       credits: {
         enabled: false
@@ -54,7 +55,7 @@ export class AreaComponent implements OnInit {
       exporting: {
         enabled: true,
       },
-      series: this.data
+      series: this.data.Data
     };
 
     HC_exporting(Highcharts);
