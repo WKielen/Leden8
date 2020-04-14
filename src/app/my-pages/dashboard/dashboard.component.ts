@@ -18,14 +18,14 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   private ledenDataArray: LedenItem[] = [];
 
   // input voor de linechart
-  private bigChart = null;
+  public bigChart = null;
   private referenceDateArray: Date[] = [];
   private xAxisValueArray: string[] = [];
 
   // input variables for voor pie charts
-  private pieChart1 = null;
-  private pieChart2 = null;
-  private pieChart3 = null;
+  public pieChart1 = null;
+  public pieChart2 = null;
+  public pieChart3 = null;
 
   private countMemberArray: number[] = [];
   private countJuniorMemberArray: number[] = [];

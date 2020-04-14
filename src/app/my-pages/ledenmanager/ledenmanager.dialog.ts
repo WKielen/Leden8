@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BetaalWijzeValues, LidTypeValues } from 'src/app/services/leden.service';
 //import { ValidatorService } from 'angular-iban';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
+
+// import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
 
 @Component({
     selector: 'app-ledenmanager-dialog',
@@ -12,45 +15,45 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
 })
 export class LedenDialogComponent implements OnInit {
     ledenItemForm = new FormGroup({
-        voornaam: new FormControl ('', [Validators.required]),
-        achternaam: new FormControl ('', [Validators.required]),
-        tussenvoegsel: new FormControl (),
-        adres: new FormControl ('', [Validators.required]),
-        woonplaats: new FormControl ('', [Validators.required]),
-        postcode: new FormControl ('', [Validators.required]),
-        mobiel: new FormControl (),
-        telefoon: new FormControl (),
-        geslacht: new FormControl ('', [Validators.required]),
-        geboorteDatum: new FormControl ('', [Validators.required]),
-        email1: new FormControl ('', [Validators.email] ),
-        email2: new FormControl ('', [Validators.email] ),
-        medisch: new FormControl (),
-        magnietopfoto: new FormControl (),
-//-------------------------------------------------------
-        iban: new FormControl (/*'',  [ValidatorService.validateIban] */),
-        bic: new FormControl (),
-        u_pasNr: new FormControl (),
-        vrijwillgersToelichting: new FormControl (),
-        lidvanaf: new FormControl ('', [Validators.required]),
-        betaalwijze: new FormControl ('', [Validators.required]),
-        lidnr: new FormControl (),
-        lidtype: new FormControl ('', [Validators.required]),
-        korting: new FormControl (),
-        vrijwilligerskorting: new FormControl (),
-        vastbedrag: new FormControl (),
-//-------------------------------------------------------
-        bondsnr: new FormControl (),
-        lidbond: new FormControl (),
-        compgerechtigd: new FormControl (),
-        rating: new FormControl (),
-        licentiejun: new FormControl (),
-        licentiesen: new FormControl (),
-//-------------------------------------------------------
-        ouder1_naam: new FormControl (),
-        ouder1_email1: new FormControl (),
-        ouder1_email2: new FormControl (),
-        ouder1_mobiel: new FormControl (),
-        ouder1_telefoon: new FormControl (),
+        voornaam: new FormControl('', [Validators.required]),
+        achternaam: new FormControl('', [Validators.required]),
+        tussenvoegsel: new FormControl(),
+        adres: new FormControl('', [Validators.required]),
+        woonplaats: new FormControl('', [Validators.required]),
+        postcode: new FormControl('', [Validators.required]),
+        mobiel: new FormControl(),
+        telefoon: new FormControl(),
+        geslacht: new FormControl('', [Validators.required]),
+        geboorteDatum: new FormControl('', [Validators.required]),
+        email1: new FormControl('', [Validators.email]),
+        email2: new FormControl('', [Validators.email]),
+        medisch: new FormControl(),
+        magnietopfoto: new FormControl(),
+        //-------------------------------------------------------
+        iban: new FormControl(/*'',  [ValidatorService.validateIban] */),
+        bic: new FormControl(),
+        u_pasNr: new FormControl(),
+        vrijwillgersToelichting: new FormControl(),
+        lidvanaf: new FormControl('', [Validators.required]),
+        betaalwijze: new FormControl('', [Validators.required]),
+        lidnr: new FormControl(),
+        lidtype: new FormControl('', [Validators.required]),
+        korting: new FormControl(),
+        vrijwilligerskorting: new FormControl(),
+        vastbedrag: new FormControl(),
+        //-------------------------------------------------------
+        bondsnr: new FormControl(),
+        lidbond: new FormControl(),
+        compgerechtigd: new FormControl(),
+        rating: new FormControl(),
+        licentiejun: new FormControl(),
+        licentiesen: new FormControl(),
+        //-------------------------------------------------------
+        ouder1_naam: new FormControl(),
+        ouder1_email1: new FormControl(),
+        ouder1_email2: new FormControl(),
+        ouder1_mobiel: new FormControl(),
+        ouder1_telefoon: new FormControl(),
     });
 
     betaalWijzeValues = BetaalWijzeValues.table;
@@ -60,8 +63,9 @@ export class LedenDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<LedenDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data,
-        private adapter: DateAdapter<any>) {
-        this.adapter.setLocale('nl');
+        // private adapter: DateAdapter<any>
+    ) {
+        // this.adapter.setLocale('nl');
         if (data.method === 'Toevoegen') {
             this.newlid = true;
         }
@@ -148,9 +152,9 @@ export class LedenDialogComponent implements OnInit {
         this.dialogRef.close(this.data.data);
     }
 
-  /***************************************************************************************************
-  / Properties
-  /***************************************************************************************************/
+    /***************************************************************************************************
+    / Properties
+    /***************************************************************************************************/
     get voornaam() {
         return this.ledenItemForm.get('voornaam');
     }
@@ -193,7 +197,7 @@ export class LedenDialogComponent implements OnInit {
     get magnietopfoto() {
         return this.ledenItemForm.get('magnietopfoto');
     }
-//-------------------------------------------------------
+    //-------------------------------------------------------
     get iban() {
         return this.ledenItemForm.get('iban');
     }
@@ -227,7 +231,7 @@ export class LedenDialogComponent implements OnInit {
     get vastbedrag() {
         return this.ledenItemForm.get('vastbedrag');
     }
-//-------------------------------------------------------
+    //-------------------------------------------------------
     get bondsnr() {
         return this.ledenItemForm.get('bondsnr');
     }

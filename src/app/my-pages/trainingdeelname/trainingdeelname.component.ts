@@ -1,14 +1,20 @@
 import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { LedenService, LedenItemExt } from '../../services/leden.service';
 import { TrainingService, TrainingDag, TrainingItem } from '../../services/training.service';
-import { MatTableDataSource, MatSnackBar, MatTable, DateAdapter, MatDatepickerInputEvent, MatDatepicker } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTable } from '@angular/material/table';
+import { DateAdapter } from '@angular/material/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
-import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-trainingdeelname',
@@ -97,9 +103,9 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
   /***************************************************************************************************
   / Is triggered when datapicker changed the date.
   /***************************************************************************************************/
-  onChangeDate(event: MatDatepickerInputEvent<Date>) {
+  onChangeDate(event: MatDatepickerInputEvent<Moment>) {
     // receive presence data of new data and merge it with 'old' ledenlist.
-    this.readAndMergeLedenWithPresence(event.value);
+    this.readAndMergeLedenWithPresence(event.value.toDate());
   }
 
   /***************************************************************************************************

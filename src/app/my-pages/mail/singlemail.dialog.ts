@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { LedenItem } from 'src/app/services/leden.service';
 import { ReadTextFileService } from 'src/app/services/readtextfile.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';

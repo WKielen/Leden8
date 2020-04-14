@@ -6,7 +6,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { OnChanges, QueryList, ViewChildren } from '@angular/core';
-import { MatCheckbox } from '@angular/material';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-checkbox-list',

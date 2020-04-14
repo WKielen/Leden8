@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SignInDialogComponent } from 'src/app/my-pages/sign-in/sign-in.dialog'
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';

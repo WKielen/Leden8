@@ -125,18 +125,20 @@
         </form>
 
         <div class="box">
-            <div class="boxheader">Verstuur Contrinutie Mail</div>
+            <div class="boxheader">Verstuur Contributie Mail</div>
             <div class="boxcontent">
-                <mat-form-field class="mat-form-max-width">
-                    <input matInput placeholder="Verwachte incasso datum" [matDatepicker]="picker" (dateChange)="onSaveChangedFields()"
-                    [readonly]="true" [(ngModel)]="requestedDirectDebitDate">
+
+                <mat-form-field>
+                    <mat-label>Verwachte incasso datum</mat-label>
+                    <input matInput [matDatepicker]="picker" (dateChange)="onSaveChangedDate($event)"
+                        [value]="requestedDirectDebitDate.value">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="mat-form-max-width">
                     <textarea matInput type="text" placeholder="Vrije extra tekst voor onderaan de mail"
-                        [(ngModel)]="secondaryFeeParams.ExtraText" (blur)="onSaveChangedFields()" matTextareaAutosize
-                        matAutosizeMinRows='5'></textarea>
+                        [(ngModel)]="secondaryFeeParams.ExtraText" (blur)="onSaveChangedFields()"
+                        matTextareaAutosize matAutosizeMinRows='5'></textarea>
                 </mat-form-field>
 
             </div>

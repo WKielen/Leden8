@@ -66,11 +66,11 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  entryComponents: [SignInDialogComponent, AgendaDialogComponent, WebsiteDialogComponent,
-    MailDialogComponent, LedenDialogComponent, LedenDeleteDialogComponent,
-    RolesDialogComponent, ConfigDialogComponent, SingleMailDialogComponent,
-    TrainingOverzichtDialogComponent, NotificationDialogComponent,
-  ],
+  // entryComponents: [SignInDialogComponent, AgendaDialogComponent, WebsiteDialogComponent,
+  //   MailDialogComponent, LedenDialogComponent, LedenDeleteDialogComponent,
+  //   RolesDialogComponent, ConfigDialogComponent, SingleMailDialogComponent,
+  //   TrainingOverzichtDialogComponent, NotificationDialogComponent,
+  // ],  not needed in angular 9 anymore
   declarations: [OfflineComponent],
 })
 

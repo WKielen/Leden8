@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AgendaService, OrginisatieValues, AgendaItem } from './../../services/agenda.service';
-import { MatTableDataSource, MatDialog, MatSnackBar, MatTable } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { AgendaDialogComponent } from '../agenda/agenda.dialog';
 import { AppError } from '../../shared/error-handling/app-error';
 import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';

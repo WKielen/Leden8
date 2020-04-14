@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DateAdapter, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ExportToCsv } from 'export-to-csv';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { CreateBerekenOverzicht, CreateDirectDebits, CreateContributieMail } from 'src/app/shared/modules/ContributieCalcFunctions';
@@ -13,6 +14,7 @@ import { LedenItemExt, LedenService, LidTypeValues } from 'src/app/services/lede
 import { ExternalMailApiRecord, MailItem } from 'src/app/services/mail.service';
 import { ParamItem, ParamService } from 'src/app/services/param.service';
 import { MailDialogComponent } from '../mail/mail.dialog';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-contr-bedragen',
@@ -23,7 +25,7 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
 
   contributieBedragen = new ContributieBedragen();
   secondaryFeeParams = new SecondaryFeeParams();
-  requestedDirectDebitDate = new Date();
+  requestedDirectDebitDate = new FormControl();
   ledenArray: LedenItemExt[] = [];
   paramItem = new ParamItem();
 
@@ -85,14 +87,14 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
   });
 
   constructor(
+    // private adapter: DateAdapter<any>,
     protected paramService: ParamService,
     protected ledenService: LedenService,
-    private adapter: DateAdapter<any>,
     protected snackBar: MatSnackBar,
     private dialog: MatDialog,
   ) {
     super(snackBar)
-    this.adapter.setLocale('nl');
+    // this.adapter.setLocale('nl');
     this.Omschrijving.setValue('Contributie VNJ-20nn');
   }
 
@@ -136,7 +138,7 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
       .subscribe(data => {
         this.secondaryFeeParams = JSON.parse(data as string) as SecondaryFeeParams;
         this.Omschrijving.setValue(this.secondaryFeeParams.Description);
-        this.requestedDirectDebitDate = new Date(this.secondaryFeeParams.RequestedDirectDebitDate);
+        this.requestedDirectDebitDate.setValue(new Date(this.secondaryFeeParams.RequestedDirectDebitDate));
       },
         (error: AppError) => {
           console.log("error", error);
@@ -230,9 +232,13 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
   /***************************************************************************************************/
   onSaveChangedFields(): void {
     this.secondaryFeeParams.Description = this.Omschrijving.value; // alleen deze de andere twee zitten niet in een form
-    this.secondaryFeeParams.RequestedDirectDebitDate = this.requestedDirectDebitDate.toLocaleDateString();
-    this.paramItem.Value = JSON.stringify(this.secondaryFeeParams);
-
+    this.saveSecondaryParams();
+  }
+  onSaveChangedDate($event): void {
+    this.secondaryFeeParams.RequestedDirectDebitDate = $event.value.format('YYYY-MM-DD');
+    this.saveSecondaryParams();
+  }
+  saveSecondaryParams(): void {
     let sub = this.paramService.saveParamData$("SecondaryFeeParams", JSON.stringify(this.secondaryFeeParams), 'Extra contributie parameters')
       .subscribe();
     this.registerSubscription(sub);
@@ -244,12 +250,16 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
   onSendMail($event): void {
     let mailDialogInputMessage = new ExternalMailApiRecord();
     mailDialogInputMessage.MailItems = new Array<MailItem>();
+    let date = this.requestedDirectDebitDate.value as Date;
 
     this.ledenArray.forEach(lid => {
       if (lid.LidType == LidTypeValues.CONTRIBUTIEVRIJ) return; // Contributie vrij
-      let mailItem = CreateContributieMail(lid, this.contributieBedragen, this.Omschrijving.value, this.OudeBerekenMethode.value, this.requestedDirectDebitDate.toLocaleDateString());
-      mailItem.Message.push(this.secondaryFeeParams.ExtraText);
-      mailItem.Message.push('\nMet vriendelijke groet,\nPenningmeester TTVN')
+      let mailItem = CreateContributieMail(lid, this.contributieBedragen, this.Omschrijving.value, this.OudeBerekenMethode.value, formatDate(date, 'dd-MM-yyyy', 'nl-NL'));
+      if (this.secondaryFeeParams.ExtraText != '') {
+        mailItem.Message.push('\n');
+        mailItem.Message.push(this.secondaryFeeParams.ExtraText);
+      }
+      mailItem.Message.push('\nMet vriendelijke groet,\nPenningmeester TTVN');
       mailDialogInputMessage.MailItems.push(mailItem);
     });
 
@@ -305,6 +315,6 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
 /***************************************************************************************************/
 class SecondaryFeeParams {
   Description: string = '';
-  ExtraText: string = '' ;
+  ExtraText: string = '';
   RequestedDirectDebitDate: string = '';
 }

@@ -25,6 +25,10 @@ import { AppErrorHandler } from './shared/error-handling/app-error-handler';
 // Onderstaande 3 om bedragen in NL vorm weer te geven via pipe
 import { registerLocaleData, APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
+// Material Date Locale hieronder toegevoegd voor Angular 9 conversie
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
 registerLocaleData(localeNl);
 
 
@@ -40,38 +44,47 @@ registerLocaleData(localeNl);
     ServiceWorkerModule.register('/app/ngsw-worker.js', { enabled: environment.production })
   ],
 
-    providers: [AuthService,
-                AuthGuard,
-                AdminAuthGuard,
-                LedenService,
-                ReadTextFileService,
-                {
-                  provide: APP_BASE_HREF,
-                  useValue : '/'
-                },
-                {
-                  provide: LocationStrategy,
-                  useClass: HashLocationStrategy
-                },
-                AgendaService,
-                ParamService,
-                MailService,
-                TrainingService,
-                NotificationService,
-                {
-                  provide: HTTP_INTERCEPTORS,
-                  useClass: TokenInterceptorService,
-                  multi: true
-                },
-                {
-                  provide: ErrorHandler,
-                  useClass: AppErrorHandler
-                },
-                {
-                  provide: LOCALE_ID,
-                  useValue: 'nl'
-                }
-                ],
-                bootstrap: [AppComponent]
+  providers: [AuthService,
+    AuthGuard,
+    AdminAuthGuard,
+    LedenService,
+    ReadTextFileService,
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/'
+    },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
+    AgendaService,
+    ParamService,
+    MailService,
+    TrainingService,
+    NotificationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler
+    },
+
+    {
+      provide: LOCALE_ID,
+      useValue: 'nl'
+    },
+    // Material Date Locale hieronder toegevoegd voor Angular 9 conversie
+    { provide: MAT_DATE_LOCALE, useValue: 'nl-NL' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

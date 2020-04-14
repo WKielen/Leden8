@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, MatDialog, MatSnackBar, MatTable } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { AppError } from '../../shared/error-handling/app-error';
 import { ParamService, ParamItem } from 'src/app/services/param.service';
 import { WebsiteText } from 'src/app/shared/classes/WebsiteText';

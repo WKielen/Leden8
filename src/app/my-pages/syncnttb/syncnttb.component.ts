@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LedenService, LedenItemExt, LedenItem } from '../../services/leden.service';
 import { AppError } from '../../shared/error-handling/app-error';
 import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';

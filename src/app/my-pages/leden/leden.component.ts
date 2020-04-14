@@ -3,7 +3,8 @@ import { LedenService, LedenItem, LidTypeValues, BetaalWijzeValues } from '../..
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CountingValues } from 'src/app/shared/modules/CountingValues';
 import { FormControl } from '@angular/forms';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 
 @Component({

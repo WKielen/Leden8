@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 import { MailItem, MailService } from 'src/app/services/mail.service';
 import { AppError } from 'src/app/shared/error-handling/app-error';

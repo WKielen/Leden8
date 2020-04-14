@@ -1,7 +1,7 @@
 import { formatDate } from "@angular/common";
 
 /***************************************************************************************************
-/ In de mail.ts staat een import van deze file! Hierdoor zijn de extensions global beschikbaar. 
+/ In de main.ts staat een import van deze file! Hierdoor zijn de extensions global beschikbaar. 
 /***************************************************************************************************/
 export {}
 

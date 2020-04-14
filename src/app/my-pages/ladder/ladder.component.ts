@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParamService, ParamItem } from 'src/app/services/param.service';
 import { Ladder, LadderItem } from 'src/app/shared/classes/JeugdLadder';
-import { MatSnackBar, MatTable, MatTableDataSource } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';

@@ -1,6 +1,7 @@
 import { TypeValues, OrginisatieValues, DoelgroepValues } from '../../services/agenda.service';
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter } from '@angular/material';
+// import { DateAdapter } from '@angular/material/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 
@@ -55,8 +56,9 @@ export class AgendaDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AgendaDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data,
-        private adapter: DateAdapter<any>) {
-        this.adapter.setLocale('nl');
+        // private adapter: DateAdapter<any>
+        ) {
+        // this.adapter.setLocale('nl');
     }
 
     ngOnInit(): void {
@@ -97,9 +99,9 @@ export class AgendaDialogComponent implements OnInit {
         this.dialogRef.close(this.data.data);
     }
 
-/***************************************************************************************************
-/ Properties
-/***************************************************************************************************/
+    /***************************************************************************************************
+    / Properties
+    /***************************************************************************************************/
 
     get datum() {
         return this.agendaItemForm.get('datum');

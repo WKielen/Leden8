@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { LedenService, LedenItem } from './../../services/leden.service';
-import { MatTableDataSource, MatDialog, MatSnackBar, MatTable } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { LedenDeleteDialogComponent } from '../ledenmanager/ledendelete.dialog';
 import { AppError } from '../../shared/error-handling/app-error';
 import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
@@ -230,4 +232,14 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         }
         this.fabButtons = this.fabIcons; // toon de buttons
     }
+
+  /***************************************************************************************************
+  / The onRowClick from a row that has been hit
+  /***************************************************************************************************/
+  onRowClick(row): void {
+    console.log('input', row);
+
+
+
+}
 }
