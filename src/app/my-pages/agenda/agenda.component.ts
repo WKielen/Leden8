@@ -20,13 +20,11 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
 
 export class AgendaComponent extends ParentComponent implements OnInit {
 
-    @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
     displayedColumns: string[] = ['select', 'Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie'];
+    columnsToDisplay: string[] = ['Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie', 'actions'];
     dataSource = new MatTableDataSource<AgendaItem>();
-    selection = new SelectionModel<AgendaItem>(true, []); //used for checkboxes
-    fabButtons = [];  // dit zijn de buttons op het scherm
-    fabIcons = [{ icon: 'add' }];
 
     constructor(
         public snackBar: MatSnackBar,
@@ -41,34 +39,22 @@ export class AgendaComponent extends ParentComponent implements OnInit {
                 .subscribe((data: Array<AgendaItem>) => {
                     this.dataSource.data = data;
                 }));
-        this.fabButtons = this.fabIcons;  // plaats add button op scherm
-    }
-
-    /***************************************************************************************************
-    / Een van de buttons is geclicked
-    /***************************************************************************************************/
-    onFabClick(event, buttonNbr): void {
-        switch (event.srcElement.innerText) {
-            case 'delete':
-                this.onDelete();
-                break;
-            case 'edit':
-                this.onEdit();
-                break;
-            case 'playlist_add': // Copy
-                this.onCopy();
-                break;
-            case 'add':
-                this.onAdd();
-                break;
-        }
     }
 
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    private onAdd(): void {
-        const toBeAdded = new AgendaItem();
+    onAdd(): void {
+        this.AddRecord(new AgendaItem);
+    }
+
+    onCopy(index: number): void {
+        const toBeCopied: AgendaItem = this.dataSource.data[index];
+        let toBeAdded: any = Object.assign({}, toBeCopied); // kopieer record
+        this.AddRecord(toBeAdded);
+    }
+
+    private AddRecord(toBeAdded: AgendaItem) {
         let tmp;
         this.dialog.open(AgendaDialogComponent, {
             panelClass: 'custom-dialog-container', width: '1200px',
@@ -96,74 +82,34 @@ export class AgendaComponent extends ParentComponent implements OnInit {
             });
     }
 
+
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    private onCopy(): void {
-        const element = this.selection.selected[0];
-        const toBeCopied: any = Object.assign({}, element); // kopieer record
-        const index = this.dataSource.data.indexOf(element, 0) + 1;
-
-        let tmp;
-        this.dialog.open(AgendaDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '1200px',
-            data: { 'method': 'Kopiëren', 'data': toBeCopied }
-        })
-            .afterClosed()  // returns an observable
-            .subscribe(result => {
-                if (result) {  // in case of cancel the result will be false
-                    let sub = this.agendaService.create$(result)
-                        .subscribe(addResult => {
-                            tmp = addResult;
-                            result.Id = tmp.Key;
-                            this.dataSource.data.splice(index, 0, result);
-                            this.refreshTableLayout();
-                            this.showSnackBar(SnackbarTexts.SuccessNewRecord);
-                        },
-                            (error: AppError) => {
-                                if (error instanceof DuplicateKeyError) {
-                                    this.showSnackBar(SnackbarTexts.DuplicateKey);
-                                } else { throw error; }
-                            }
-                        );
-                    this.registerSubscription(sub);
+    onDelete(index: number): void {
+        const toBeDeleted: AgendaItem = this.dataSource.data[index];
+        let sub = this.agendaService.delete$(toBeDeleted.Id)
+            .subscribe(data => {
+                this.dataSource.data.splice(index, 1);
+                this.refreshTableLayout();
+                this.showSnackBar(SnackbarTexts.SuccessDelete);
+            },
+                (error: AppError) => {
+                    console.log('error', error);
+                    if (error instanceof NotFoundError) {
+                        this.showSnackBar(SnackbarTexts.NotFound);
+                    } else { throw error; } // global error handler
                 }
-            });
+            );
+        this.registerSubscription(sub);
     }
 
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    private onDelete(): void {
-        const toBeDeleted = this.selection.selected;
-        toBeDeleted.forEach(element => {
-            let sub = this.agendaService.delete$(element.Id)
-                .subscribe(data => {
-                    //const resp = data;
-                    const index = this.dataSource.data.indexOf(element, 0);
-                    if (index > -1) {
-                        this.dataSource.data.splice(index, 1);
-                    }
-                    this.refreshTableLayout();
-                    this.showSnackBar(SnackbarTexts.SuccessDelete);
-                },
-                    (error: AppError) => {
-                        console.log('error', error);
-                        if (error instanceof NotFoundError) {
-                            this.showSnackBar(SnackbarTexts.NotFound);
-                        } else { throw error; } // global error handler
-                    }
-                );
-            this.registerSubscription(sub);
-        });
-    }
+    onEdit(index: number): void {
+        let toBeEdited: AgendaItem = this.dataSource.data[index];
 
-    /***************************************************************************************************
-    / 
-    /***************************************************************************************************/
-    private onEdit(): void {
-        const toBeEdited: AgendaItem = this.selection.selected[0];
-        let tmp;
         const dialogRef = this.dialog.open(AgendaDialogComponent, {
             panelClass: 'custom-dialog-container', width: '1200px',
             data: { 'method': 'Wijzigen', 'data': toBeEdited }
@@ -173,6 +119,7 @@ export class AgendaComponent extends ParentComponent implements OnInit {
             if (result) {  // in case of cancel the result will be false
                 let sub = this.agendaService.update$(result)
                     .subscribe(data => {
+                        this.refreshTableLayout();
                         this.showSnackBar(SnackbarTexts.SuccessFulSaved);
                     },
                         (error: AppError) => {
@@ -195,42 +142,23 @@ export class AgendaComponent extends ParentComponent implements OnInit {
     }
 
     /***************************************************************************************************
-    / als 1 van de checkboxes wijzigt, ga ik kijken of er andere buttons getoond moeten worden.
-    /***************************************************************************************************/
-    onCheckboxChange(event, row): void {
-        this.updateIcons(this.selection.selected.length + (event.checked ? 1 : -1));
-
-        // handel het oorspronkelijke event af
-        if (event) {
-            return this.selection.toggle(row);
-        } else {
-            return null;
-        }
-    }
-
-    /***************************************************************************************************
-    / re-render de tabel
+    / 
     /***************************************************************************************************/
     private refreshTableLayout(): void {
-        this.table.dataSource = this.dataSource;
+        this.dataSource.data.sort((item1, item2) => {
+            return (item1.Datum.toString().localeCompare(item2.Datum.toString(), undefined, { numeric: false }));
+        });
         this.table.renderRows();
-        this.selection.clear();
-        this.updateIcons(0);
     }
 
     /***************************************************************************************************
-    / Laat de juiste FAB's zien afhankelijk van aantal geselecteerde regels
+    / The onRowClick from a row that has been hit
     /***************************************************************************************************/
-    private updateIcons(length: number): void {
-        if (length === 0) {
-            this.fabIcons = [{ icon: 'add' }];
-        } else if (length === 1) {
-            this.fabIcons = [{ icon: 'delete' }, { icon: 'edit' }, { icon: 'playlist_add' }];
-        } else if (length > 1) {
-            this.fabIcons = [{ icon: 'delete' }];
-        }
-        this.fabButtons = this.fabIcons; // toon de buttons
+    onDblclick($event, index): void {
+        this.onEdit(index);
     }
+
+
 }
 
  // see: https://github.com/angular-university/angular-material-course/blob/2-data-table-finished/src/app/services/lessons.datasource.ts

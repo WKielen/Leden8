@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -21,11 +20,8 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
 
     @ViewChild(MatTable, {static: false}) table: MatTable<any>;
 
-    displayedColumns: string[] = ['select', 'StartDate', 'EndDate', 'Header'];
+    columnsToDisplay: string[] = ['StartDate', 'EndDate', 'Header', 'actions'];
     dataSource = new MatTableDataSource<WebsiteText>();
-    selection = new SelectionModel<WebsiteText>(true, []); //used for checkboxes
-    fabButtons = [];  // dit zijn de buttons op het scherm
-    fabIcons = [{ icon: 'add' }];
 
     constructor(private paramService: ParamService,
         protected snackBar: MatSnackBar,
@@ -35,24 +31,6 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
 
     ngOnInit(): void {
         this.readWebsiteTexts();
-        this.fabButtons = this.fabIcons;  // plaats add button op scherm
-    }
-
-    /***************************************************************************************************
-    / Een van de buttons is geclicked
-    /***************************************************************************************************/
-    onFabClick(event, buttonNbr): void {
-        switch (event.srcElement.innerText) {
-            case 'delete':
-                this.onDelete();
-                break;
-            case 'edit':
-                this.onEdit();
-                break;
-            case 'add':
-                this.onAdd();
-                break;
-        }
     }
 
     /***************************************************************************************************
@@ -69,8 +47,6 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
                 if (result) {  // in case of cancel the result will be false
                     this.dataSource.data.unshift(result); // voeg de regel vooraan in de tabel toe.
                     this.refreshTableLayout();
-                    // console.log('result',result);
-                    // console.log('this.dataSource.data',this.dataSource.data);
                     this.saveParam();
                 }
             });
@@ -79,15 +55,9 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    onDelete(): void {
-        const toBeDeleted = this.selection.selected;
-
-        toBeDeleted.forEach(element => {
-            const index = this.dataSource.data.indexOf(element, 0);
-            if (index > -1) {
-                this.dataSource.data.splice(index, 1);
-            }
-        });
+    onDelete(index: number): void {
+        const toBeDeleted: WebsiteText = this.dataSource.data[index];
+        this.dataSource.data.splice(index, 1);
         this.saveParam();
         this.refreshTableLayout();
     }
@@ -95,8 +65,9 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    onEdit(): void {
-        const toBeEdited: WebsiteText = this.selection.selected[0];
+    onEdit(index: number): void {
+        let toBeEdited: WebsiteText = this.dataSource.data[index];
+
         let tmp;
         const dialogRef = this.dialog.open(WebsiteDialogComponent, {
             panelClass: 'custom-dialog-container', width: '800px',
@@ -106,49 +77,26 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
         dialogRef.afterClosed().subscribe((result: WebsiteText) => {
             if (result) {  // in case of cancel the result will be false
                 this.refreshTableLayout();
-                // console.log('result',result);
-                // console.log('this.dataSource.data',this.dataSource.data);
                 this.saveParam();
             }
         });
     }
 
     /***************************************************************************************************
-    // als 1 van de checkboxes wijzigt, ga ik kijken of er andere buttons getoond moeten worden.
-    /***************************************************************************************************/
-    onCheckboxChange(event, row): void {
-        this.updateIcons(this.selection.selected.length + (event.checked ? 1 : -1));
-
-        // handel het oorspronkelijke event af
-        if (event) {
-            return this.selection.toggle(row);
-        } else {
-            return null;
-        }
-    }
-
-    /***************************************************************************************************
     / De tabel is aangepast dus opnieuw renderen
     /***************************************************************************************************/
-    refreshTableLayout(): void {
-        this.table.dataSource = this.dataSource;
+    private refreshTableLayout(): void {
+        this.dataSource.data.sort((item1, item2) => {
+            return (item1.StartDate.toString().localeCompare(item2.StartDate.toString(), undefined, { numeric: false }));
+        });
         this.table.renderRows();
-        this.selection.clear();
-        this.updateIcons(0);
     }
 
     /***************************************************************************************************
-    / De gedisplayde icons is afhankelijk van het aantal geselecteerde leden
+    / The onRowClick from a row that has been hit
     /***************************************************************************************************/
-    private updateIcons(length: number): void {
-        if (length === 0) {
-            this.fabIcons = [{ icon: 'add' }];
-        } else if (length === 1) {
-            this.fabIcons = [{ icon: 'delete' }, { icon: 'edit' }];
-        } else if (length > 1) {
-            this.fabIcons = [{ icon: 'delete' }];
-        }
-        this.fabButtons = this.fabIcons; // toon de buttons
+    onDblclick($event, index): void {
+        this.onEdit(index);
     }
 
     /***************************************************************************************************

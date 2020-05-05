@@ -22,7 +22,8 @@
       </div>
 
       <div class="boxbottom">
-        <button mat-raised-button class='box-bottom-button' color="primary" (click)="onClickLedenLijstImport()">Uploaden</button>
+        <button mat-raised-button class='box-bottom-button' color="primary"
+          (click)="onClickLedenLijstImport()">Uploaden</button>
       </div>
 
     </div>
@@ -33,22 +34,36 @@
     <div class="box">
       <div class="boxheader">Verschillen</div>
       <div class="boxcontent">
-        <table mat-table [dataSource]="ledenDifferences" >
+
+        <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
           <ng-container matColumnDef="Naam">
-            <th mat-header-cell *matHeaderCellDef> Naam </th>
-            <td mat-cell *matCellDef="let element"> {{ element.naam }} </td>
+            <mat-header-cell *matHeaderCellDef>Naam</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.naam}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Verschil">
-            <th mat-header-cell *matHeaderCellDef> Verschil </th>
-            <td mat-cell *matCellDef="let element"> {{ element.verschil }} </td>
+            <mat-header-cell *matHeaderCellDef>Verschil</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.verschil}}</mat-cell>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="columnsToDisplay" class="element-row"></tr>
-          <tr mat-row *matRowDef="let row; columns: ['Naam', 'Verschil']"></tr>
 
-        </table>
+          <!-- actions -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+            <mat-cell *matCellDef="let row; let i=index;">
+              <button mat-icon-button color="primary" (click)="onEdit(i)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+        </mat-table>
+
       </div>
     </div>
   </div>

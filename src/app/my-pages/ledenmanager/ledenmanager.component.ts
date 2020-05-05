@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { LedenService, LedenItem } from './../../services/leden.service';
+import { LedenService, LedenItem, DateRoutines, LedenItemExt } from './../../services/leden.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -22,13 +21,10 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
 
 export class LedenManagerComponent extends ParentComponent implements OnInit {
 
-    @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
-    displayedColumns: string[] = ['select', 'Naam', 'Leeftijd'];
+    columnsToDisplay: string[] = ['Naam', 'Leeftijd', 'actions'];
     dataSource = new MatTableDataSource<LedenItem>();
-    selection = new SelectionModel<LedenItem>(true, []); //used for checkboxes
-    fabButtons = [];  // dit zijn de buttons op het scherm
-    fabIcons = [{ icon: 'add' }];
 
     constructor(private ledenService: LedenService,
         protected snackBar: MatSnackBar,
@@ -42,25 +38,9 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                 .subscribe((data: Array<LedenItem>) => {
                     this.dataSource.data = data;
                 }));
-        this.fabButtons = this.fabIcons;  // plaats add button op scherm
     }
 
-    /***************************************************************************************************
-    / Een van de buttons is geclicked
-    /***************************************************************************************************/
-    onFabClick(event, buttonNbr): void {
-        switch (event.srcElement.innerText) {
-            case 'delete':
-                this.onDelete();
-                break;
-            case 'edit':
-                this.onEdit();
-                break;
-            case 'add':
-                this.onAdd();
-                break;
-        }
-    }
+
 
     /***************************************************************************************************
     / Er gaat een nieuw lid worden opgevoerd. We halen eerst een nieuw lidnummer op.
@@ -76,8 +56,10 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         const toBeAdded = new LedenItem();
         toBeAdded.LidVanaf = new Date().to_YYYY_MM_DD();
         toBeAdded.LidNr = Number(tmpJson['maxlidnr']) + 1;
+        toBeAdded.LidType = 'N';  // default lidtype
+        toBeAdded.BetaalWijze = 'I';  // defualt betaalwijze Incasso
 
-        let tmp;
+        // let tmp;
         this.dialog.open(LedenDialogComponent, {
             panelClass: 'custom-dialog-container', width: '1200px',
             data: { 'method': 'Toevoegen', 'data': toBeAdded }
@@ -87,9 +69,10 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                 if (result) {  // in case of cancel the result will be false
                     let sub = this.ledenService.create$(result)
                         .subscribe(addResult => {
-                            tmp = addResult;
-                            result.Id = tmp.Key;
-                            this.dataSource.data.unshift(result); // voeg de regel vooraan in de tabel toe.
+                            result.Naam = LedenItem.getFullNameAkCt(result.Voornaam, result.Tussenvoegsel, result.Achternaam);
+                            result.LeeftijdCategorieBond = DateRoutines.LeeftijdCategorieBond(result.GeboorteDatum);
+                            this.dataSource.data.unshift(result);
+
                             this.refreshTableLayout();
                             this.showSnackBar(SnackbarTexts.SuccessNewRecord);
                             if (LedenItem.GetEmailList(toBeAdded).length > 0) {
@@ -110,8 +93,9 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    onDelete(): void {
-        let toBeDeleted = this.selection.selected[0];
+    onDelete(index: number): void {
+        let toBeDeleted: LedenItem = this.dataSource.data[index];
+
         toBeDeleted.LidTot = new Date().to_YYYY_MM_DD();
         const dialogRef = this.dialog.open(LedenDeleteDialogComponent, {
             panelClass: 'custom-dialog-container', width: '300px',
@@ -121,10 +105,13 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         dialogRef.afterClosed().subscribe((result: LedenItem) => {
             // console.log('received in OnEdit from dialog', result);
             if (result) {  // in case of cancel the result will be false
+                console.log('toBeDeleted', toBeDeleted);
+
                 toBeDeleted.LidTot = result.LidTot;
                 const updateRecord = { 'LidNr': result.LidNr, 'Opgezegd': '1', 'LidTot': result.LidTot };
                 let sub = this.ledenService.update$(updateRecord)
                     .subscribe(data => {
+                        this.dataSource.data.splice(index, 1);
                         this.refreshTableLayout();
                         this.showSnackBar('Jammer, dat dit lid heeft opgezegd');
                         if (LedenItem.GetEmailList(toBeDeleted).length > 0) {
@@ -145,19 +132,27 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
     /***************************************************************************************************
     / 
     /***************************************************************************************************/
-    onEdit(): void {
-        const toBeEdited: LedenItem = this.selection.selected[0];
+    onEdit(index: number): void {
+        let toBeEdited: LedenItem = this.dataSource.data[index];
 
         const dialogRef = this.dialog.open(LedenDialogComponent, {
             panelClass: 'custom-dialog-container', width: '1200px',
             data: { 'method': 'Wijzigen', 'data': toBeEdited }
         });
 
-        dialogRef.afterClosed().subscribe((result: LedenItem) => {
+        dialogRef.afterClosed().subscribe((result: LedenItemExt) => {
             // console.log('received in OnEdit from dialog');
             if (result) {  // in case of cancel the result will be false
                 let sub = this.ledenService.update$(result)
                     .subscribe(data => {
+                        result.Naam = LedenItem.getFullNameAkCt(result.Voornaam, result.Tussenvoegsel, result.Achternaam);
+                        result.LeeftijdCategorieBond = DateRoutines.LeeftijdCategorieBond(result.GeboorteDatum);
+                        // this.dataSource.data.unshift(result);
+
+                        this.refreshTableLayout();
+
+
+
                         this.showSnackBar(SnackbarTexts.SuccessFulSaved);
                     },
                         (error: AppError) => {
@@ -196,50 +191,19 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
     }
 
     /***************************************************************************************************
-    / als 1 van de checkboxes wijzigt, ga ik kijken of er andere buttons getoond moeten worden.
-    /***************************************************************************************************/
-    onCheckboxChange(event, row): void {
-        this.updateIcons(this.selection.selected.length + (event.checked ? 1 : -1));
-
-        // handel het oorspronkelijke event af
-        if (event) {
-            return this.selection.toggle(row);
-        } else {
-            return null;
-        }
-    }
-
-    /***************************************************************************************************
     / 
     /***************************************************************************************************/
     private refreshTableLayout(): void {
-        // this.table.dataSource = this.dataSource;
+        this.dataSource.data.sort((item1, item2) => {
+          return (item1.Achternaam.toString().localeCompare(item2.Achternaam.toString(), undefined, { numeric: false }));
+        });
         this.table.renderRows();
-        this.selection.clear();
-        this.updateIcons(0);
     }
 
     /***************************************************************************************************
-    / 
+    / The onRowClick from a row that has been hit
     /***************************************************************************************************/
-    private updateIcons(length: number): void {
-        if (length === 0) {
-            this.fabIcons = [{ icon: 'add' }];
-        } else if (length === 1) {
-            this.fabIcons = [{ icon: 'delete' }, { icon: 'edit' }];
-        } else if (length > 1) {
-            this.fabIcons = [];
-        }
-        this.fabButtons = this.fabIcons; // toon de buttons
+    onDblclick($event, index): void {
+        this.onEdit(index);
     }
-
-  /***************************************************************************************************
-  / The onRowClick from a row that has been hit
-  /***************************************************************************************************/
-  onRowClick(row): void {
-    console.log('input', row);
-
-
-
-}
 }
