@@ -5,6 +5,7 @@ import { formatDate } from '@angular/common';
 import { DateRoutines } from 'src/app/services/leden.service';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { A2hsService } from 'src/app/services/a2hs.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,6 +58,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
   constructor(
     protected snackBar: MatSnackBar,
+    public a2hs: A2hsService,
     public ledenService: LedenService) {
       super(snackBar)  }
 

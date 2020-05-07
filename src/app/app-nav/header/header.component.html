@@ -6,7 +6,7 @@
                 <mat-icon>menu</mat-icon>
             </button>
 
-            <img src="./../../../../assets/images/Logo_TTVN.png" alt="TTVN logo">
+            <img src="assets/images/Logo-TTVN.png" alt="TTVN logo">
 
             <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
                 <ul fxLayout="row" fxLayoutGap="20px">
@@ -29,6 +29,14 @@
                             <button mat-menu-item (click)="onNotification()">
                                 <mat-icon>notifications</mat-icon>
                                 Meldingen
+                            </button>
+                            <button mat-menu-item [style.display]="a2hs.browserPromptBtn()" (click)="a2hs.addToHomeScreen()">
+                                <mat-icon>notifications</mat-icon>
+                                Chrome install
+                            </button>
+                            <button mat-menu-item [style.display]="a2hs.iOSSafariHow2()" (click)="onIos()">
+                                <mat-icon>notifications</mat-icon>
+                                IOS install
                             </button>
                             <button mat-menu-item (click)="onSignOff()">
                                 <mat-icon>exit_to_app</mat-icon>

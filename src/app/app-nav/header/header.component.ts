@@ -7,6 +7,9 @@ import { environment } from 'src/environments/environment';
 import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config.dialog';
 import { NotificationDialogComponent } from 'src/app/app-nav/headernotificationdialog/notification.dialog';
 import { LogonData } from 'src/app/shared/classes/LogonData';
+import { A2hsService } from 'src/app/services/a2hs.service';
+import { A2hsSafariHow2 } from 'src/app/shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
+import { A2hsComponent } from 'src/app/shared/components/a2hs/a2hs.component';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +28,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public signinDialog: MatDialog,
+    public a2hs: A2hsService,
     public configDialog: MatDialog
   ) {
   }
@@ -85,12 +89,38 @@ export class HeaderComponent implements OnInit {
   }
 
   onNotification(): void {
-    this.configDialog.open(NotificationDialogComponent, {
+    console.log ('Prompt Intercepted: ', this.a2hs.promptIntercepted);
+    console.log ('Deferred Prompt Saved: ', this.a2hs.promptSaved);
+    console.log ('Custom Button Clicked: ', this.a2hs.customButtonClicked);
+    console.log ('Deferred Prompt Shown: ', this.a2hs.deferredPromptShown);
+    console.log ('Deferred Prompt Rejected: ', this.a2hs.deferredPromptRejected);
+    console.log ('App or Shortcut Added: ', this.a2hs.userInstalled);
+    console.log ('isStandalone: ', this.a2hs.isStandalone);
+    console.log ('isChrome: ', this.a2hs.isChrome);
+    console.log ('isExplorer: ', this.a2hs.isExplorer);
+    console.log ('isExplorer_11: ', this.a2hs.isExplorer_11);
+    console.log ('isFirefox: ', this.a2hs.isFirefox);
+    console.log ('isSafari: ', this.a2hs.isSafari);
+    console.log ('isOpera: ', this.a2hs.isOpera);
+    console.log ('isEdgeDesktop: ', this.a2hs.isEdgeDesktop);
+    console.log ('isEdgeiOS: ', this.a2hs.isEdgeiOS);
+    console.log ('isEdgeAndroid: ', this.a2hs.isEdgeAndroid);
+    console.log ('isIOS: ', this.a2hs.isIOS);
+    console.log ('isMobile: ', this.a2hs.isMobile);
+
+    this.configDialog.open(A2hsComponent, {
       panelClass: 'custom-dialog-container', width: '400px',
       data: {}
     })
   }
 
+  onIos(): void {
+    this.configDialog.open(A2hsSafariHow2, {
+      panelClass: 'custom-dialog-container',
+      data: {}
+    })
+  }
+  
   setUserInfo(): void {
     this.logonData.IsLoggedOn = this.authService.isLoggedIn();
     this.logonData.Name = this.authService.fullName;

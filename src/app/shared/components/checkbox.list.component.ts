@@ -51,7 +51,7 @@ export class CheckboxListComponent implements OnChanges {
     }
 
 
-    // console.log('input on init', this.inputArray, 'string', this.csString);
+    // console.log('input on init', this.inputArray, 'string', this.csString, 'cb', this.checkboxes);
 
     // We gaan de checkboxes aanzetten waar nodig.
     for (let i = 0; i < this.checkboxes.length; i++) {

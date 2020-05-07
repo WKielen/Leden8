@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DefaultComponent } from './default/default.component';
+import { A2hsSafariHow2 } from '../shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { DefaultComponent } from './default/default.component';
     SidebarComponent,
     ConfigDialogComponent,
     NotificationDialogComponent,
+    A2hsSafariHow2,
   ],
   imports: [
     CommonModule,
