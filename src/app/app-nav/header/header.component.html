@@ -30,11 +30,11 @@
                                 <mat-icon>notifications</mat-icon>
                                 Meldingen
                             </button>
-                            <button mat-menu-item [style.display]="a2hs.browserPromptBtn()" (click)="a2hs.addToHomeScreen()">
+                            <button mat-menu-item [style.display]="authService.browserPromptBtn()" (click)="authService.addToHomeScreen()">
                                 <mat-icon>notifications</mat-icon>
                                 Chrome install
                             </button>
-                            <button mat-menu-item [style.display]="a2hs.iOSSafariHow2()" (click)="onIos()">
+                            <button mat-menu-item [style.display]="authService.iOSSafariHow2()" (click)="onIos()">
                                 <mat-icon>notifications</mat-icon>
                                 IOS install
                             </button>

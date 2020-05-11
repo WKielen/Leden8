@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { A2hsService } from 'src/app/services/a2hs.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-ios-safari-how2',
@@ -8,6 +8,9 @@ import { A2hsService } from 'src/app/services/a2hs.service';
 })
 export class A2hsSafariHow2 {
 
-  constructor(public a2hs: A2hsService) { }
+  constructor(public authService: AuthService) { }
+/***************************************************************************************************
+/ Deze component laat op iOS devices een popup ziet hoe ze deze app aan het homescreen moeten toevoegen
+/***************************************************************************************************/
 
 }

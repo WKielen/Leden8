@@ -5,7 +5,7 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
 @Component({
   selector: 'app-oud-leden',
   templateUrl: './oud-leden.component.html',
-  styleUrls: ['./oud-leden.component.css'],
+  styleUrls: ['./oud-leden.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),

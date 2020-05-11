@@ -31,7 +31,7 @@ export class MailComponent extends ParentComponent implements OnInit {
   dataSource = new MatTableDataSource<LedenItemExt>();
   itemsToMail: Array<LedenItemExt> = [];
   selection = new SelectionModel<LedenItem>(true, []); //used for checkboxes
-  displayedColumns: string[] = ['select', 'Naam', 'LeeftijdCategorie'];
+  displayedColumns: string[] = ['select', 'Naam'];
   filterValues = {
     LeeftijdCategorieJ: '',
     LeeftijdCategorieV: '',

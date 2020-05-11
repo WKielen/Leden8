@@ -1,10 +1,9 @@
 
-
-.mat-column-Datum {
+.mat-column-Naam {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 35% !important;
-  width: 35% !important;
+  flex: 0 0 60% !important;
+  width: 60% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -15,12 +14,11 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-
-.mat-column-EvenementNaam {
+.mat-column-LidTot {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 65% !important;
-  width: 65% !important;
+  flex: 0 0 40% !important;
+  width: 40% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -31,44 +29,44 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-
 
 @media (max-width:601px) {
-  .mat-column-Datum {
+  .mat-column-Naam {
     padding-left: 0px !important;
   }
-  .mat-column-EvenementNaam {
+  .mat-column-LidTot {
     padding-right: 0px !important;
   }
 }
 
-
 .cell {
-  text-align:left;
-  vertical-align:top;
+    text-align:left;
+    vertical-align:top;
+}
+
+ /* omgekeerde kleuren ivm uitklap frame */
+.mat-row:nth-child( even )
+{
+    background-color: #f5f5f5;
+}
+.mat-row:nth-child( odd )
+{
+    background-color: white;
 }
 
 tr.detail-row {
   height: 0;
 }
 
-
 .element-row td {
   border-bottom-width: 0;
 }
 
-/* .element-detail {
+.element-detail {
   overflow: hidden;
   display: flex;
-} */
+  padding-bottom: 10px;
+}
 
- /* omgekeerde kleuren ivm uitklap frame */
- .mat-row:nth-child( even )
- {
-     background-color: #f5f5f5;
- }
- .mat-row:nth-child( odd )
- {
-     background-color: white;
- }
+
 

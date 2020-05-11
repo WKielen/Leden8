@@ -40,7 +40,7 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
 
     @ViewChild(MatTable, { static: false }) table: MatTable<any>;
     public dataSource = new MatTableDataSource<LidDifference>();
-    public columnsToDisplay: string[] = ['Naam', 'Verschil', 'actions'];
+    public columnsToDisplay: string[] = ['Naam', 'Verschil', 'actions1'];
 
 
     ngOnInit(): void {

@@ -48,102 +48,163 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // Hieronder toegevoegd
 
+
+// @media only screen and (max-width: 900px) {
+//   .hideonmobile{
+//     display: none;
+//  }
+// }
+
+@media (min-width:600px) {
+  .boxcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+  }
+  .box {
+    flex-basis: 50%;      
+  }
+}
+
+@media (max-width:601px) {
+  .hideonmobile{
+    display: none;
+  }
+  .boxcontainer {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    // background-color: blue;
+  }
+  .box {
+    flex-basis: 100% !important;
+  }
+}
+
 .box {
     border:1px solid rgba(0,0,0,.03);
     box-shadow: 5px 10px 10px lightgrey;
-    margin:25px 25px 5px 25px;
+    margin:0px 0px 15px 0px;
     background:white;
     border-radius: 5px;
-  }
-  .boxheader {
-    box-shadow: 5px 0px 10px lightgrey;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    background:#0D47A1;
-    color:white;
-    padding:10px 10px 10px 25px;
-    margin:-1px -1px 1px -1px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  .boxcontent {
-    padding:25px 25px 15px 25px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-  }
-  .boxbottom {
-    padding: 0px 0px 15px 10px;
-  }
-  
-  // Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is. 
-  .custom-dialog-container .mat-dialog-container {
-    padding: 0px !important;
-    border-radius: 6px;
-  }
-  
-  // voor de floating action buttons
-  .fab-container {
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-    z-index: 100;
+}
+.boxheader {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  background:#0D47A1;
+  color:white;
+  padding:10px 10px 10px 25px;
+  margin:-1px -1px 1px -1px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.boxcontent {
+  padding:25px 25px 15px 25px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.boxbottom {
+  padding: 0px 0px 15px 10px;
+}
+
+// Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is. 
+.custom-dialog-container .mat-dialog-container {
+  padding: 0px !important;
+  border-radius: 6px;
+}
+
+// voor de floating action buttons
+.fab-container {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  > div {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-  
-    > div {
-      display: flex;
-      flex-direction: column-reverse;
-      align-items: center;
-      margin-bottom: 5px;
-  
-      button {
-        margin-bottom: 17px;
-      }
+    margin-bottom: 5px;
+
+    button {
+      margin-bottom: 17px;
     }
   }
-  
-  .mat-form-max-width
-  {
-    width: 100%;
+}
+
+.mat-form-max-width
+{
+  width: 100%;
+}
+
+.margin-top-left 
+{
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+
+button.mat-raised-button.box-bottom-button
+{
+  //margin: 10px 0px 0px 15px; // top 10 and left 15
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+// zorgt ervoor dat de inhoud van een tabel over de gehele container wordt verdeeld.
+table
+{
+  width: 100%;
+}
+
+// hightligted van oneven rows
+.mat-row:nth-child( even )
+{
+    background-color: white;
+}
+.mat-row:nth-child( odd )
+{
+    background-color: #f5f5f5;
+}
+
+// als er rechts van de checkbox nog een ander veld staat
+.margin-right-20  {
+  margin-right: 20px;
+}
+
+.margin-top-15  {
+  margin-top: 15px;
+}
+
+// Voor kolommen met 1 actions. Kolom naam moet 'actions1' zijn.  actions zijn dan edit en delete
+.mat-column-actions1 {
+  flex: 0 0 30px !important;
+  width: 30px!important;
+}
+
+// Voor kolommen met 2 actions. Kolom naam moet 'actions' zijn.  actions zijn dan edit en delete
+.mat-column-actions {
+  flex: 0 0 50px !important;
+  width: 50px!important;
+}
+
+// Voor kolommen met 3 actions. Kolom naam moet 'actions3' zijn.  actions zijn dan edit en delete en bijvoorbeeld copy
+.mat-column-actions3 {
+  flex: 0 0 100px !important;
+  width: 100px!important;
+}
+
+// Voor kolommen met een checkbox. Kolom naam moet 'select' zijn
+.mat-column-select {
+  flex: 0 0 30px !important;
+  width: 30px !important;
+}
+@media (max-width:601px) {
+  .mat-column-select {
+    padding-left: 0px !important;
   }
-  
-  .margin-top-left 
-  {
-    margin-top: 10px;
-    margin-left: 15px;
-  }
-  
-  
-  button.mat-raised-button.box-bottom-button
-  {
-    //margin: 10px 0px 0px 15px; // top 10 and left 15
-    margin-top: 10px;
-    margin-left: 15px;
-  }
-  
-  // zorgt ervoor dat de inhoud van een tabel over de gehele container wordt verdeeld.
-  table
-  {
-    width: 100%;
-  }
-  
-  // hightligted van oneven rows
-  .mat-row:nth-child( even )
-  {
-      background-color: white;
-  }
-  .mat-row:nth-child( odd )
-  {
-      background-color: #f5f5f5;
-  }
-  
-  // als er rechts van de checkbox nog een ander veld staat
-  .margin-right-20  {
-    margin-right: 20px;
-  }
-  
-  .margin-top-15  {
-    margin-top: 15px;
-  }
-  
+}

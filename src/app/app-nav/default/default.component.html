@@ -5,7 +5,9 @@
         <app-sidebar [isHandset]="isHandset" (displaySideBar)="sideBarSetVisibilty($event)"></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>
-        <router-outlet></router-outlet>
+        <div fxFlex>
+            <router-outlet></router-outlet>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
 

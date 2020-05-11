@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { LedenItem, LedenService } from 'src/app/services/leden.service';
 import * as moment from 'moment';
 import { formatDate } from '@angular/common';
 import { DateRoutines } from 'src/app/services/leden.service';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { A2hsService } from 'src/app/services/a2hs.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,9 +58,10 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
   constructor(
     protected snackBar: MatSnackBar,
-    public a2hs: A2hsService,
+    public authService: AuthService,
     public ledenService: LedenService) {
-      super(snackBar)  }
+    super(snackBar)
+  }
 
   ngOnInit() {
 
@@ -74,7 +75,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
         this.pieChart3 = this.GetDataForMemberschipPie();;
       });
 
-      this.registerSubscription(sub);
+    this.registerSubscription(sub);
   }
 
   FillTheCounters(): void {
@@ -165,7 +166,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
             break;
           }
           case membershipYears <= 2: {
-            this.countMembershipLengt_2  += 1;
+            this.countMembershipLengt_2 += 1;
             break;
           }
           case membershipYears <= 3: {
@@ -331,6 +332,15 @@ export class DashboardComponent extends ParentComponent implements OnInit {
       this.xAxisValueArray.push(formatDate(date, 'yyyy-MM', 'nl'));
       mydate = mydate.add(6, 'M');
     }
+  }
+
+  /***************************************************************************************************
+  / 
+  /***************************************************************************************************/
+  public isSmallScreen: boolean = false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isSmallScreen = (window.innerWidth < 800);
   }
 }
 

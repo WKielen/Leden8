@@ -29,7 +29,7 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
   @ViewChild('picker', {static: false}) picker: MatDatepicker<any>;
 
-  public displayedColumns: string[] = ['Naam', 'Aanwezig'];
+  public displayedColumns: string[] = ['Naam', 'actions1'];
   public dataSource = new MatTableDataSource<LedenItemTableRow>();
   public fabButtons = [];  // dit zijn de buttons op het scherm
   public fabIcons = [{ icon: 'save' }, { icon: 'event' }];

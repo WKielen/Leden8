@@ -7,7 +7,10 @@
 
 <br>
 
-<div *ngIf="!a2hs.isMobile"  fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+
+<!-- <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards"> -->
+
+<div *ngIf="!isSmallScreen" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
     <mat-card fxFlex="33">
         <app-widget-pie *ngIf='pieChart1' [data]="pieChart1"></app-widget-pie>
     </mat-card>
@@ -17,4 +20,10 @@
     <mat-card fxFlex="33">
         <app-widget-pie *ngIf='pieChart3' [data]="pieChart3"></app-widget-pie>
     </mat-card>
+</div>
+
+<div *ngIf="isSmallScreen" fxLayout="column" class="stats-cards">
+        <app-widget-pie *ngIf='pieChart1' [data]="pieChart1"></app-widget-pie>
+        <app-widget-pie *ngIf='pieChart2' [data]="pieChart2" style="margin-top: 15px;"></app-widget-pie>
+        <app-widget-pie *ngIf='pieChart3' [data]="pieChart3" style="margin-top: 15px;"></app-widget-pie>
 </div>

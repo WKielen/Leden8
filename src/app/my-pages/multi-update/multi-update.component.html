@@ -10,8 +10,8 @@
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="LidBond">
-            <th mat-header-cell *matHeaderCellDef class="cell-padding">Lid Bond</th>
-            <td mat-cell *matCellDef="let element" class="cell-padding">
+            <th mat-header-cell *matHeaderCellDef class="colCheckbox">Lid Bond</th>
+            <td mat-cell *matCellDef="let element" class="colCheckbox">
               <mat-checkbox color="primary" (change)="onCheckboxLidBondChange($event, element)"
                 [checked]="element.LidBond">
               </mat-checkbox>
@@ -20,8 +20,8 @@
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="CompGerechtigd">
-            <th mat-header-cell *matHeaderCellDef class="cell-padding">Comp. Gerechtigd</th>
-            <td mat-cell *matCellDef="let element" class="cell-padding">
+            <th mat-header-cell *matHeaderCellDef class="colCheckbox">Comp. Gerechtigd</th>
+            <td mat-cell *matCellDef="let element" class="colCheckbox">
               <mat-checkbox color="primary"  (change)="onCheckboxCompGerechtigdChange($event, element)"
                 [checked]="element.CompGerechtigd">
               </mat-checkbox>
@@ -30,8 +30,8 @@
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="VrijwilligersKorting">
-            <th mat-header-cell *matHeaderCellDef class="cell-padding">Vrijw.Korting</th>
-            <td mat-cell *matCellDef="let element" class="cell-padding">
+            <th mat-header-cell *matHeaderCellDef class="colCheckbox">Vrijw. Korting</th>
+            <td mat-cell *matCellDef="let element" class="colCheckbox">
               <mat-checkbox color="primary" (change)="onCheckboxVrijwilligersKortingChange($event, element)"
                 [checked]="element.VrijwilligersKorting">
               </mat-checkbox>

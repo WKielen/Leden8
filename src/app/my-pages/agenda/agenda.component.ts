@@ -23,7 +23,7 @@ export class AgendaComponent extends ParentComponent implements OnInit {
     @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
     displayedColumns: string[] = ['select', 'Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie'];
-    columnsToDisplay: string[] = ['Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie', 'actions'];
+    columnsToDisplay: string[] = ['Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie', 'actions3'];
     dataSource = new MatTableDataSource<AgendaItem>();
 
     constructor(

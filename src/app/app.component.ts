@@ -1,7 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 // import { environment } from './../environments/environment';
 // import { SwUpdate } from '@angular/service-worker';
-import { A2hsService } from './services/a2hs.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,31 +12,31 @@ import { A2hsService } from './services/a2hs.service';
 
 @Injectable()
 export class AppComponent {
-  constructor(public a2hs: A2hsService) {
+  constructor(public authServer: AuthService) {
     // A2HS - START
-    a2hs.checkUserAgent();
-    a2hs.trackStandalone();
+    authServer.checkUserAgent();
+    authServer.trackStandalone();
     window.addEventListener('beforeinstallprompt', (e) => {
 
       // show the add button
-      a2hs.promptIntercepted = true;
+      authServer.promptIntercepted = true;
       // Prevent Chrome 67 and earlier from automatically showing the prompt
       // no matter what, the snack-bar shows in 68 (06/16/2018 11:05 AM)
       e.preventDefault();
       // Stash the event so it can be displayed when the user wants.
-      a2hs.deferredPrompt = e;
-      a2hs.promptSaved = true;
+      authServer.deferredPrompt = e;
+      authServer.promptSaved = true;
 
     });
     window.addEventListener('appinstalled', (evt) => {
-      a2hs.trackInstalled();
+      authServer.trackInstalled();
       // hide the add button
-      // a2hs.promptIntercepted = false;
+      // authServer.promptIntercepted = false;
     });
     // A2HS - END
 
 
-
+// Dit is de oude code.
     // swUpdate.available.subscribe(event => {
     //   if (confirm("Er is een nieuwe versie beschikbaar. Deze nieuwe versie laden?")) {
     //     window.location.reload();
