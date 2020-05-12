@@ -1,37 +1,11 @@
+@use "src/styles.module.scss" as s;
+
 .mat-column-Naam {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    // flex: 0 0 60% !important;
-    // width: 60% !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  
-    word-break: break-word;
-  
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
+  @include s.mat-text-column-wrap-stuff;
 }
 
 .mat-column-Leeftijd {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 20% !important;
-    width: 20% !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  
-    word-break: break-word;
-  
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 20% !important;
+  width: 20% !important;
 }
-
-@media (max-width:601px) {
-    .mat-column-Naam {
-      padding-left: 5px !important;
-    }
-  }

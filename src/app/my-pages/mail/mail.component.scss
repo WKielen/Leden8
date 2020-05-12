@@ -1,18 +1,8 @@
+@use "src/styles.module.scss" as s;
 
-
-  .mat-column-Naam {
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 80% !important;
-    width: 80% !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  
-    word-break: break-word;
-  
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-  }
+.mat-column-Naam {
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 80% !important;
+  width: 80% !important;
+}
 

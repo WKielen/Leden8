@@ -4,6 +4,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { SwPush } from '@angular/service-worker';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-test',
@@ -17,6 +18,7 @@ export class TestComponent implements OnInit {
     private router: Router,
     private swPush: SwPush,
     protected snackBar: MatSnackBar,
+    public authService: AuthService
   ) {
   }
 

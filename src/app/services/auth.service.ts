@@ -205,6 +205,34 @@ export class AuthService {
       });
   }
 
+
+  addToHomeScreen2 () {
+    // call on custom button click
+    this.customButtonClicked = true;
+
+    if (!this.deferredPrompt) {
+      console.log('deferredPrompt null');
+      return;
+    }
+
+    // Show the prompt
+    this.deferredPrompt.prompt();
+    this.deferredPromptShown = true;
+
+    // Wait for the user to respond to the prompt
+    this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+
+        if (choiceResult.outcome === 'accepted') {
+            // no matter the outcome, the prompt cannot be reused ON MOBILE
+            // for 3 months or until browser cache is cleared?
+        } else {
+            this.deferredPromptRejected = true;
+        }
+
+      });
+  }
+
   showHide(checkWhat: boolean) {
     if (checkWhat) {
       return 'block';

@@ -1,3 +1,14 @@
+
+<div>
+  <h4>Window Size</h4>
+  <ul style="list-style: none;">
+  
+    <li>innerWidth: {{ myWindow.innerWidth }}</li>
+    <li>innerHeight: {{ myWindow.innerHeight }}</li>
+  
+  </ul>
+  </div>
+
 <div [style.display]="authService.showHide(authService.isStandalone)">
   <strong>Standalone - Show User Nothing</strong>
 </div>
@@ -37,12 +48,3 @@
   </ul>
 </div>
 {{authService.userAgent}}
-<div>
-<h4>Window Size</h4>
-<ul style="list-style: none;">
-
-  <li>innerWidth: {{ myWindow.innerWidth }}</li>
-  <li>innerHeight: {{ myWindow.innerHeight }}</li>
-
-</ul>
-</div>

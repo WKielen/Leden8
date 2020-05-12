@@ -23,7 +23,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
 
     @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
-    columnsToDisplay: string[] = ['Naam', 'Leeftijd', 'actions'];
+    columnsToDisplay: string[] = ['Naam', 'Leeftijd', 'actions2'];
     dataSource = new MatTableDataSource<LedenItem>();
 
     constructor(private ledenService: LedenService,

@@ -5,12 +5,12 @@
 
       <table mat-table [dataSource]="agendaDataArray" multiTemplateDataRows>
         <ng-container matColumnDef="Datum">
-          <th mat-header-cell *matHeaderCellDef> Datum </th>
-          <td mat-cell *matCellDef="let element"> {{ element.Datum }} </td>
+          <th mat-header-cell *matHeaderCellDef class='firstcolumnshrink'> Datum </th>
+          <td mat-cell *matCellDef="let element"class='firstcolumnshrink'> {{ element.Datum }} </td>
         </ng-container>
         <ng-container matColumnDef="EvenementNaam">
           <th mat-header-cell *matHeaderCellDef> Evenement </th>
-          <td mat-cell *matCellDef="let element"> {{ element.EvenementNaam }} </td>
+          <td mat-cell *matCellDef="let element" class='lastcolumnshrink'> {{ element.EvenementNaam }} </td>
         </ng-container>
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expandedDetail">

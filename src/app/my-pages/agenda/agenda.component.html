@@ -4,9 +4,9 @@
 
   <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
-    <ng-container matColumnDef="Datum">
-      <mat-header-cell *matHeaderCellDef>Datum</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.Datum }} </mat-cell>
+    <ng-container matColumnDef="Datum" >
+      <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Datum</mat-header-cell>
+      <mat-cell *matCellDef="let element" class='firstcolumnshrink'> {{ element.Datum }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Tijd">

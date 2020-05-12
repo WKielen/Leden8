@@ -26,7 +26,7 @@
 }
 
 
-@media (max-width:601px) {
+@media (max-width:s.$max-width) {
   .mat-column-Naam {
     padding-left: 0px !important;
   }
@@ -46,7 +46,7 @@
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
 
         <ng-container matColumnDef="Naam">
-          <th mat-header-cell *matHeaderCellDef>
+          <th mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>
             <div class="mat-cell" class='margin-top-15'>
               <strong>Naam</strong>
 
@@ -56,7 +56,7 @@
               <input matInput [formControl]="nameFilter" autocomplete="off">
             </mat-form-field>
           </th>
-          <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
+          <td mat-cell *matCellDef="let element" class='firstcolumnshrink'> {{ element.Naam }} </td>
         </ng-container>
 
         <ng-container matColumnDef="Leeftijd">
@@ -70,7 +70,7 @@
               <input matInput [formControl]="ageFilter">
             </mat-form-field>
           </th>
-          <td mat-cell *matCellDef="let element"> {{ element.LeeftijdCategorieBond }} </td>
+          <td mat-cell *matCellDef="let element" class='lastcolumnshrink'> {{ element.LeeftijdCategorieBond }} </td>
         </ng-container>
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -373,8 +373,8 @@
         <table mat-table [dataSource]="ledenDataArrayNieuw" multiTemplateDataRows>
 
           <!-- Position Column -->
-          <ng-container matColumnDef="Naam">
-            <th mat-header-cell *matHeaderCellDef> Naam </th>
+          <ng-container matColumnDef="Naam" class='firstcolumnshrink'>
+            <th mat-header-cell *matHeaderCellDef class='firstcolumnshrink'> Naam </th>
             <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
           </ng-container>
 
@@ -396,13 +396,13 @@
         <table mat-table [dataSource]="ledenDataArrayOpgezegd" multiTemplateDataRows>
 
           <ng-container matColumnDef="Naam">
-            <th mat-header-cell *matHeaderCellDef> Naam </th>
-            <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
+            <th mat-header-cell *matHeaderCellDef class='firstcolumnshrink'> Naam </th>
+            <td mat-cell *matCellDef="let element" class='firstcolumnshrink'> {{ element.Naam }} </td>
           </ng-container>
 
           <ng-container matColumnDef="Leeftijd">
-            <th mat-header-cell *matHeaderCellDef> per </th>
-            <td mat-cell *matCellDef="let element"> {{ element.LidTot }} </td>
+            <th mat-header-cell *matHeaderCellDef class='lastcolumnshrink'> per </th>
+            <td mat-cell *matCellDef="let element" class='lastcolumnshrink'> {{ element.LidTot }} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="columnsToDisplay" class="element-row"></tr>

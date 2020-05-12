@@ -16,12 +16,12 @@
         </ng-container>
 
         <ng-container matColumnDef="Header">
-          <mat-header-cell *matHeaderCellDef class=''>Onderwerp</mat-header-cell>
-          <mat-cell *matCellDef="let element" class=''>{{ element.Header }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Onderwerp</mat-header-cell>
+          <mat-cell *matCellDef="let element" class='firstcolumnshrink'>{{ element.Header }}</mat-cell>
         </ng-container>
 
         <!-- actions -->
-        <ng-container matColumnDef="actions">
+        <ng-container matColumnDef="actions2">
           <mat-header-cell *matHeaderCellDef>
             <button mat-icon-button color="primary" (click)="onAdd()">
               <mat-icon aria-label="Add icon">add</mat-icon>

@@ -20,7 +20,7 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
 
     @ViewChild(MatTable, {static: false}) table: MatTable<any>;
 
-    columnsToDisplay: string[] = ['StartDate', 'EndDate', 'Header', 'actions'];
+    columnsToDisplay: string[] = ['StartDate', 'EndDate', 'Header', 'actions2'];
     dataSource = new MatTableDataSource<WebsiteText>();
 
     constructor(private paramService: ParamService,

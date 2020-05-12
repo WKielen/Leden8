@@ -1,13 +1,13 @@
 <div class="boxcontainer">
-  <div class="box" style="flex-basis: 40%;">
+  <div class="box" style="flex-basis: 50%;">
     <div class="boxheader">Leden</div>
     <div class="boxcontent">
 
       <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
         <ng-container matColumnDef="Naam">
-          <mat-header-cell *matHeaderCellDef>Naam</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.Naam }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Naam</mat-header-cell>
+          <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{ row.Naam }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Leeftijd">
@@ -16,12 +16,8 @@
         </ng-container>
 
 
-
-
-
-
         <!-- actions -->
-        <ng-container matColumnDef="actions">
+        <ng-container matColumnDef="actions2">
           <mat-header-cell *matHeaderCellDef>
             <button mat-icon-button color="primary" (click)="onAdd()">
               <mat-icon aria-label="Add icon">add</mat-icon>

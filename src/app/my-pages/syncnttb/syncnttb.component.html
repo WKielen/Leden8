@@ -36,8 +36,8 @@
       <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
         <ng-container matColumnDef="Naam">
-          <mat-header-cell *matHeaderCellDef>Naam</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.naam}}</mat-cell>
+          <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Naam</mat-header-cell>
+          <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{row.naam}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Verschil">
@@ -48,9 +48,9 @@
 
         <!-- actions -->
         <ng-container matColumnDef="actions1">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class='lastcolumnshrink'></mat-header-cell>
 
-          <mat-cell *matCellDef="let row; let i=index;">
+          <mat-cell *matCellDef="let row; let i=index;" class='lastcolumnshrink'>
             <button mat-icon-button color="primary" (click)="onEdit(i)">
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
