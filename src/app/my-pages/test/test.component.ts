@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService, NotificationRecord } from 'src/app/services/notification.service';
 import { SwPush } from '@angular/service-worker';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -23,23 +23,24 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.swPush.notificationClicks.subscribe( arg =>
-      {
-        console.log(
-          'Action: ' + arg.action,
-          'Notification data: ' + arg.notification.data,
-          'Notification data.url: ' + arg.notification.data.url,
-          'Notification data.body: ' + arg.notification.body,
-          'arg: ' + arg,
 
-        );
-   
-     });
+
+    this.swPush.notificationClicks.subscribe(arg => {
+      console.log(
+        'Action: ' + arg.action,
+        'Notification data: ' + arg.notification.data,
+        'Notification data.url: ' + arg.notification.data.url,
+        'Notification data.body: ' + arg.notification.body,
+        'arg: ' + arg,
+
+      );
+
+    });
   }
 
   public onSendNotifications() {
     let audiance: Array<string> = ['AD'];
-    let userids:Array<string> = ['3198048', '3198048']
+    let userids: Array<string> = ['3198048', '3198048']
 
     this.notificationService.sendNotificationsForRole(['AD'], 'Rol message', 'Bericht voor rol AD');
   }
@@ -51,21 +52,73 @@ export class TestComponent implements OnInit {
   /***************************************************************************************************
   / Dit is een tweede manier om toestemming te vragen. Ik maak gebruik van de swpush lib die dit default doet.
   /***************************************************************************************************/
-    onAskPermission() {
-    return new Promise(function(resolve, reject) {
-      const permissionResult = Notification.requestPermission(function(result) {
+  onAskPermission() {
+    return new Promise(function (resolve, reject) {
+      const permissionResult = Notification.requestPermission(function (result) {
         resolve(result);
       });
-  
+
       if (permissionResult) {
         permissionResult.then(resolve, reject);
       }
     })
-    .then(function(permissionResult) {
-      if (permissionResult !== 'granted') {
-        throw new Error('We weren\'t granted permission.');
-      }
+      .then(function (permissionResult) {
+        if (permissionResult !== 'granted') {
+          throw new Error('We weren\'t granted permission.');
+        }
+      });
+  }
+
+  onReload() {
+    window.location.reload();
+  }
+
+
+
+  private publicKey: string = '';
+  onGetKey() {
+    this.notificationService.getPublicKey$().subscribe(response => {
+      this.publicKey = response as string;
+      // console.log(response);
     });
   }
+
+  onRegisterToken() {
+    let notificationRecord = new NotificationRecord();
+    notificationRecord.UserId = this.authService.userId;
+    notificationRecord.Token = btoa(JSON.stringify("1"));
+    let sub1 = this.notificationService.create$(notificationRecord).subscribe(response => {
+      // console.log(response);
+    });
+  }
+  onUnsubscribe() {
+    this.notificationService.Unsubscribe('3198048').subscribe(response => {
+      // console.log(response);
+    });
+  }
+  onDeleteToken() {
+    this.notificationService.deleteToken$(JSON.stringify("1")).subscribe(response => {
+      // console.log(response);
+    });
+  }
+
+
+  onGetallToken() {
+    this.notificationService.getAll$().subscribe(response => {
+      // console.log(response);
+    })
+      ;
+  }
+
+
+  private async subscribeToPush() {
+      const sub = await this.swPush.requestSubscription({
+        serverPublicKey: this.publicKey,
+      })
+        .then(subscription => { })
+        .catch(err => console.error("Could not subscribe to notifications", err));
+
+
+    }
 
 }

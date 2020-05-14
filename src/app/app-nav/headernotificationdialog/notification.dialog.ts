@@ -21,7 +21,7 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
     constructor(
         public dialogRef: MatDialogRef<NotificationDialogComponent>,
         protected snackBar: MatSnackBar,
-        private swPush: SwPush,
+        readonly swPush: SwPush,
         private notificationService: NotificationService,
         private authService: AuthService,
         @Inject(MAT_DIALOG_DATA) public data: any
@@ -30,7 +30,7 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
     }
 
     ngOnInit() {
-        let sub = this.notificationService.GetPublicKey$()
+        let sub = this.notificationService.getPublicKey$()
             .subscribe(data => { // haal de sleutel uit de db. In mijn geval staat hij in de config.yml van de mailserver op de raspberry pi
                 this.VAPID_PUBLIC_KEY = data as string;
             },
@@ -47,33 +47,71 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
     / Op de tabel in MySQL zit een index op het Token veld die aangeeft dat de waarde uniek moet zijn.
     / Als er 2x wordt geregistreerd, komt er een duplicate key error.
     /***************************************************************************************************/
-    onSubscribe(): void {
+    async onSubscribe() {
         if (this.swPush.isEnabled) {
-            this.swPush.requestSubscription({           // geeft een promise terug en geen obserable. Kan dus niet registereren
-                serverPublicKey: this.VAPID_PUBLIC_KEY
-            })
-                .then(subscription => {
-                    let notificationRecord = new NotificationRecord();
-                    notificationRecord.UserId = this.authService.userId;
-                    notificationRecord.Token = btoa(JSON.stringify(subscription));
-                    let sub1 = this.notificationService.create$(notificationRecord)
-                        .subscribe(data => {
-                            this.notificationService.sendNotificationToUserId(notificationRecord.UserId, 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser');
-                            this.showSnackBar('Aanmelding geregistreerd');
-                        },
-                            (error: AppError) => {
-                                if (error instanceof DuplicateKeyError) {
-                                    this.showSnackBar('Deze browser was al geregistreerd');
-                                }                                
-                                console.log("error", error);
-                            }
-                        )
-                    this.registerSubscription(sub1);
+
+            try {
+                console.log('this.VAPID_PUBLIC_KEY',this.VAPID_PUBLIC_KEY);
+                
+                const sub = await this.swPush.requestSubscription({
+                    serverPublicKey: this.VAPID_PUBLIC_KEY,
                 })
-                .catch(err => console.error("Could not subscribe to notifications", err));
+                    .then(subscription => {
+
+                        let notificationRecord = new NotificationRecord();
+                        notificationRecord.UserId = this.authService.userId;
+                        notificationRecord.Token = btoa(JSON.stringify(subscription));
+
+
+                    })
+                // TODO: Send to server.
+            } catch (err) {
+                console.error('Could not subscribe due to:', err);
+            }
+
+
+
+
+
+
+
+
         } else {
             this.showSnackBar('Service Worker is not present', 'notification dialog: Service Worker not enabled');
         }
+
+
+        // if (this.swPush.isEnabled) {
+        //     this.swPush.requestSubscription({           // geeft een promise terug en geen obserable. Kan dus niet registereren
+        //         serverPublicKey: this.VAPID_PUBLIC_KEY
+        //     })
+        //         .then(subscription => {
+        //             // console.log('subscription gelukt',subscription);
+
+        //             let notificationRecord = new NotificationRecord();
+        //             notificationRecord.UserId = this.authService.userId;
+        //             notificationRecord.Token = btoa(JSON.stringify(subscription));
+
+        //             console.log('notificationRecord', notificationRecord);
+
+        //             let sub1 = this.notificationService.create$(notificationRecord)
+        //                 .subscribe(data => {
+        //                     this.notificationService.sendNotificationToUserId(notificationRecord.UserId, 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser');
+        //                     this.showSnackBar('Aanmelding geregistreerd');
+        //                 },
+        //                     (error: AppError) => {
+        //                         if (error instanceof DuplicateKeyError) {
+        //                             this.showSnackBar('Deze browser was al geregistreerd');
+        //                         }
+        //                         console.log("error", error);
+        //                     }
+        //                 )
+        //             this.registerSubscription(sub1);
+        //         })
+        //         .catch(err => console.error("Could not subscribe to notifications", err));
+        // } else {
+        //     this.showSnackBar('Service Worker is not present', 'notification dialog: Service Worker not enabled');
+        // }
     }
 
     /***************************************************************************************************
@@ -83,7 +121,7 @@ export class NotificationDialogComponent extends ParentComponent implements OnIn
         let sub = this.notificationService.Unsubscribe(this.authService.userId)
             .subscribe(date => {
                 this.showSnackBar('Ingeschakelde meldingen verwijderd');
-             }, // is nodig om de error op te vangen
+            }, // is nodig om de error op te vangen
                 (error: AppError) => {
                     if (error instanceof NotFoundError) {
                         this.showSnackBar('Je had geen meldingen ingeschakeld');

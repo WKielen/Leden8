@@ -41,6 +41,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
+import { A2hsComponent } from '../shared/components/a2hs/a2hs.component';
 
 
 @NgModule({
@@ -76,6 +77,8 @@ import { SharedModule } from '../shared/shared.module';
     SelectLidDropdownComponent,
     CheckboxListComponent,
     ParentComponent,
+    A2hsComponent,
+  
   ],
   imports: [
     CommonModule,

@@ -42,7 +42,7 @@ registerLocaleData(localeNl);
     MyPagesModule,
     // Registratie van sw veranderd omdat we niet in de base href zitten maar in admin.
     // Note: if you are using a base-href in production, you’ll need to change the '/ngsw-worker.js' path to './ngsw-worker.js' to prevent a 404 error.
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' })
   ],
 
   providers: [AuthService,

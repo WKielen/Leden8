@@ -1,25 +1,5 @@
-<div class="boxcontainer">
-    <div class="box">
-        <div class="boxheader">Box 1</div>
-        <div class="boxcontent"></div>
-    </div>
-    <div class="box">
-        <div class="boxheader">Box2</div>
-        <div class="boxcontent"></div>
-    </div>
-</div>
 
-
-<div class="boxcontainer">
-    <div class="box" style="flex-basis: 90%;">
-        <div class="boxheader">Box 1</div>
-        <div class="boxcontent"></div>
-    </div>
-    <div class="box" style="flex-basis: 10%;">
-        <div class="boxheader">Box2</div>
-        <div class="boxcontent"></div>
-    </div>
-</div>
+<app-a2hs></app-a2hs>
 
 
 
@@ -30,8 +10,22 @@
 <button (click)="onAskPermission()">Ask</button>
 </div>
 <div>
-    <button (click)="onSendNotifications2()">Send</button>
+    <button (click)="onSendNotifications2()">Send 2</button>
 </div> 
 <div>
-    <button (click)="authService.addToHomeScreen2()">Install</button>
+    <button (click)="authService.addToHomeScreen()">Install</button>
+</div> 
+
+<div>
+    <button (click)="onReload()">Reload</button>
+</div> 
+
+<div>
+    <button (click)="onGetKey()">Get Key</button>
+    <button (click)="onRegisterToken()">Register Token</button>
+    <button (click)="onUnsubscribe()">Unsubscribe Token</button>
+    <button (click)="onDeleteToken()">Delete Token</button>
+    <button (click)="onGetallToken()">Getall Token</button>
+
+
 </div> 

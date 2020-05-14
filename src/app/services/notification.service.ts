@@ -2,12 +2,11 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
-import { MailService } from './mail.service';
 import { AppError } from '../shared/error-handling/app-error';
 import { Observable } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { LedenItem, LedenService } from './leden.service';
-import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +15,37 @@ import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/st
 export class NotificationService extends DataService {
 
   constructor(
-    private mailService: MailService,
     private ledenService: LedenService,
     http: HttpClient) {
-    super(environment.baseUrl + '/notification', http);
+    super(environment.baseUrl + '/notification', http);  // base url omdat de db calls gewoon via de standaard api gaan
   }
 
   /***************************************************************************************************
-  / De public key is nodig om de service worker het token te laten maken
+  / Deze method haalt de public key op van de raspberry pi via een proxy. 
   /***************************************************************************************************/
-  public GetPublicKey$(): Observable<Object> {
-    return this.mailService.getPublicKey$();
+  getPublicKey$(): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-Proxy-URL': environment.mailUrl + '/notification.php'
+      })
+    };
+
+    return this.http.get(environment.proxyUrl, httpOptions)
+      .pipe(
+        retry(1),
+        tap(
+          data => console.log('Notification: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
   }
+
+  /***************************************************************************************************
+  / Deze method haalt de public key op van de raspberry pi via een proxy. 
+  /***************************************************************************************************/
+  // insertToken gebeurt via de parent create$
+
 
   /***************************************************************************************************
   / Ik gooi alle records weg die van deze UserId. Dus alle subscriptions worden weggegooid. 
@@ -45,6 +63,7 @@ export class NotificationService extends DataService {
       );
   }
 
+
   /***************************************************************************************************
   / Na het versturen van de notification, de firebase notification server kan een error teruggeven.
   / Error 404 of 410 geeft aan dat de subscription niet meer geldig is. Daarom moet de entry van deze
@@ -61,6 +80,35 @@ export class NotificationService extends DataService {
         catchError(this.errorHandler)
       );
   }
+
+
+
+  /***************************************************************************************************
+ / Send a notification to the email server. 
+ / De mailserver dient als vehicle om een bericht te sturen naar Firebase Message Service
+ / Deze service stuurt het bericht naar de browser die het laten zien op het scherm.
+ /***************************************************************************************************/
+  notification$(token: any): Observable<Object> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-Proxy-URL': environment.mailUrl + '/notification.php'
+      })
+    };
+
+    return this.http.post(environment.proxyUrl, token, httpOptions)
+      .pipe(
+        retry(1),
+        tap(
+          data => console.log('Notification: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
+
+
+
 
   /***************************************************************************************************
   / Hier stuur ik een notificatie aan iedereen met een bepaalde rol. Om dit te doen, lees ik eerst alle
@@ -146,9 +194,9 @@ export class NotificationService extends DataService {
   / Stuur een notificatie naar de mail server die het door zal sturen naar de Firebase Notification Service
   /***************************************************************************************************/
   private sendNotification(token: string, header: string, message: string): void {
-    let sub = this.mailService.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
+    let sub = this.notification$({ 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message) })
       .subscribe((data: string) => {
-        let message:string = data['failed'];
+        let message: string = data['failed'];
         if (message != null) {
 
           if (message.indexOf('failed') !== -1 && (message.indexOf('404') !== -1 || message.indexOf('410') !== -1)) {
@@ -186,10 +234,10 @@ export class NotificationService extends DataService {
 
 
   public sendNotificationToUserId2(UserId: string, header: string, message: string): void {
-    console.log('sendNotificationToUserId',UserId,  header, message );
+    console.log('sendNotificationToUserId', UserId, header, message);
     let sub = this.getSubscribtionsUserId$(UserId)
       .subscribe(data => {
-        console.log('received data',data);
+        console.log('received data', data);
         let tokenArray = data as Array<string>;
         if (tokenArray) {
           tokenArray.forEach(token => {
@@ -205,8 +253,12 @@ export class NotificationService extends DataService {
 
 
   public sendNotification2$(token: string, header: string, message: string): Observable<Object> {
-
-    return this.http.post(this.url + '/sendnotification', '{"token": "' + token['Token'] + '"}')  
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-Proxy-URL': environment.mailUrl + '/notification.php'
+      })
+    };
+    return this.http.post(environment.proxyUrl, '{"token": "' + token['Token'] + '"}', httpOptions)
       .pipe(
         retry(1),
         tap(

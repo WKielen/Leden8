@@ -5,10 +5,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config.dialog';
-// import { NotificationDialogComponent } from 'src/app/app-nav/headernotificationdialog/notification.dialog';
+import { NotificationDialogComponent } from 'src/app/app-nav/headernotificationdialog/notification.dialog';
 import { LogonData } from 'src/app/shared/classes/LogonData';
 import { A2hsSafariHow2 } from 'src/app/shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
-import { A2hsComponent } from 'src/app/shared/components/a2hs/a2hs.component';
+// import { A2hsComponent } from 'src/app/shared/components/a2hs/a2hs.component';
 
 @Component({
   selector: 'app-header',
@@ -106,7 +106,7 @@ export class HeaderComponent implements OnInit {
     // console.log ('isIOS: ', this.authService.isIOS);
     // console.log ('isMobile: ', this.authService.isMobile);
 
-    this.configDialog.open(A2hsComponent, {
+    this.configDialog.open(NotificationDialogComponent, {
       panelClass: 'custom-dialog-container', width: '400px',
       data: {}
     })
