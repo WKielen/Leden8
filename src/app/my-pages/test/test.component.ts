@@ -5,6 +5,7 @@ import { SwPush } from '@angular/service-worker';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-test',
@@ -16,7 +17,7 @@ export class TestComponent implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private router: Router,
-    private swPush: SwPush,
+    readonly swPush: SwPush,
     protected snackBar: MatSnackBar,
     public authService: AuthService
   ) {
@@ -24,7 +25,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
 
-
+    // als er in de browser op de notification wordt geclicked dan wordt dat hier opgevangen.
     this.swPush.notificationClicks.subscribe(arg => {
       console.log(
         'Action: ' + arg.action,
@@ -34,20 +35,28 @@ export class TestComponent implements OnInit {
         'arg: ' + arg,
 
       );
-
     });
-  }
+
+}
 
   public onSendNotifications() {
     let audiance: Array<string> = ['AD'];
     let userids: Array<string> = ['3198048', '3198048']
+    let dt = moment().toDate().toLocaleString();
 
-    this.notificationService.sendNotificationsForRole(['AD'], 'Rol message', 'Bericht voor rol AD');
+    let titel = 'Bericht uit test';
+    let bericht = 'Bericht voor rol AD ' + dt;
+    console.log('Ik ga een testbericht versturen');
+    console.log('Titel',titel);
+    console.log('Message', bericht)
+    
+
+    this.notificationService.sendNotificationsForRole(['AD' ], titel, bericht);
   }
 
-  public onSendNotifications2() {
-    this.notificationService.sendNotificationToUserId2('3198048', 'Rol message', 'Bericht voor rol AD');
-  }
+  // public onSendNotifications2() {
+  //   this.notificationService.sendNotificationToUserId2('3198048', 'Rol message', 'Bericht voor rol AD');
+  // }
 
   /***************************************************************************************************
   / Dit is een tweede manier om toestemming te vragen. Ik maak gebruik van de swpush lib die dit default doet.
@@ -69,10 +78,18 @@ export class TestComponent implements OnInit {
       });
   }
 
-  onReload() {
-    window.location.reload();
-  }
+  async onRerequestSubscription1() {
+    try {
+      const sub = await this.swPush.requestSubscription({
+        serverPublicKey: 'BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw',
+      })
+      console.log('sub', sub);
 
+      // TODO: Send to server.
+    } catch (err) {
+      console.error('Could not subscribe due to:', err);
+    }
+  }
 
 
   private publicKey: string = '';
@@ -92,16 +109,10 @@ export class TestComponent implements OnInit {
     });
   }
   onUnsubscribe() {
-    this.notificationService.Unsubscribe('3198048').subscribe(response => {
+    this.notificationService.Unsubscribe$('3198048').subscribe(response => {
       // console.log(response);
     });
   }
-  onDeleteToken() {
-    this.notificationService.deleteToken$(JSON.stringify("1")).subscribe(response => {
-      // console.log(response);
-    });
-  }
-
 
   onGetallToken() {
     this.notificationService.getAll$().subscribe(response => {
@@ -111,14 +122,53 @@ export class TestComponent implements OnInit {
   }
 
 
-  private async subscribeToPush() {
-      const sub = await this.swPush.requestSubscription({
-        serverPublicKey: this.publicKey,
-      })
-        .then(subscription => { })
-        .catch(err => console.error("Could not subscribe to notifications", err));
 
+
+  subscribeToNotifications() {
+    console.log('subscribeToNotifications');
+
+
+
+    function notifyMe() {
+      console.log('41');
+      if (Notification.permission !== "granted") {
+        console.log('5');
+        Notification.requestPermission();
+      } else {
+        console.log('6');
+        var notification = new Notification('Notification title', {
+          icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+          body: "Hey there! You've been notified!",
+        });
+        console.log('7');
+        notification.onclick = function () {
+          console.log('8');
+          window.open("http://stackoverflow.com/a/13328397/1269037");
+        };
+
+      }
 
     }
+    notifyMe();
 
+
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// public_key: BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw
+// private_key: o2pjY0wWgWSHZUJzhS59JZpY_TY9QItcRZgwUrw7_8I

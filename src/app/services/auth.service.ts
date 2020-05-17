@@ -13,6 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient,
   ) {
     this.isLoggedIn();
+    this.checkUserAgent();
   }
 
   jwtHelper: JwtHelperService = new JwtHelperService();

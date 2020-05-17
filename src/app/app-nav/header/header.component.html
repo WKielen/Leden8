@@ -26,7 +26,7 @@
                                 <mat-icon>settings</mat-icon>
                                 Settings
                             </button>
-                            <button mat-menu-item (click)="onNotification()">
+                            <button mat-menu-item *ngIf="!authService.isSafari" (click)="onNotification()">
                                 <mat-icon>notifications</mat-icon>
                                 Meldingen
                             </button>

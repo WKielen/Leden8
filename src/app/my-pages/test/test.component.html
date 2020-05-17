@@ -9,23 +9,21 @@
 <button (click)="onSendNotifications()">Send</button>
 <button (click)="onAskPermission()">Ask</button>
 </div>
-<div>
+<!-- <div>
     <button (click)="onSendNotifications2()">Send 2</button>
-</div> 
+</div>  -->
 <div>
     <button (click)="authService.addToHomeScreen()">Install</button>
 </div> 
 
 <div>
-    <button (click)="onReload()">Reload</button>
+    <button (click)="onRerequestSubscription1()">requestSubscription1</button>
 </div> 
 
 <div>
     <button (click)="onGetKey()">Get Key</button>
     <button (click)="onRegisterToken()">Register Token</button>
     <button (click)="onUnsubscribe()">Unsubscribe Token</button>
-    <button (click)="onDeleteToken()">Delete Token</button>
     <button (click)="onGetallToken()">Getall Token</button>
-
-
+    <button class="button button-primary" (click)="subscribeToNotifications()">Subscribe</button>
 </div> 
