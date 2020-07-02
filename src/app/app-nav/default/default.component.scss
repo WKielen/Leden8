@@ -19,3 +19,14 @@ mat-drawer-content {
 // .sidenav-container {
 //   height: calc(100% - 65px);
 // }
+
+.bg {
+  /* The image used */
+  background-image: url("./../../../assets/images/landing.jpg");
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

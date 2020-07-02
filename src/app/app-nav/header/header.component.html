@@ -2,7 +2,7 @@
 
     <mat-toolbar color="primary">
         <mat-toolbar-row>
-            <button mat-icon-button (click)="toggleSideBar()" *ngIf="logonData.IsLoggedOn">
+            <button mat-icon-button (click)="toggleSideBar()">
                 <mat-icon>menu</mat-icon>
             </button>
 
@@ -11,16 +11,10 @@
             <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
                 <ul fxLayout="row" fxLayoutGap="20px">
                     <li>
-                        <button *ngIf="logonData.IsLoggedOn" mat-button [matMenuTriggerFor]="menu">
+                        <button mat-button [matMenuTriggerFor]="menu">
                             <mat-icon>person</mat-icon>
                             <span style="font-size: 11pt">{{logonData.Name}}</span>
                         </button>
-
-                        <button *ngIf="!logonData.IsLoggedOn" mat-button (click)="openSigninDialog()">
-                            <mat-icon>person</mat-icon>
-                            <span style="font-size: 11pt">Sign in</span>
-                        </button>
-
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item (click)="onConfig()">
                                 <mat-icon>settings</mat-icon>
@@ -31,7 +25,7 @@
                                 Meldingen
                             </button>
                             <button mat-menu-item [style.display]="authService.browserPromptBtn()" (click)="authService.addToHomeScreen()">
-                                <mat-icon>notifications</mat-icon>
+                                <mat-icon>add_to_home_screen</mat-icon>
                                 Chrome install
                             </button>
                             <button mat-menu-item [style.display]="authService.iOSSafariHow2()" (click)="onIos()">

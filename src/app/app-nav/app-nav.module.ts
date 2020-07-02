@@ -25,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DefaultComponent } from './default/default.component';
 import { A2hsSafariHow2 } from '../shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
+import { HeaderLandingComponent } from './headerlanding/header.landing.component';
+import { FooterLandingComponent } from './footerlanding/footer.landing.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { A2hsSafariHow2 } from '../shared/components/a2hs-ios-safari-how2/a2hs-i
     ConfigDialogComponent,
     NotificationDialogComponent,
     A2hsSafariHow2,
+    HeaderLandingComponent,
+    FooterLandingComponent
   ],
   imports: [
     CommonModule,

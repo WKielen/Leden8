@@ -6,6 +6,8 @@ import { MailItem, MailService } from 'src/app/services/mail.service';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { environment } from 'src/environments/environment';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { ServiceUnavailableError } from 'src/app/shared/error-handling/service-unavailable-error';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 
 @Component({
     selector: 'app-mail-dialog',
@@ -34,9 +36,15 @@ export class MailDialogComponent extends ParentComponent {
     / Na alle iteraties wordt er nog een functie uitgevoerd.
     /***************************************************************************************************/
     onSendMail(): void {
+        let mailWentOkay = true;
         this.dataFromCaller.MailItems.delayedForEach(function (item, idx, lijst) {
             // console.log(idx, lid, lijst);
-            this.processLid(item);
+            let result: boolean = this.processLid(item);
+            if (!result) {
+                mailWentOkay = false;
+                console.log('mail result', result);
+                
+            }
             this.percentageComplete = (idx + 1) * 100 / this.dataFromCaller.MailItems.length;
 
         }, 1000, this,
@@ -47,7 +55,12 @@ export class MailDialogComponent extends ParentComponent {
                     let dynamicDownload = new DynamicDownload();
                     dynamicDownload.dynamicDownloadTxt(context.output, 'My mails', 'txt');
                 }
-                context.showSnackBar('Mail verstuurd.');
+
+                if (mailWentOkay) {
+                    context.showSnackBar('Mail verstuurd.');
+                } else {
+                    context.showSnackBar('Fout! Een of meerdere mails zijn niet verstuurd.');
+                }
 
                 setTimeout(function () {// na 3 sec sluit dialog automatisch
                     context.dataFromCaller.MailItems.clearTimeout();
@@ -63,7 +76,8 @@ export class MailDialogComponent extends ParentComponent {
     / Als de test checkbox true is dan worden de mails in een tekst bestand geschreven
     / Anders worden de mails gewoon verstuurd.
     /***************************************************************************************************/
-    processLid(mailItem: MailItem): void {
+    processLid(mailItem: MailItem): boolean {
+        let returnBoolean = true;
 
         if (this.ckbTest) {
 
@@ -96,11 +110,18 @@ export class MailDialogComponent extends ParentComponent {
 
                 },
                     (error: AppError) => {
-                        console.log("error", error);
-                    }
-                )
+                        returnBoolean = false;
+                        console.log('error', error instanceof ServiceUnavailableError);
+
+                        if (error instanceof ServiceUnavailableError) {
+                            this.showSnackBar(SnackbarTexts.ServiceNotAvailable);
+                        } else {
+                            this.showSnackBar(SnackbarTexts.SevereError);
+                        }
+                    });
             this.registerSubscription(sub);
         }
+        return returnBoolean;
     }
 
     /***************************************************************************************************

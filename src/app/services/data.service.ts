@@ -5,6 +5,7 @@ import { throwError as observableThrowError, Subscription } from 'rxjs';
 import { NotFoundError } from '../shared/error-handling/not-found-error';
 import { DuplicateKeyError } from '../shared/error-handling/duplicate-key-error';
 import { NoChangesMadeError } from '../shared/error-handling/no-changes-made-error';
+import { ServiceUnavailableError } from '../shared/error-handling/service-unavailable-error';
 
 export class DataService {
 
@@ -63,7 +64,7 @@ export class DataService {
   }
 
   protected errorHandler(error: HttpErrorResponse) {
-
+    
     if (error.status === 404) {
       return observableThrowError(new NotFoundError());
     }
@@ -74,6 +75,10 @@ export class DataService {
 
     if (error.status === 422) {
       return observableThrowError(new NoChangesMadeError());
+    }
+
+    if (error.status === 503) {
+      return observableThrowError(new ServiceUnavailableError());
     }
 
     return observableThrowError(new AppError(error));

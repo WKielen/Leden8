@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LogonData } from 'src/app/shared/classes/LogonData';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-default',
@@ -16,10 +17,13 @@ export class DefaultComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+    this.setUserInfo();
   }
+
   isHandset = false;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -40,4 +44,11 @@ export class DefaultComponent implements OnInit {
     this.logonData = $event;
     this.sideBarSetVisibilty(this.logonData.ShouldDisplayMenu);
   }
+  
+  setUserInfo(): void {
+    this.logonData.IsLoggedOn = this.authService.isLoggedIn();
+    this.logonData.Name = this.authService.fullName;
+    this.logonData.UserId = this.authService.userId;
+  }
+
 }

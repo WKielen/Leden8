@@ -1,26 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService, NotificationRecord } from 'src/app/services/notification.service';
 import { SwPush } from '@angular/service-worker';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'moment';
+import { MailService } from 'src/app/services/mail.service';
+import { ParamService } from 'src/app/services/param.service';
+import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { interval } from 'rxjs/internal/observable/interval';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
 })
-export class TestComponent implements OnInit {
+export class TestComponent extends ParentComponent  implements OnInit, OnDestroy {
 
   constructor(
     private notificationService: NotificationService,
-    private router: Router,
     readonly swPush: SwPush,
     protected snackBar: MatSnackBar,
-    public authService: AuthService
+    public authService: AuthService,
+    public mailService: MailService,
+    public paramService: ParamService,
   ) {
+    super ( snackBar)
   }
 
   ngOnInit() {
@@ -37,7 +41,7 @@ export class TestComponent implements OnInit {
       );
     });
 
-}
+  }
 
   public onSendNotifications() {
     let audiance: Array<string> = ['AD'];
@@ -47,12 +51,31 @@ export class TestComponent implements OnInit {
     let titel = 'Bericht uit test';
     let bericht = 'Bericht voor rol AD ' + dt;
     console.log('Ik ga een testbericht versturen');
-    console.log('Titel',titel);
+    console.log('Titel', titel);
     console.log('Message', bericht)
-    
 
-    this.notificationService.sendNotificationsForRole(['AD' ], titel, bericht);
+
+    this.notificationService.sendNotificationsForRole(['AD'], titel, bericht);
   }
+
+  onTestMail() {
+
+
+    const source = interval(10000);
+    const subscribe = source.subscribe(val => {
+
+      this.mailService.status$().subscribe(result => {
+        let obj = result as string;
+        console.log(
+          'Action2: ' + obj['status']
+        );
+      });
+
+    })
+    this.registerSubscription(subscribe);
+  }
+
+
 
   // public onSendNotifications2() {
   //   this.notificationService.sendNotificationToUserId2('3198048', 'Rol message', 'Bericht voor rol AD');
@@ -121,8 +144,9 @@ export class TestComponent implements OnInit {
       ;
   }
 
-
-
+  onReload() {
+    document.location.reload();
+  }
 
   subscribeToNotifications() {
     console.log('subscribeToNotifications');

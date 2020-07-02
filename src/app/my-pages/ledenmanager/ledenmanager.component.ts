@@ -12,6 +12,9 @@ import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { SingleMailDialogComponent, SingleMail } from '../mail/singlemail.dialog';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
+import { NotificationService } from 'src/app/services/notification.service';
+import { LidDifference } from '../syncnttb/syncnttb.component';
+import { ROLES } from 'src/app/shared/classes/Page-Role-Variables';
 
 @Component({
     selector: 'app-leden',
@@ -27,6 +30,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
     dataSource = new MatTableDataSource<LedenItem>();
 
     constructor(private ledenService: LedenService,
+        protected notificationService: NotificationService,
         protected snackBar: MatSnackBar,
         public dialog: MatDialog) {
         super(snackBar)
@@ -71,10 +75,19 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                         .subscribe(addResult => {
                             result.Naam = LedenItem.getFullNameAkCt(result.Voornaam, result.Tussenvoegsel, result.Achternaam);
                             result.LeeftijdCategorieBond = DateRoutines.LeeftijdCategorieBond(result.GeboorteDatum);
+                            result.Leeftijd = DateRoutines.Age(result.GeboorteDatum);
+
+
+                            result.VolledigeNaam = LedenItem.getFullNameVtA(result.Voornaam, result.Tussenvoegsel, result.Achternaam);
+
                             this.dataSource.data.unshift(result);
 
                             this.refreshTableLayout();
                             this.showSnackBar(SnackbarTexts.SuccessNewRecord);
+
+                            let message = "Nieuw lid: " + result.VolledigeNaam + " , " + result.Leeftijd + " jaar"
+                            this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
+
                             if (LedenItem.GetEmailList(toBeAdded).length > 0) {
                                 this.showMailDialog(toBeAdded, 'add');
                             }
@@ -114,6 +127,10 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                         this.dataSource.data.splice(index, 1);
                         this.refreshTableLayout();
                         this.showSnackBar('Jammer, dat dit lid heeft opgezegd');
+
+                        let message = "Lid Opgezegd: " + LedenItem.getFullNameVtA(toBeDeleted.Voornaam, toBeDeleted.Tussenvoegsel, toBeDeleted.Achternaam);
+                        this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
+
                         if (LedenItem.GetEmailList(toBeDeleted).length > 0) {
                             this.showMailDialog(toBeDeleted, 'delete');
                         }
@@ -195,7 +212,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
     /***************************************************************************************************/
     private refreshTableLayout(): void {
         this.dataSource.data.sort((item1, item2) => {
-          return (item1.Achternaam.toString().localeCompare(item2.Achternaam.toString(), undefined, { numeric: false }));
+            return (item1.Achternaam.toString().localeCompare(item2.Achternaam.toString(), undefined, { numeric: false }));
         });
         this.table.renderRows();
     }

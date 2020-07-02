@@ -18,6 +18,8 @@ export class AuthService {
 
   jwtHelper: JwtHelperService = new JwtHelperService();
 
+// KeepSignIn wordt door het backend geregeld door een x tijd op te tellen bij de expdate
+
   login$(credentials) {
     let localData;
     return this.http.post<string>(environment.loginUrl, credentials)
@@ -34,7 +36,6 @@ export class AuthService {
   }
 
   logOff() {
-    // localStorage.removeItem(environment.localStorageUserId);
     localStorage.removeItem('token');
   }
 

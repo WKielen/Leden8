@@ -57,6 +57,9 @@
 
     <div class="boxcontainer" style="justify-content: space-between;">
       <div class="box" style="flex-basis: 48%;">
+        <mat-card *ngIf='!mailServiceIsOkay' style='background:red;font-size:18px;font-weight:500;color:white;margin-bottom: 20px;'>
+          Mail server niet aanwezig, bel Wim
+        </mat-card>
         <div class="boxheader">Verstuur Mail</div>
         <form [formGroup]="mailboxparamForm" novalidate>
           <div class="boxcontent">
@@ -88,15 +91,15 @@
 
         <ng-container matColumnDef="select">
           <mat-header-cell *matHeaderCellDef>select</mat-header-cell>
-            <mat-checkbox (change)="$event ? masterToggle() : null" color='primary'
-              [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          <mat-checkbox (change)="$event ? masterToggle() : null" color='primary'
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+          <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="onCheckboxChange($event, row)" color='primary'
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
             </mat-checkbox>
-            <mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()" (change)="onCheckboxChange($event, row)" color='primary'
-                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-              </mat-checkbox>
-            </mat-cell>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Naam">

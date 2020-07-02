@@ -28,8 +28,8 @@ const routes: Routes = [
     path: '',
     component: DefaultComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: ROUTE.landingPageRoute, component: HomeComponent },
+      { path: '', component: DashboardComponent },
+      { path: ROUTE.landingPageRoute, component: DashboardComponent },
       { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
@@ -47,7 +47,7 @@ const routes: Routes = [
       { path: ROUTE.trainingoverzichtPageRoute, component: TrainingOverzichtComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.trainingdeelnamePageRoles } },
       { path: ROUTE.testPageRoute, component: TestComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
       { path: ROUTE.offlinePageRoute, component: OfflineComponent },
-      { path: '**', component: HomeComponent }
+      { path: '**', component: DashboardComponent }
     ]
   },
 ];

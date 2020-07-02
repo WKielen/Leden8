@@ -15,8 +15,9 @@ import { MailDialogComponent } from '../mail/mail.dialog';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
-import { ExternalMailApiRecord, MailItem } from 'src/app/services/mail.service';
+import { ExternalMailApiRecord, MailItem, MailService } from 'src/app/services/mail.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
+import { interval } from 'rxjs/internal/observable/interval';
 
 @Component({
   selector: 'mail',
@@ -26,7 +27,7 @@ import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
 
 export class MailComponent extends ParentComponent implements OnInit {
 
-  @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
   dataSource = new MatTableDataSource<LedenItemExt>();
   itemsToMail: Array<LedenItemExt> = [];
@@ -43,6 +44,7 @@ export class MailComponent extends ParentComponent implements OnInit {
   ckbVolwassenen: boolean = true;
   ckbJeugd: boolean = true;
   showPw: boolean = false;
+  mailServiceIsOkay: boolean = true;
 
   mailboxparamForm = new FormGroup({
     EmailAddress: new FormControl(
@@ -77,6 +79,7 @@ export class MailComponent extends ParentComponent implements OnInit {
     protected ledenService: LedenService,
     protected paramService: ParamService,
     protected authService: AuthService,
+    protected mailService: MailService,
     protected snackBar: MatSnackBar,
     private dialog: MatDialog,
   ) {
@@ -96,6 +99,7 @@ export class MailComponent extends ParentComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
 
     this.readMailList();
+    this.checkPresenceMailServer();
   }
 
   /***************************************************************************************************
@@ -117,6 +121,11 @@ export class MailComponent extends ParentComponent implements OnInit {
         mailDialogInputMessage.MailItems.push(itemToMail);
       });
     });
+
+    if (mailDialogInputMessage.MailItems.length <= 0) {
+      this.showSnackBar('Er zijn geen email adressen geselecteerd', '');
+      return;
+    }
 
     const dialogRef = this.dialog.open(MailDialogComponent, {
       panelClass: 'custom-dialog-container', width: '400px',
@@ -227,6 +236,34 @@ export class MailComponent extends ParentComponent implements OnInit {
           });
       this.registerSubscription(sub);
     }
+  }
+
+  /***************************************************************************************************
+  / Hier controleren of de mail server aanwezig is
+  /***************************************************************************************************/
+  private checkPresenceMailServer(): void {
+    this.setMailPresenceStatus();
+    const source = interval(60000);
+    const subscribe = source.subscribe(val => {
+      this.setMailPresenceStatus();
+    })
+    this.registerSubscription(subscribe);
+  }
+
+  private setMailPresenceStatus() {
+    console.log('send status request message');
+    this.mailService.status$().subscribe(result => {
+      if (result['status'] == 'alive') {
+        this.mailServiceIsOkay = true;
+      } else {
+        this.mailServiceIsOkay = false;
+        console.log(result['status']);
+      }
+    },
+      (error: AppError) => {
+        this.mailServiceIsOkay = false;
+        console.log(error);
+      });
   }
 
   /***************************************************************************************************

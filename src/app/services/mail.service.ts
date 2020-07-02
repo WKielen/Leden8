@@ -2,7 +2,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
-import { retry, tap, catchError } from 'rxjs/operators';
+import { retry, tap, catchError, timeout } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ParamService } from './param.service';
 import { AppError } from '../shared/error-handling/app-error';
@@ -30,6 +30,8 @@ export class MailService extends DataService {
   /***************************************************************************************************/
   mail$(mailItems: MailItem[] ): Observable<Object> {
     let externalRecord = new ExternalMailApiRecord();
+    // console.log('mailBoxParam',this.mailBoxParam);
+    
     externalRecord.UserId = this.mailBoxParam.UserId;
     externalRecord.Password = this.mailBoxParam.Password;
     externalRecord.From = this.mailBoxParam.Name + '<' + this.mailBoxParam.UserId + '>';
@@ -63,6 +65,23 @@ export class MailService extends DataService {
       );
       this.registerSubscription(sub);
   }
+
+  /***************************************************************************************************
+  / Check of the mailservice op is. Deze draait op de Raspberry Pi
+  /***************************************************************************************************/
+  status$(): Observable<Object> {
+    return this.http.get(environment.mailUrl + '/mail')
+      .pipe(
+        retry(1),
+        tap( // Log the result or error
+          data => console.log('Received: ', data),
+          error => console.log('Oeps: ', error)
+        ),
+        // timeout(5000),
+        catchError(this.errorHandler)
+      );
+  }
+
 
   // /***************************************************************************************************
   // / Send a notification to the email server. 
