@@ -40,7 +40,7 @@ export class SingleMailDialogComponent implements OnInit {
         let mailAddresses: Array<string> = LedenItem.GetEmailList(this.singleMailInputDialog.Lid);
         mailAddresses.forEach(element => {
             let itemToMail = new MailItem();
-            itemToMail.Message.push(this.mailText);
+            itemToMail.Message = this.mailText;
             itemToMail.Subject = this.singleMailInputDialog.Subject;
             itemToMail.To = element;
             mailDialogInputMessage.MailItems.push(itemToMail);

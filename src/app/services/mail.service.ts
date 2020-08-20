@@ -34,10 +34,11 @@ export class MailService extends DataService {
     
     externalRecord.UserId = this.mailBoxParam.UserId;
     externalRecord.Password = this.mailBoxParam.Password;
-    externalRecord.From = this.mailBoxParam.Name + '<' + this.mailBoxParam.UserId + '>';
+    externalRecord.From = this.mailBoxParam.UserId;
+    externalRecord.FromName = this.mailBoxParam.Name;
     externalRecord.MailItems = mailItems;
 
-    return this.http.post(environment.mailUrl + '/mail', externalRecord)
+    return this.http.post(environment.baseUrl + '/mail/sendmail', JSON.stringify(externalRecord))
       .pipe(
         retry(1),
         tap(
@@ -127,6 +128,7 @@ export class ExternalMailApiRecord {
   UserId: string = '';
   Password: string = '';
   From: string = '';
+  FromName: string = '';
   MailItems: MailItem[] = [];
 }
 
@@ -135,10 +137,11 @@ export class ExternalMailApiRecord {
 /***************************************************************************************************/
 export class MailItem {
   To: string = '';
+  ToName: string = '';
   // CC: string = '';
   // BCC: string = '';
   Subject: string = '';
-  Message: string[] = [];
+  Message: string = '';
 }
 
 /***************************************************************************************************

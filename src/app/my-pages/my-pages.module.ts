@@ -42,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { A2hsComponent } from '../shared/components/a2hs/a2hs.component';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -91,6 +91,7 @@ import { A2hsComponent } from '../shared/components/a2hs/a2hs.component';
     LayoutModule,
     HttpClientModule,
     SharedModule,
+    AngularEditorModule,
     // AngularIbanModule,
   ],
   // exports: [

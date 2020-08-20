@@ -256,10 +256,10 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
       if (lid.LidType == LidTypeValues.CONTRIBUTIEVRIJ) return; // Contributie vrij
       let mailItem = CreateContributieMail(lid, this.contributieBedragen, this.Omschrijving.value, this.OudeBerekenMethode.value, formatDate(date, 'dd-MM-yyyy', 'nl-NL'));
       if (this.secondaryFeeParams.ExtraText != '') {
-        mailItem.Message.push('\n');
-        mailItem.Message.push(this.secondaryFeeParams.ExtraText);
+        mailItem.Message += '\n';
+        mailItem.Message += this.secondaryFeeParams.ExtraText;
       }
-      mailItem.Message.push('\nMet vriendelijke groet,\nPenningmeester TTVN');
+      mailItem.Message += '\nMet vriendelijke groet,\nPenningmeester TTVN';
       mailDialogInputMessage.MailItems.push(mailItem);
     });
 

@@ -8,6 +8,7 @@ import { MailService } from 'src/app/services/mail.service';
 import { ParamService } from 'src/app/services/param.service';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { interval } from 'rxjs/internal/observable/interval';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-test',
@@ -15,6 +16,38 @@ import { interval } from 'rxjs/internal/observable/interval';
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent extends ParentComponent  implements OnInit, OnDestroy {
+
+  name = 'Angular 6';
+  htmlContent = '';
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
+
 
   constructor(
     private notificationService: NotificationService,

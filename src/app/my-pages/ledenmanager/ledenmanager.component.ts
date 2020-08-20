@@ -190,11 +190,11 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         let data = new SingleMail();
         switch (action) {
             case 'add':
-                data.TemplatePathandName = 'templates/template_aanmelding.txt';
+                data.TemplatePathandName = 'templates/template_aanmelding.html';
                 data.Subject = "Aanmelding als nieuw lid bij TTVN";
                 break;
             case 'delete':
-                data.TemplatePathandName = 'templates/template_opzegging.txt';
+                data.TemplatePathandName = 'templates/template_opzegging.html';
                 data.Subject = "Opzegging lidmaatschap TTVN";
                 break;
         }

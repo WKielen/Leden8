@@ -38,7 +38,7 @@ export class MailDialogComponent extends ParentComponent {
     onSendMail(): void {
         let mailWentOkay = true;
         this.dataFromCaller.MailItems.delayedForEach(function (item, idx, lijst) {
-            // console.log(idx, lid, lijst);
+            // console.log(item, idx, lijst);
             let result: boolean = this.processLid(item);
             if (!result) {
                 mailWentOkay = false;
@@ -90,13 +90,12 @@ export class MailDialogComponent extends ParentComponent {
             this.output += 'Subject: ' + mailItem.Subject + '\r\n';
             this.output += '\r\n';
 
-            mailItem.Message.forEach(element => {
-                this.output += element.replace('\n', '\r\n') + '\r\n';
-            });
+            this.output += mailItem.Message.replace('\n', '\r\n') + '\r\n';
             this.output += "-----------------------------------------------------------------------------------------\r\n";
         }
         else {
             if (!environment.production) {
+                mailItem.ToName = mailItem.To;
                 mailItem.To = "wim_kielen@hotmail.com";
             }
 

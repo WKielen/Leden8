@@ -41,7 +41,6 @@
                     Veld is verplicht
                   </mat-error>
                 </mat-form-field>
-
               </div>
             </div>
           </mat-dialog-content>
@@ -57,9 +56,9 @@
 
     <div class="boxcontainer" style="justify-content: space-between;">
       <div class="box" style="flex-basis: 48%;">
-        <mat-card *ngIf='!mailServiceIsOkay' style='background:red;font-size:18px;font-weight:500;color:white;margin-bottom: 20px;'>
+        <!-- <mat-card *ngIf='!mailServiceIsOkay' style='background:red;font-size:18px;font-weight:500;color:white;margin-bottom: 20px;'>
           Mail server niet aanwezig, bel Wim
-        </mat-card>
+        </mat-card> -->
         <div class="boxheader">Verstuur Mail</div>
         <form [formGroup]="mailboxparamForm" novalidate>
           <div class="boxcontent">

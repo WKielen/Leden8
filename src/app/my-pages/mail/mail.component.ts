@@ -17,7 +17,7 @@ import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 import { ExternalMailApiRecord, MailItem, MailService } from 'src/app/services/mail.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
-import { interval } from 'rxjs/internal/observable/interval';
+// import { interval } from 'rxjs/internal/observable/interval';
 
 @Component({
   selector: 'mail',
@@ -99,7 +99,7 @@ export class MailComponent extends ParentComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
 
     this.readMailList();
-    this.checkPresenceMailServer();
+    // this.checkPresenceMailServer();
   }
 
   /***************************************************************************************************
@@ -115,7 +115,8 @@ export class MailComponent extends ParentComponent implements OnInit {
 
       mailAddresses.forEach(element => {
         let itemToMail = new MailItem();
-        itemToMail.Message.push(ReplaceKeywords(lid, this.TypeYourMail.value));
+        itemToMail.Message = ReplaceKeywords(lid, this.TypeYourMail.value);
+        itemToMail.Message = itemToMail.Message.split('\n').join('<br>');
         itemToMail.Subject = this.EmailSubject.value;
         itemToMail.To = element;
         mailDialogInputMessage.MailItems.push(itemToMail);
@@ -241,6 +242,7 @@ export class MailComponent extends ParentComponent implements OnInit {
   /***************************************************************************************************
   / Hier controleren of de mail server aanwezig is
   /***************************************************************************************************/
+  /*
   private checkPresenceMailServer(): void {
     this.setMailPresenceStatus();
     const source = interval(60000);
@@ -265,7 +267,7 @@ export class MailComponent extends ParentComponent implements OnInit {
         console.log(error);
       });
   }
-
+*/
   /***************************************************************************************************
   / Lees het bewaard mail overzicht uit de Param tabel
   /***************************************************************************************************/

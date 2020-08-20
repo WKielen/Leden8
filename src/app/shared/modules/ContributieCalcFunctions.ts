@@ -246,31 +246,35 @@ export function CreateBerekenOverzicht(ledenArray: Array<LedenItemExt>, contribu
 /***************************************************************************************************/
 export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: ContributieBedragen, description: string, oldMethod: boolean, requestedDirectDebitDate: string): MailItem {
     let mailItem = new MailItem;
+    let string = '';
+
+    // TODO: create html mail
+
+
     mailItem.To = LedenItem.GetEmailList(lid, true)[0];
     mailItem.Subject = "Aankondiging contributie TTVN - " + lid.Voornaam;
     if (lid.LeeftijdCategorieWithSex.substring(0, 1) == 'J') {
-        mailItem.Message.push('Beste ouders/verzorgers van ' + lid.Voornaam + ',\n');
+        string += ('Beste ouders/verzorgers van ' + lid.Voornaam + ',\n');
     } else {
-        mailItem.Message.push('Beste ' + lid.Voornaam + ',\n');
+        string += ('Beste ' + lid.Voornaam + ',\n');
     }
     switch (lid.BetaalWijze) {
         case BetaalWijzeValues.INCASSO:
-            mailItem.Message.push('TTVN incasseert binnenkort halfjaarlijkse contributie. Deze mail bevat de gegevens met betrekking tot de incasso.');
+            string += 'TTVN incasseert binnenkort halfjaarlijkse contributie. Deze mail bevat de gegevens met betrekking tot de incasso.';
             break;
         case BetaalWijzeValues.REKENING:
-            mailItem.Message.push('TTVN heft binnenkort de halfjaarlijkse contributie. Deze mail betreft de vooraankondiging. Je krijgt de rekening in de zaal overhandigd.');
-            mailItem.Message.push('Het rekeningnummer van TTVN is NL 84 RABO 0331 0652 66.');
+            string += 'TTVN heft binnenkort de halfjaarlijkse contributie. Deze mail betreft de vooraankondiging. Je krijgt de rekening in de zaal overhandigd.';
+            string += 'Het rekeningnummer van TTVN is NL 84 RABO 0331 0652 66.';
             break;
         case BetaalWijzeValues.UPAS:
-            mailItem.Message.push('TTVN heft binnenkort de halfjaarlijkse contributie. TTVN zal onderstaand bedrag bij de Nieuwegein pas of U-Pas in rekening brengen.');
+            string += 'TTVN heft binnenkort de halfjaarlijkse contributie. TTVN zal onderstaand bedrag bij de Nieuwegein pas of U-Pas in rekening brengen.';
         case BetaalWijzeValues.ZELFBETALER:
-            mailItem.Message.push('Het is weer tijd voor de halfjaarlijkse contributie. Wil je onderstaand bedrag overmaken op de rekening van TTVN?');
-            mailItem.Message.push('Het rekeningnummer van TTVN is NL 84 RABO 0331 0652 66.');
+            string += 'Het is weer tijd voor de halfjaarlijkse contributie. Wil je onderstaand bedrag overmaken op de rekening van TTVN?';
+            string += 'Het rekeningnummer van TTVN is NL 84 RABO 0331 0652 66.';
             break;
     }
     let berekendeBedragen = BerekenContributie(lid, contributieBedragen, description, oldMethod);
 
-    let string = '';
     string += '\nOmschrijving: ' + ReplaceCharacters(CreateDescriptionLine(description, lid.Voornaam));
     if (lid.BetaalWijze == BetaalWijzeValues.INCASSO) {
         string += '\nIBAN: ' + lid.IBAN;
@@ -302,7 +306,7 @@ export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: Co
     string += '\nTotaal bedrag: ' + berekendeBedragen.EindBedrag.AmountFormat();
 
     string += '\n';
-    mailItem.Message.push(string);
+    mailItem.Message = string;
     return mailItem;
 }
 
