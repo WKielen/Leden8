@@ -1,5 +1,5 @@
 <div class="boxcontainer">
-  <div fxLayout="column">
+  <div fxLayout="column" style='margin-right: 10px;'>
     <div class="box">
       <form [formGroup]="mailForm" novalidate>
 
@@ -34,14 +34,19 @@
                   </mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="mat-form-max-width">
+                <!-- <mat-form-field class="mat-form-max-width">
                   <textarea matInput type="text" placeholder="Email tekst" formControlName="TypeYourMail"
                     [formControl]="TypeYourMail" matTextareaAutosize matAutosizeMinRows='5'></textarea>
                   <mat-error *ngIf="TypeYourMail.hasError('required')">
                     Veld is verplicht
                   </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
+                <angular-editor formControlName="HtmlContent" [config]="editorConfig" [placeholder]="'Enter text here...'"></angular-editor>
+                <!-- <mat-form-field class="mat-form-max-width">
+                  <angular-editor formControlName="htmlContent" [formControl]="TypeYourMail" [config]="editorConfig"></angular-editor>
+                </mat-form-field> -->
               </div>
+
             </div>
           </mat-dialog-content>
         </div>
@@ -114,3 +119,4 @@
     </div>
   </div>
 </div>
+

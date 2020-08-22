@@ -19,6 +19,16 @@ Number.prototype.AmountFormat = function () {
     return '€ ' + Number(this).toLocaleString('nl', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
+declare global {
+    interface Number {
+        AmountFormatHTML(): string;
+    }
+}
+Number.prototype.AmountFormatHTML = function () {
+    return '&euro; ' + Number(this).toLocaleString('nl', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
+
 /***************************************************************************************************
 / De STRING primitive wordt uitgebreid.
 /***************************************************************************************************/

@@ -95,7 +95,6 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
   private requestDataFromMultipleSources(): Observable<any[]> {
     let response1 = this.ledenService.getYouthMembers$();
     let response2 = this.trainingService.getFromDate$(this.CalculateBeginOfSeasonDate());
-
     return forkJoin([response1, response2]);
   }
 
@@ -231,10 +230,10 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
   /***************************************************************************************************/
   private CalculateBeginOfSeasonDate(): Date {
     let tmp = '';
-    if ((new Date()).getMonth() < 8)
+    if ((new Date()).getMonth() < 7)   // getmonth begint op 0!!!
       tmp = '-01-01';
     else
-      tmp = '-08-15'
+      tmp = '-08-15';
     return new Date((new Date()).getFullYear().toString() + tmp);
   }
 

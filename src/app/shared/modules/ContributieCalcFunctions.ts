@@ -250,13 +250,17 @@ export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: Co
 
     // TODO: create html mail
 
+    // mailItem.To = LedenItem.GetEmailList(lid, true)[0];
+    mailItem.To = 'wim_kielen@hotmail.com'
+    mailItem.ToName = LedenItem.GetEmailList(lid, true)[0];
 
-    mailItem.To = LedenItem.GetEmailList(lid, true)[0];
+
+
     mailItem.Subject = "Aankondiging contributie TTVN - " + lid.Voornaam;
     if (lid.LeeftijdCategorieWithSex.substring(0, 1) == 'J') {
-        string += ('Beste ouders/verzorgers van ' + lid.Voornaam + ',\n');
+        string += ('Beste ouders/verzorgers van ' + lid.Voornaam + ',<br><br>');
     } else {
-        string += ('Beste ' + lid.Voornaam + ',\n');
+        string += ('Beste ' + lid.Voornaam + ',<br><br>');
     }
     switch (lid.BetaalWijze) {
         case BetaalWijzeValues.INCASSO:
@@ -275,37 +279,38 @@ export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: Co
     }
     let berekendeBedragen = BerekenContributie(lid, contributieBedragen, description, oldMethod);
 
-    string += '\nOmschrijving: ' + ReplaceCharacters(CreateDescriptionLine(description, lid.Voornaam));
+    string += '<br><table style="width:100%;text-align: left;">';
+    string += '<tr><td style="width: 1px;white-space: nowrap;">Omschrijving</td><td>: ' + ReplaceCharacters(CreateDescriptionLine(description, lid.Voornaam)) + '</td></tr>';
     if (lid.BetaalWijze == BetaalWijzeValues.INCASSO) {
-        string += '\nIBAN: ' + lid.IBAN;
-        string += '\nVerwachte incassodatum: ' + requestedDirectDebitDate;
-        string += '\nIncasso referentie: ' + lid.LidNr;
+        string += '<tr><td style="width: 1px;white-space: nowrap;">IBAN</td><td>: ' + lid.IBAN + '</td></tr>';
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Verwachte incassodatum</td><td>: ' + requestedDirectDebitDate + '</td></tr>';
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Incasso referentie</td><td>: ' + lid.LidNr + '</td></tr>';
     }
 
     // console.log('berekend', berekendeBedragen);
-    string += '\n';
+    string += '<br>';
     if (berekendeBedragen.BasisContributie > 0) {
-        string += '\nBasiscontributie: ' + berekendeBedragen.BasisContributie.AmountFormat();
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Basiscontributie</td><td>: ' + berekendeBedragen.BasisContributie.AmountFormatHTML() + '</td></tr>';
     }
     if (berekendeBedragen.CompetitieBijdrage > 0) {
-        string += '\nCompetitiebijdrage: ' + berekendeBedragen.CompetitieBijdrage.AmountFormat();
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Competitiebijdrage</td><td>: ' + berekendeBedragen.CompetitieBijdrage.AmountFormatHTML() + '</td></tr>';
     }
     if (berekendeBedragen.Bondsbijdrage > 0) {
-        string += '\nBondsbijdrage: ' + berekendeBedragen.Bondsbijdrage.AmountFormat();
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Bondsbijdrage</td><td>: ' + berekendeBedragen.Bondsbijdrage.AmountFormatHTML() + '</td></tr>';
     }
     if (berekendeBedragen.KostenRekening > 0) {
-        string += '\nKosten rekening op papier: ' + berekendeBedragen.KostenRekening.AmountFormat();
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Kosten rekening op papier</td><td>: ' + berekendeBedragen.KostenRekening.AmountFormatHTML() + '</td></tr>';
     }
     if (berekendeBedragen.KortingVrijwilliger < 0) {
-        string += '\nVrijwilligerskorting: ' + berekendeBedragen.KortingVrijwilliger.AmountFormat();
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Vrijwilligerskorting</td><td>: ' + berekendeBedragen.KortingVrijwilliger.AmountFormatHTML() + '</td></tr>';
     }
     if (berekendeBedragen.Korting < 0) {
-        string += '\nPersoonlijke korting: ' + berekendeBedragen.Korting.AmountFormat();
+        string += '<tr><td style="width: 1px;white-space: nowrap;">Persoonlijke korting</td><td>: ' + berekendeBedragen.Korting.AmountFormatHTML() + '</td></tr>';
     }
-    string += '\n-----------------------';
-    string += '\nTotaal bedrag: ' + berekendeBedragen.EindBedrag.AmountFormat();
+    string += '<tr><td style="width: 1px;white-space: nowrap;"></td><td>  ------------------</td></tr>';
+    string += '<tr><td style="width: 1px;white-space: nowrap;">Totaal bedrag</td><td>: ' + berekendeBedragen.EindBedrag.AmountFormatHTML() + '</td></tr>';
 
-    string += '\n';
+    string += '</table>';
     mailItem.Message = string;
     return mailItem;
 }

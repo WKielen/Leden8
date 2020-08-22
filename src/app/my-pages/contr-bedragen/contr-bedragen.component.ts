@@ -253,13 +253,14 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
     let date = this.requestedDirectDebitDate.value as Date;
 
     this.ledenArray.forEach(lid => {
+
       if (lid.LidType == LidTypeValues.CONTRIBUTIEVRIJ) return; // Contributie vrij
       let mailItem = CreateContributieMail(lid, this.contributieBedragen, this.Omschrijving.value, this.OudeBerekenMethode.value, formatDate(date, 'dd-MM-yyyy', 'nl-NL'));
       if (this.secondaryFeeParams.ExtraText != '') {
-        mailItem.Message += '\n';
+        mailItem.Message += '<br>';
         mailItem.Message += this.secondaryFeeParams.ExtraText;
       }
-      mailItem.Message += '\nMet vriendelijke groet,\nPenningmeester TTVN';
+      mailItem.Message += '<br><br>Met vriendelijke groet,<br>Penningmeester TTVN';
       mailDialogInputMessage.MailItems.push(mailItem);
     });
 

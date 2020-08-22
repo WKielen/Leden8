@@ -17,7 +17,7 @@ import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 import { ExternalMailApiRecord, MailItem, MailService } from 'src/app/services/mail.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
-// import { interval } from 'rxjs/internal/observable/interval';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'mail',
@@ -59,7 +59,7 @@ export class MailComponent extends ParentComponent implements OnInit {
   });
 
   mailForm = new FormGroup({
-    TypeYourMail: new FormControl(
+    HtmlContent: new FormControl(
       '',
       [Validators.required]
     ),
@@ -74,7 +74,59 @@ export class MailComponent extends ParentComponent implements OnInit {
     SavedMails: new FormControl(),
   });
 
+  htmlContent = '';
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '20',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['insertImage', 'insertVideo',    
+      'textColor',
+      'backgroundColor',
+      'customClasses',
+      'link',
+      'unlink',
+    
+    ],
+    ]
+};
   constructor(
     protected ledenService: LedenService,
     protected paramService: ParamService,
@@ -115,8 +167,7 @@ export class MailComponent extends ParentComponent implements OnInit {
 
       mailAddresses.forEach(element => {
         let itemToMail = new MailItem();
-        itemToMail.Message = ReplaceKeywords(lid, this.TypeYourMail.value);
-        itemToMail.Message = itemToMail.Message.split('\n').join('<br>');
+        itemToMail.Message = ReplaceKeywords(lid, this.HtmlContent.value);
         itemToMail.Subject = this.EmailSubject.value;
         itemToMail.To = element;
         mailDialogInputMessage.MailItems.push(itemToMail);
@@ -186,7 +237,7 @@ export class MailComponent extends ParentComponent implements OnInit {
     let mailSaveItem = new MailSaveItem();
     mailSaveItem.Name = ReplaceCharacters(this.EmailName.value);
     mailSaveItem.Subject = this.EmailSubject.value;
-    mailSaveItem.Message = this.TypeYourMail.value;
+    mailSaveItem.Message = this.HtmlContent.value;
 
     let present: boolean = this.savedMailNames.MailNameItems.includes(mailSaveItem.Name);
 
@@ -293,7 +344,7 @@ export class MailComponent extends ParentComponent implements OnInit {
         let result = JSON.parse(data as string) as MailSaveItem;
         this.EmailName.setValue(result.Name);
         this.EmailSubject.setValue(result.Subject);
-        this.TypeYourMail.setValue(result.Message);
+        this.HtmlContent.setValue(result.Message);
       },
         (error: AppError) => {
           console.log("error", error);
@@ -344,9 +395,7 @@ export class MailComponent extends ParentComponent implements OnInit {
   /***************************************************************************************************
   / Properties
   /***************************************************************************************************/
-  get TypeYourMail() {
-    return this.mailForm.get('TypeYourMail');
-  }
+
   get EmailName() {
     return this.mailForm.get('EmailName');
   }
@@ -356,7 +405,9 @@ export class MailComponent extends ParentComponent implements OnInit {
   get SavedMails() {
     return this.mailForm.get('SavedMails');
   }
-
+  get HtmlContent() {
+    return this.mailForm.get('HtmlContent');
+  }
   /***************************************************************************************************
   / Whether the number of selected elements matches the total number of rows.
   /***************************************************************************************************/
