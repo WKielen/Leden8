@@ -91,22 +91,22 @@ export class TestComponent extends ParentComponent  implements OnInit, OnDestroy
     this.notificationService.sendNotificationsForRole(['AD'], titel, bericht);
   }
 
-  onTestMail() {
+  // onTestMail() {
 
 
-    const source = interval(10000);
-    const subscribe = source.subscribe(val => {
+  //   const source = interval(10000);
+  //   const subscribe = source.subscribe(val => {
 
-      this.mailService.status$().subscribe(result => {
-        let obj = result as string;
-        console.log(
-          'Action2: ' + obj['status']
-        );
-      });
+  //     this.mailService.status$().subscribe(result => {
+  //       let obj = result as string;
+  //       console.log(
+  //         'Action2: ' + obj['status']
+  //       );
+  //     });
 
-    })
-    this.registerSubscription(subscribe);
-  }
+  //   })
+  //   this.registerSubscription(subscribe);
+  // }
 
 
 

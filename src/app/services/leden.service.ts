@@ -103,7 +103,8 @@ export class LedenService extends DataService {
         map(function (value: LedenItemExt[]) {
           let newList: LedenItemExt[] = [];
           value.forEach(element => {
-            if (element.LeeftijdCategorieWithSex.substring(0, 1) == 'J') {
+            if ((element.LeeftijdCategorieWithSex.substring(0, 1) == 'J') ||
+              (element.LeeftijdCategorieBond == 'Senior1')) {
               newList.push(element);
             }
           });
@@ -157,22 +158,22 @@ export class LedenService extends DataService {
 
 
 
-    // return [{
-    //   name: 'Asia',
-    //   data: [502, 635, 809, 947, 1402, 3634, 5268]
-    // }, {
-    //   name: 'Africa',
-    //   data: [106, 107, 111, 133, 221, 767, 1766]
-    // }, {
-    //   name: 'Europe',
-    //   data: [163, 203, 276, 408, 547, 729, 628]
-    // }, {
-    //   name: 'America',
-    //   data: [18, 31, 54, 156, 339, 818, 1201]
-    // }, {
-    //   name: 'Oceania',
-    //   data: [2, 2, 2, 6, 13, 30, 46]
-    // }];
+  // return [{
+  //   name: 'Asia',
+  //   data: [502, 635, 809, 947, 1402, 3634, 5268]
+  // }, {
+  //   name: 'Africa',
+  //   data: [106, 107, 111, 133, 221, 767, 1766]
+  // }, {
+  //   name: 'Europe',
+  //   data: [163, 203, 276, 408, 547, 729, 628]
+  // }, {
+  //   name: 'America',
+  //   data: [18, 31, 54, 156, 339, 818, 1201]
+  // }, {
+  //   name: 'Oceania',
+  //   data: [2, 2, 2, 6, 13, 30, 46]
+  // }];
 }
 
 /***************************************************************************************************
@@ -318,9 +319,9 @@ export class LidTypeValues {
     { Value: LidTypeValues.CONTRIBUTIEVRIJ, Label: 'Contributie vrij' },
     { Value: LidTypeValues.PAKKET, Label: 'Pakket' },
   ];
-// getracht onderstaand met Enums op te lossen.
-// wordt lastig als je in de template en dropdown wil maken met *ngFor
-public static GetLabel(value: string): string {
+  // getracht onderstaand met Enums op te lossen.
+  // wordt lastig als je in de template en dropdown wil maken met *ngFor
+  public static GetLabel(value: string): string {
     if (!value || value === '0') {
       return '';
     }

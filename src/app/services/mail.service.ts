@@ -67,21 +67,21 @@ export class MailService extends DataService {
       this.registerSubscription(sub);
   }
 
-  /***************************************************************************************************
-  / Check of the mailservice op is. Deze draait op de Raspberry Pi
-  /***************************************************************************************************/
-  status$(): Observable<Object> {
-    return this.http.get(environment.mailUrl + '/mail')
-      .pipe(
-        retry(1),
-        tap( // Log the result or error
-          data => console.log('Received: ', data),
-          error => console.log('Oeps: ', error)
-        ),
-        // timeout(5000),
-        catchError(this.errorHandler)
-      );
-  }
+  // /***************************************************************************************************
+  // / Check of the mailservice op is. Deze draait op de Raspberry Pi
+  // /***************************************************************************************************/
+  // status$(): Observable<Object> {
+  //   return this.http.get(environment.mailUrl + '/mail')
+  //     .pipe(
+  //       retry(1),
+  //       tap( // Log the result or error
+  //         data => console.log('Received: ', data),
+  //         error => console.log('Oeps: ', error)
+  //       ),
+  //       // timeout(5000),
+  //       catchError(this.errorHandler)
+  //     );
+  // }
 
 
   // /***************************************************************************************************
