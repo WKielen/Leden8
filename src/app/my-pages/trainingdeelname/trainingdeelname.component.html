@@ -4,7 +4,7 @@
     <mat-datepicker #picker touchUi="true"></mat-datepicker> <!-- touchui places it in center-->
   </mat-form-field>
 </div>
-<div class="boxcontainer">
+<div class="boxcontainer alternative-theme">
 
   <div class="box" style="flex-basis: 40%;">
     <div class="boxheader">{{trainingDag.Datum | date: 'EEEE d MMM yyyy' : 'nl'}}</div>
@@ -35,7 +35,7 @@
     </div>
   </div>
 </div>
-<div class="fab-container">
+<div class="fab-container alternative-theme">
   <div>
     <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
       color="primary" class="fab-secondary">

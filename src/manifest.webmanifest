@@ -2,10 +2,36 @@
   "name": "TTVN Nieuwegein",
   "short_name": "TTVN",
   "theme_color": "#FBC02D",
-  "background_color": "#efefef",
+  "background_color": "#FBC02D",
   "display": "standalone",
   "scope": "/app/",
   "start_url": "/app/index.html",
+  "shortcuts": [ 
+    {
+      "name": "Ledenlijst",
+      "short_name": "Ledenlijst",
+      "url": "https://ttvn.nl/app/#/leden",
+      "icons": [
+        {
+          "src": "assets/icons/app-logo-192x192.png",
+          "sizes": "192x192",
+          "purpose": "maskable"
+        } 
+      ]
+    },
+    {
+      "name": "Presentielijst Jeugdtrainingen",
+      "short_name": "Presentielijst",
+      "url": "https://ttvn.nl/app/#/trainingdeelname",
+      "icons": [
+        {
+          "src": "assets/icons/app-logo-192x192.png",
+          "sizes": "192x192",
+          "purpose": "maskable"
+        } 
+      ]
+    }
+  ],
   "icons": [
     {
       "src": "assets/icons/app-logo-72x72.png",

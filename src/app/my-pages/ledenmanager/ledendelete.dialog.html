@@ -1,21 +1,23 @@
-<h2 mat-dialog-title class="boxheader">{{data.method}}</h2>
-<div class="boxcontent">
-    <mat-dialog-content>
-        <div>
+<div class="alternative-theme">
+    <h2 mat-dialog-title class="boxheader">{{data.method}}</h2>
+    <div class="boxcontent">
+        <mat-dialog-content>
+            <div>
 
-            <form [formGroup]="ledenItemForm" (ngSubmit)="onSubmit()" novalidate>
-                <mat-form-field class="margin-right-20" style="width: 110px">
-                    <input matInput placeholder="Opzegdatum" [matDatepicker]="picker" formControlName="opzegDatum"
-                        [formControl]="opzegDatum" [readonly]= "true" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                <form [formGroup]="ledenItemForm" (ngSubmit)="onSubmit()" novalidate>
+                    <mat-form-field class="margin-right-20" style="width: 110px">
+                        <input matInput placeholder="Opzegdatum" [matDatepicker]="picker" formControlName="opzegDatum"
+                            [formControl]="opzegDatum" [readonly]="true" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
 
-                </mat-form-field>
-                <br>
-                <button mat-raised-button color="primary" [disabled]='!ledenItemForm.valid'>Save</button>
-                <button mat-raised-button class='box-bottom-button' color="accent" mat-dialog-close >Cancel</button>
-            </form>
+                    </mat-form-field>
+                    <br>
+                    <button mat-raised-button color="primary" [disabled]='!ledenItemForm.valid'>Save</button>
+                    <button mat-raised-button class='box-bottom-button' color="accent" mat-dialog-close>Cancel</button>
+                </form>
 
-        </div>
-    </mat-dialog-content>
+            </div>
+        </mat-dialog-content>
+    </div>
 </div>

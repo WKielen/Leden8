@@ -14,7 +14,7 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-<div class="fab-container">
+<div class="fab-container alternative-theme">
   <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
     color="primary" class="fab-secondary">
     <i class="material-icons">{{ btn.icon }}</i>

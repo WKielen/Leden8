@@ -1,4 +1,4 @@
-<div class="boxcontainer">
+<div class="boxcontainer alternative-theme">
   <div fxLayout="column" style='margin-right: 10px;'>
     <div class="box">
       <form [formGroup]="mailForm" novalidate>
@@ -41,7 +41,8 @@
                     Veld is verplicht
                   </mat-error>
                 </mat-form-field> -->
-                <angular-editor formControlName="HtmlContent" [config]="editorConfig" [placeholder]="'Enter text here...'"></angular-editor>
+                <angular-editor formControlName="HtmlContent" [config]="editorConfig"
+                  [placeholder]="'Enter text here...'"></angular-editor>
                 <!-- <mat-form-field class="mat-form-max-width">
                   <angular-editor formControlName="htmlContent" [formControl]="TypeYourMail" [config]="editorConfig"></angular-editor>
                 </mat-form-field> -->
@@ -67,9 +68,8 @@
         <div class="boxheader">Verstuur Mail</div>
         <form [formGroup]="mailboxparamForm" novalidate>
           <div class="boxcontent">
-            <button mat-raised-button color="primary" (click)="onSendMail($event)" class="alternative"
-              [disabled]='itemsToMail.length == 0' matBadge={{itemsToMail.length}} matBadgePosition="after"
-              matBadgeColor="accent">Verzend mail</button>
+            <button mat-raised-button color="primary" (click)="onSendMail($event)" [disabled]='itemsToMail.length == 0'
+              matBadge={{itemsToMail.length}} matBadgePosition="after" matBadgeColor="warn">Verzend mail</button>
           </div>
         </form>
       </div>
@@ -119,4 +119,3 @@
     </div>
   </div>
 </div>
-

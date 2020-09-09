@@ -1,4 +1,4 @@
-<div class="boxcontainer">
+<div class="boxcontainer alternative-theme">
     <div class="box" style="flex-basis: 30%;">
 
         <form [formGroup]="contributieForm" (ngSubmit)="onSaveBedragen()" novalidate>
@@ -142,11 +142,10 @@
                 </mat-form-field>
             </div>
             <div class="boxbottom">
-                <button mat-raised-button color="primary" (click)="onSendMail($event)" class="alternative"
+                <button mat-raised-button color="primary" (click)="onSendMail($event)"
                     [disabled]='ledenArray.length == 0' matBadge={{ledenArray.length}} matBadgePosition="after"
-                    matBadgeColor="accent">Verzend mail</button>
+                    matBadgeColor="warn">Verzend mail</button>
             </div>
         </div>
-
     </div>
 </div>
