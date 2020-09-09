@@ -1,11 +1,13 @@
-<h2 mat-dialog-title class="boxheader">Configuratie</h2>
-<div class="boxcontent">
-    Aanmelden voor meldingen op deze browser of afmelden voor alle browsers<br>
-</div>
-<div class="boxbottom">
-    <button mat-raised-button color="primary" [disabled]="!enableSubscribeButton" type="button" (click)="onSubscribe()"
-        class='box-bottom-button'>Aanmelden</button>
-    <button mat-raised-button color="primary" [disabled]="!enableUnSubscribeButton" type="button" (click)="onUnSubscribe()"
-        class='box-bottom-button'>Afmelden</button>
-    <button mat-raised-button color="accent" mat-dialog-close class='box-bottom-button'>Cancel</button>
+<div class="alternative-theme">
+    <h2 mat-dialog-title class="boxheader">Configuratie</h2>
+    <div class="boxcontent">
+        Aanmelden voor meldingen op deze browser of afmelden voor alle browsers<br>
+    </div>
+    <div class="boxbottom">
+        <button mat-raised-button color="primary" [disabled]="!enableSubscribeButton" type="button"
+            (click)="onSubscribe()" class='box-bottom-button'>Aanmelden</button>
+        <button mat-raised-button color="primary" [disabled]="!enableUnSubscribeButton" type="button"
+            (click)="onUnSubscribe()" class='box-bottom-button'>Afmelden</button>
+        <button mat-raised-button color="accent" mat-dialog-close class='box-bottom-button'>Cancel</button>
+    </div>
 </div>
