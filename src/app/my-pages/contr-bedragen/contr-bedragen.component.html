@@ -16,15 +16,6 @@
                     </mat-form-field>
                     <br>
                     <mat-form-field class="mat-form-max-width">
-                        <input matInput type="number" placeholder="Halfjaar Jeugd" formControlName="HalfjaarJeugd"
-                            [formControl]="HalfjaarJeugd">
-                        <span matPrefix>&euro;&nbsp;</span>
-                        <mat-error *ngIf="HalfjaarJeugd.hasError('required')">
-                            Veld is verplicht
-                        </mat-error>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field class="mat-form-max-width">
                         <input matInput type="number" placeholder="CompetitieBijdrage Volwassenen"
                             formControlName="CompetitieBijdrageVolwassenen"
                             [formControl]="CompetitieBijdrageVolwassenen">
@@ -35,19 +26,28 @@
                     </mat-form-field>
                     <br>
                     <mat-form-field class="mat-form-max-width">
-                        <input matInput type="number" placeholder="CompetitieBijdrage Jeugd"
-                            formControlName="CompetitieBijdrageJeugd" [formControl]="CompetitieBijdrageJeugd">
+                        <input matInput type="number" placeholder="Halfjaar BondBijdrage Volwassenen"
+                            formControlName="HalfjaarBondBijdrage" [formControl]="HalfjaarBondBijdrage">
                         <span matPrefix>&euro;&nbsp;</span>
-                        <mat-error *ngIf="CompetitieBijdrageJeugd.hasError('required')">
+                        <mat-error *ngIf="HalfjaarBondBijdrage.hasError('required')">
                             Veld is verplicht
                         </mat-error>
                     </mat-form-field>
                     <br>
                     <mat-form-field class="mat-form-max-width">
-                        <input matInput type="number" placeholder="Halfjaar BondBijdrage"
-                            formControlName="HalfjaarBondBijdrage" [formControl]="HalfjaarBondBijdrage">
+                        <input matInput type="number" placeholder="Halfjaar Jeugd (incl BB)"
+                            formControlName="HalfjaarJeugd" [formControl]="HalfjaarJeugd">
                         <span matPrefix>&euro;&nbsp;</span>
-                        <mat-error *ngIf="HalfjaarBondBijdrage.hasError('required')">
+                        <mat-error *ngIf="HalfjaarJeugd.hasError('required')">
+                            Veld is verplicht
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-max-width">
+                        <input matInput type="number" placeholder="CompetitieBijdrage Jeugd"
+                            formControlName="CompetitieBijdrageJeugd" [formControl]="CompetitieBijdrageJeugd">
+                        <span matPrefix>&euro;&nbsp;</span>
+                        <mat-error *ngIf="CompetitieBijdrageJeugd.hasError('required')">
                             Veld is verplicht
                         </mat-error>
                     </mat-form-field>

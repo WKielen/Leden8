@@ -87,6 +87,9 @@ export function BerekenContributieOudeMethode(lid: LedenItemExt,
         if (String(lid.CompGerechtigd).toBoolean()) {
             berekendeBedragen.CompetitieBijdrage = contributieBedragen.CompetitieBijdrageVolwassenen;
         }
+        if (String(lid.LidBond).toBoolean()) {
+            berekendeBedragen.Bondsbijdrage = contributieBedragen.HalfjaarBondBijdrage;
+        }
     } else {
         berekendeBedragen.BasisContributie = contributieBedragen.HalfjaarJeugd;
         if (String(lid.CompGerechtigd).toBoolean()) {
@@ -98,12 +101,6 @@ export function BerekenContributieOudeMethode(lid: LedenItemExt,
     }
     if (lid.LeeftijdCategorieBond.substring(0, 3) == '65-') {
         berekendeBedragen.BasisContributie -= 2;
-    }
-
-
-
-    if (String(lid.LidBond).toBoolean()) {
-        berekendeBedragen.Bondsbijdrage = contributieBedragen.HalfjaarBondBijdrage;
     }
 
     if (lid.BetaalWijze == BetaalWijzeValues.REKENING) {

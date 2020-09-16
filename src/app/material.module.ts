@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -27,7 +27,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
-
    exports: [
     MatToolbarModule,
     MatButtonModule,
@@ -55,6 +54,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatTooltipModule,
     MatDividerModule,
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class CustomMaterialModule { }
 
