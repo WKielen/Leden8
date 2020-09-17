@@ -44,6 +44,19 @@ import { SharedModule } from '../shared/shared.module';
 import { A2hsComponent } from '../shared/components/a2hs/a2hs.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
+
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+import listPlugin from '@fullcalendar/list';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+  listPlugin
+]);
+
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -92,6 +105,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     SharedModule,
     AngularEditorModule,
+    FullCalendarModule,
     // AngularIbanModule,
   ],
   // exports: [
