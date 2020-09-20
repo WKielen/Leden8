@@ -9,7 +9,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
-import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
@@ -21,7 +21,7 @@ import { Moment } from 'moment';
   templateUrl: './trainingdeelname.component.html',
   styleUrls: ['./trainingdeelname.component.scss'],
   providers: [
-    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }   // veranderd het click gedrag van (alle) checkboxen. Zie material docs
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' }   // veranderd het click gedrag van (alle) checkboxen. Zie material docs
   ],
 })
 export class TrainingDeelnameComponent extends ParentComponent implements OnInit {
