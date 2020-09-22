@@ -2,14 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 import { ParentComponent } from "src/app/shared/components/parent.component";
-import {
-  FullCalendarComponent,
-  CalendarOptions,
-  Calendar,
-  EventInput,
-  EventApi,
-  EventSourceInput,
-} from "@fullcalendar/angular"; // useful for typechecking
+import { CalendarOptions } from "@fullcalendar/angular"; // useful for typechecking
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AgendaDialogComponent } from "../agenda/agenda.dialog";
@@ -19,6 +12,11 @@ import { DuplicateKeyError } from "src/app/shared/error-handling/duplicate-key-e
 import { NoChangesMadeError } from "src/app/shared/error-handling/no-changes-made-error";
 import { NotFoundError } from "src/app/shared/error-handling/not-found-error";
 import { Dictionary } from "src/app/shared/modules/Dictionary";
+
+// TODO:
+//  Drag and drop
+//  Delete
+//  Select Multiple dates
 
 @Component({
   selector: "app-test",
@@ -37,26 +35,50 @@ export class TestComponent
     super(snackBar);
   }
 
-  @ViewChild("calendar") calendarComponent: FullCalendarComponent;
-
   private agendaLijst: Array<AgendaItem> = [];
-  public calendar: Calendar;
   private eventDict: Dictionary = new Dictionary([]);
+  private holiday = [
+    ["herfst", "2020-10-17", "2020-10-26"],
+    ["kerst", "2020-12-19", "2021-01-04"],
+    ["voorjaar", "2021-02-20", "2021-03-01"],
+    ["mei", "2021-05-01", "2021-05-10"],
+    ["zomer", "2021-07-17", "2021-08-30"],
+
+    ["herfst", "2021-10-16", "2021-10-25"],
+    ["kerst", "2021-12-25", "2022-01-10"],
+    ["voorjaar", "2022-02-26", "2022-03-07"],
+    ["mei", "2022-04-30", "2022-05-09"],
+    ["zomer", "2022-07-09", "2022-08-22"],
+
+    ["herfst", "2022-10-22", "2022-10-31"],
+    ["kerst", "2022-12-24", "2023-01-09"],
+    ["voorjaar", "2023-02-25", "2023-03-06"],
+    ["mei", "2023-04-29", "2023-05-08"],
+    ["zomer", "2023-07-08", "2023-08-21"],
+
+    ["herfst", "2023-10-14", "2023-10-23"],
+    ["kerst", "2023-12-23", "2024-01-08"],
+    ["voorjaar", "2024-02-17", "2024-02-25"],
+    ["mei", "2024-04-27", "2024-05-06"],
+    ["zomer", "2024-07-13", "2024-08-26"],
+
+  ];
 
   /***************************************************************************************************
   / Lees agenda in en voeg deze toe aan de options object
   /***************************************************************************************************/
   ngOnInit() {
-    let events: Array<any> = [];
+    this.addHolidaysToDict();
     this.registerSubscription(
       this.agendaService.getAll$().subscribe((data: Array<AgendaItem>) => {
         this.agendaLijst = data;
         this.agendaLijst.forEach((item) => {
-          events.push(this.agendaToEvent(item));
+          this.eventDict.add(item.Id, this.agendaToEvent(item));
         });
-        this.calendarOptions.events = events;
+        this.calendarOptions.events = this.eventDict.values();
       })
     );
+    console.log("this.eventDict.values()", this.eventDict.values());
   }
 
   /***************************************************************************************************
@@ -98,7 +120,7 @@ export class TestComponent
   /***************************************************************************************************
   / Er is op een datum geklikt. 
   /***************************************************************************************************/
-  public handleDateClick(arg) {
+  public onDateClick(arg: any): void {
     let tmp;
     let toBeAdded: AgendaItem = new AgendaItem();
     toBeAdded.Datum = arg.dateStr;
@@ -116,12 +138,12 @@ export class TestComponent
           let sub = this.agendaService.create$(result).subscribe(
             (addResult) => {
               tmp = addResult;
-              result.Id = tmp.Key;
-              console.log(result);
-              // Een beetje ingewikkeld om een event toe te voegen
-              this.calendarComponent
-                .getApi()
-                .addEvent(this.agendaToEvent(toBeAdded));
+              result.Id = tmp.Key.toString();
+              // deepChangeDetection="true" have to be set in HTML to get this working
+              this.eventDict.add(
+                result.Id,
+                this.agendaToEvent(JSON.parse(JSON.stringify(result)))
+              );
               this.showSnackBar(SnackbarTexts.SuccessNewRecord);
             },
             (error: AppError) => {
@@ -138,11 +160,10 @@ export class TestComponent
   }
 
   /***************************************************************************************************
-/ Er is op een event geklikt dus een update.
-/***************************************************************************************************/
-  handleEventClick(arg) {
-    console.log("event", arg.event);
-    arg.el.style.borderColor = "red";
+  / Er is op een event geklikt dus een update.
+  /***************************************************************************************************/
+  onEventClick(arg: any): void {
+    // arg.el.style.borderColor = "red";
 
     // Een deep copy
     let toBeEdited: AgendaItem = JSON.parse(
@@ -160,12 +181,8 @@ export class TestComponent
         // in case of cancel the result will be false
         let sub = this.agendaService.update$(result).subscribe(
           (data) => {
-            this.calendarComponent.getApi().getEventById(result.Id).remove();
-            this.calendarComponent
-              .getApi()
-              .addEvent(JSON.parse(JSON.stringify(this.agendaToEvent(result))));
-
-            //hier de ngenda aanpassem
+            // deepChangeDetection="true" have to be set in HTML to get this working
+            this.eventDict.set(result.Id, this.agendaToEvent(result));
             this.showSnackBar(SnackbarTexts.SuccessFulSaved);
           },
           (error: AppError) => {
@@ -183,10 +200,32 @@ export class TestComponent
     });
   }
 
-  handleSelect(arg) {
+  /***************************************************************************************************
+  / Als er meerdere datum worden geselecteerd
+  /***************************************************************************************************/
+  onSelect(arg) {
     console.log(arg);
+    alert("not implemented yet");
   }
 
+  /***************************************************************************************************
+  / Voeg de vakanties toe aan de kalender 
+  /***************************************************************************************************/
+  addHolidaysToDict() {
+    this.holiday.forEach((element) => {
+      let aHoliday: any = new Object();
+      aHoliday.title = element[0];
+      aHoliday.start = element[1];
+      aHoliday.end = element[2];
+      aHoliday.display = "background";
+      aHoliday.backgroundColor = "yellow";
+      this.eventDict.add(aHoliday.title + aHoliday.start, aHoliday);
+    });
+  }
+
+  /***************************************************************************************************
+  / De opties om de calendar te formatteren.
+  /***************************************************************************************************/
   calendarOptions: CalendarOptions = {
     initialView: "dayGridMonth",
     firstDay: 1,
@@ -194,9 +233,9 @@ export class TestComponent
     weekNumbers: true,
     weekText: "Week ",
     locale: "nl",
-    eventClick: this.handleEventClick.bind(this),
-    dateClick: this.handleDateClick.bind(this), // bind is important!
-    select: this.handleSelect.bind(this),
+    eventClick: this.onEventClick.bind(this),
+    dateClick: this.onDateClick.bind(this), // bind is important!
+    // select: this.onSelect.bind(this),
     headerToolbar: {
       start: "title",
       center: "today prev,next",
