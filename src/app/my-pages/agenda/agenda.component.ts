@@ -1,16 +1,22 @@
-import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { AgendaService, OrginisatieValues, AgendaItem } from './../../services/agenda.service';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { AgendaDialogComponent } from '../agenda/agenda.dialog';
-import { AppError } from '../../shared/error-handling/app-error';
-import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
-import { NotFoundError } from '../../shared/error-handling/not-found-error';
-import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
-import { ParentComponent } from 'src/app/shared/components/parent.component';
-import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AuthService } from "src/app/services/auth.service";
+import { ParentComponent } from "src/app/shared/components/parent.component";
+import { CalendarOptions } from "@fullcalendar/angular"; // useful for typechecking
+import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
+import { MatDialog } from "@angular/material/dialog";
+import { AgendaDialogComponent } from "../agenda/agenda.dialog";
+import { SnackbarTexts } from "src/app/shared/error-handling/SnackbarTexts";
+import { AppError } from "src/app/shared/error-handling/app-error";
+import { DuplicateKeyError } from "src/app/shared/error-handling/duplicate-key-error";
+import { NoChangesMadeError } from "src/app/shared/error-handling/no-changes-made-error";
+import { NotFoundError } from "src/app/shared/error-handling/not-found-error";
+import { Dictionary } from "src/app/shared/modules/Dictionary";
+
+// TODO:
+//  Drag and drop
+//  Delete
+//  Select Multiple dates
 
 @Component({
     selector: 'app-agenda',
@@ -18,147 +24,225 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
     styleUrls: ['./agenda.component.scss'],
 })
 
-export class AgendaComponent extends ParentComponent implements OnInit {
+export class AgendaComponent
+  extends ParentComponent
+  implements OnInit, OnDestroy {
+  constructor(
+    protected snackBar: MatSnackBar,
+    public authService: AuthService,
+    public dialog: MatDialog,
+    private agendaService: AgendaService
+  ) {
+    super(snackBar);
+  }
 
-    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  private agendaLijst: Array<AgendaItem> = [];
+  private eventDict: Dictionary = new Dictionary([]);
+  private holiday = [
+    ["herfst", "2020-10-17", "2020-10-26"],
+    ["kerst", "2020-12-19", "2021-01-04"],
+    ["voorjaar", "2021-02-20", "2021-03-01"],
+    ["mei", "2021-05-01", "2021-05-10"],
+    ["zomer", "2021-07-17", "2021-08-30"],
 
-    displayedColumns: string[] = ['select', 'Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie'];
-    columnsToDisplay: string[] = ['Datum', 'Tijd', 'EvenementNaam', 'Lokatie', 'Organisatie', 'actions3'];
-    dataSource = new MatTableDataSource<AgendaItem>();
+    ["herfst", "2021-10-16", "2021-10-25"],
+    ["kerst", "2021-12-25", "2022-01-10"],
+    ["voorjaar", "2022-02-26", "2022-03-07"],
+    ["mei", "2022-04-30", "2022-05-09"],
+    ["zomer", "2022-07-09", "2022-08-22"],
 
-    constructor(
-        public snackBar: MatSnackBar,
-        private agendaService: AgendaService,
-        public dialog: MatDialog) {
-        super(snackBar)
+    ["herfst", "2022-10-22", "2022-10-31"],
+    ["kerst", "2022-12-24", "2023-01-09"],
+    ["voorjaar", "2023-02-25", "2023-03-06"],
+    ["mei", "2023-04-29", "2023-05-08"],
+    ["zomer", "2023-07-08", "2023-08-21"],
+
+    ["herfst", "2023-10-14", "2023-10-23"],
+    ["kerst", "2023-12-23", "2024-01-08"],
+    ["voorjaar", "2024-02-17", "2024-02-25"],
+    ["mei", "2024-04-27", "2024-05-06"],
+    ["zomer", "2024-07-13", "2024-08-26"],
+
+  ];
+
+  /***************************************************************************************************
+  / Lees agenda in en voeg deze toe aan de options object
+  /***************************************************************************************************/
+  ngOnInit() {
+    this.addHolidaysToDict();
+    this.registerSubscription(
+      this.agendaService.getAll$().subscribe((data: Array<AgendaItem>) => {
+        this.agendaLijst = data;
+        this.agendaLijst.forEach((item) => {
+          this.eventDict.add(item.Id, this.agendaToEvent(item));
+        });
+        this.calendarOptions.events = this.eventDict.values();
+      })
+    );
+    console.log("this.eventDict.values()", this.eventDict.values());
+  }
+
+  /***************************************************************************************************
+  / Transformeer een Agendaitem naar een event dat aan het Calendar object kan worden toegevoegd.
+  / Het AngendaItem object zelf zit in de ExtendedProps
+  /***************************************************************************************************/
+  private agendaToEvent(item: AgendaItem): any {
+    let event: any = new Object();
+    event.title = item.EvenementNaam;
+    event.date = item.Datum;
+
+    // Als je start gebruikt dat krijg je een punt te zien met de begintijd. Als je het niet gebruikt dan
+    // krijgen we een 'allDay' te zien. Dus een gekleurde achtergrond.
+    //event.start = item.Datum + 'T'+ item.Tijd;
+    event.id = item.Id;
+    if (item.DoelGroep == "J") event.borderColor = "black";
+    else event.borderColor = "orange";
+
+    switch (item.Extra1) {
+      case "0":
+        event.backgroundColor = "orange";
+        break;
+      case "1":
+        event.backgroundColor = "blue";
+        break;
+      case "2":
+        event.backgroundColor = "yellow";
+        event.textColor = "black";
+        break;
+      case "3":
+        event.backgroundColor = "gray";
+        event.textColor = "black";
+        break;
     }
+    event.extendedProps = item;
+    return event;
+  }
 
-    ngOnInit(): void {
-        this.registerSubscription(
-            this.agendaService.getAll$()
-                .subscribe((data: Array<AgendaItem>) => {
-                    this.dataSource.data = data;
-                }));
-    }
+  /***************************************************************************************************
+  / Er is op een datum geklikt. 
+  /***************************************************************************************************/
+  public onDateClick(arg: any): void {
+    let tmp;
+    let toBeAdded: AgendaItem = new AgendaItem();
+    toBeAdded.Datum = arg.dateStr;
 
-    /***************************************************************************************************
-    / 
-    /***************************************************************************************************/
-    onAdd(): void {
-        this.AddRecord(new AgendaItem);
-    }
-
-    onCopy(index: number): void {
-        const toBeCopied: AgendaItem = this.dataSource.data[index];
-        let toBeAdded: any = Object.assign({}, toBeCopied); // kopieer record
-        this.AddRecord(toBeAdded);
-    }
-
-    private AddRecord(toBeAdded: AgendaItem) {
-        let tmp;
-        this.dialog.open(AgendaDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '1200px',
-            data: { 'method': 'Toevoegen', 'data': toBeAdded }
-        })
-            .afterClosed()  // returns an observable
-            .subscribe(result => {
-                if (result) {  // in case of cancel the result will be false
-                    let sub = this.agendaService.create$(result)
-                        .subscribe(addResult => {
-                            tmp = addResult;
-                            result.Id = tmp.Key;
-                            this.dataSource.data.unshift(result); // voeg de regel vooraan in de tabel toe.
-                            this.refreshTableLayout();
-                            this.showSnackBar(SnackbarTexts.SuccessNewRecord);
-                        },
-                            (error: AppError) => {
-                                if (error instanceof DuplicateKeyError) {
-                                    this.showSnackBar(SnackbarTexts.DuplicateKey);
-                                } else { throw error; }
-                            }
-                        );
-                    this.registerSubscription(sub);
-                }
-            });
-    }
-
-
-    /***************************************************************************************************
-    / 
-    /***************************************************************************************************/
-    onDelete(index: number): void {
-        const toBeDeleted: AgendaItem = this.dataSource.data[index];
-        let sub = this.agendaService.delete$(toBeDeleted.Id)
-            .subscribe(data => {
-                this.dataSource.data.splice(index, 1);
-                this.refreshTableLayout();
-                this.showSnackBar(SnackbarTexts.SuccessDelete);
+    this.dialog
+      .open(AgendaDialogComponent, {
+        panelClass: "custom-dialog-container",
+        width: "1200px",
+        data: { method: "Toevoegen", data: toBeAdded },
+      })
+      .afterClosed() // returns an observable
+      .subscribe((result) => {
+        if (result) {
+          // in case of cancel the result will be false
+          let sub = this.agendaService.create$(result).subscribe(
+            (addResult) => {
+              tmp = addResult;
+              result.Id = tmp.Key.toString();
+              // deepChangeDetection="true" have to be set in HTML to get this working
+              this.eventDict.add(
+                result.Id,
+                this.agendaToEvent(JSON.parse(JSON.stringify(result)))
+              );
+              this.showSnackBar(SnackbarTexts.SuccessNewRecord);
             },
-                (error: AppError) => {
-                    console.log('error', error);
-                    if (error instanceof NotFoundError) {
-                        this.showSnackBar(SnackbarTexts.NotFound);
-                    } else { throw error; } // global error handler
-                }
-            );
-        this.registerSubscription(sub);
-    }
-
-    /***************************************************************************************************
-    / 
-    /***************************************************************************************************/
-    onEdit(index: number): void {
-        let toBeEdited: AgendaItem = this.dataSource.data[index];
-
-        const dialogRef = this.dialog.open(AgendaDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '1200px',
-            data: { 'method': 'Wijzigen', 'data': toBeEdited }
-        });
-
-        dialogRef.afterClosed().subscribe((result: AgendaItem) => {
-            if (result) {  // in case of cancel the result will be false
-                let sub = this.agendaService.update$(result)
-                    .subscribe(data => {
-                        this.refreshTableLayout();
-                        this.showSnackBar(SnackbarTexts.SuccessFulSaved);
-                    },
-                        (error: AppError) => {
-                            if (error instanceof NoChangesMadeError) {
-                                this.showSnackBar(SnackbarTexts.NoChanges);
-                            } else if (error instanceof NotFoundError) {
-                                this.showSnackBar(SnackbarTexts.NotFound);
-                            } else { throw error; }
-                        });
-                this.registerSubscription(sub);
+            (error: AppError) => {
+              if (error instanceof DuplicateKeyError) {
+                this.showSnackBar(SnackbarTexts.DuplicateKey);
+              } else {
+                throw error;
+              }
             }
-        });
-    }
+          );
+          this.registerSubscription(sub);
+        }
+      });
+  }
 
-    /***************************************************************************************************
-    / HTML helper om juiste organisatie te tonen ipv alleen de db waarde
-    /***************************************************************************************************/
-    getOrganisatie(value: string): string {
-        return OrginisatieValues.GetLabel(value);
-    }
+  /***************************************************************************************************
+  / Er is op een event geklikt dus een update.
+  /***************************************************************************************************/
+  onEventClick(arg: any): void {
+    // arg.el.style.borderColor = "red";
 
-    /***************************************************************************************************
-    / 
-    /***************************************************************************************************/
-    private refreshTableLayout(): void {
-        this.dataSource.data.sort((item1, item2) => {
-            return (item1.Datum.toString().localeCompare(item2.Datum.toString(), undefined, { numeric: false }));
-        });
-        this.table.renderRows();
-    }
+    // Een deep copy
+    let toBeEdited: AgendaItem = JSON.parse(
+      JSON.stringify(arg.event.extendedProps)
+    );
 
-    /***************************************************************************************************
-    / The onRowClick from a row that has been hit
-    /***************************************************************************************************/
-    onDblclick($event, index): void {
-        this.onEdit(index);
-    }
+    const dialogRef = this.dialog.open(AgendaDialogComponent, {
+      panelClass: "custom-dialog-container",
+      width: "1200px",
+      data: { method: "Wijzigen", data: toBeEdited },
+    });
 
+    dialogRef.afterClosed().subscribe((result: AgendaItem) => {
+      if (result) {
+        // in case of cancel the result will be false
+        let sub = this.agendaService.update$(result).subscribe(
+          (data) => {
+            // deepChangeDetection="true" have to be set in HTML to get this working
+            this.eventDict.set(result.Id, this.agendaToEvent(result));
+            this.showSnackBar(SnackbarTexts.SuccessFulSaved);
+          },
+          (error: AppError) => {
+            if (error instanceof NoChangesMadeError) {
+              this.showSnackBar(SnackbarTexts.NoChanges);
+            } else if (error instanceof NotFoundError) {
+              this.showSnackBar(SnackbarTexts.NotFound);
+            } else {
+              throw error;
+            }
+          }
+        );
+        this.registerSubscription(sub);
+      }
+    });
+  }
 
+  /***************************************************************************************************
+  / Als er meerdere datum worden geselecteerd
+  /***************************************************************************************************/
+  onSelect(arg) {
+    console.log(arg);
+    alert("not implemented yet");
+  }
+
+  /***************************************************************************************************
+  / Voeg de vakanties toe aan de kalender 
+  /***************************************************************************************************/
+  addHolidaysToDict() {
+    this.holiday.forEach((element) => {
+      let aHoliday: any = new Object();
+      aHoliday.title = element[0];
+      aHoliday.start = element[1];
+      aHoliday.end = element[2];
+      aHoliday.display = "background";
+      aHoliday.backgroundColor = "yellow";
+      this.eventDict.add(aHoliday.title + aHoliday.start, aHoliday);
+    });
+  }
+
+  /***************************************************************************************************
+  / De opties om de calendar te formatteren.
+  /***************************************************************************************************/
+  calendarOptions: CalendarOptions = {
+    initialView: "dayGridMonth",
+    firstDay: 1,
+    height: "100%",
+    weekNumbers: true,
+    weekText: "Week ",
+    locale: "nl",
+    eventClick: this.onEventClick.bind(this),
+    dateClick: this.onDateClick.bind(this), // bind is important!
+    // select: this.onSelect.bind(this),
+    headerToolbar: {
+      start: "title",
+      center: "today prev,next",
+      end: "dayGridWeek,dayGridMonth,listMonth",
+    },
+    buttonText: { month: "maand", list: "lijst", today: "vandaag" },
+    selectable: true,
+  };
 }
-
- // see: https://github.com/angular-university/angular-material-course/blob/2-data-table-finished/src/app/services/lessons.datasource.ts

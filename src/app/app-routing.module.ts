@@ -5,11 +5,11 @@ import { DashboardComponent } from './my-pages/dashboard/dashboard.component';
 import { LedenComponent } from './my-pages/leden/leden.component';
 import { LedenManagerComponent } from './my-pages/ledenmanager/ledenmanager.component';
 import { AgendaComponent } from './my-pages/agenda/agenda.component';
+import { AgendaManagerComponent } from './my-pages/agenda-manager/agenda-manager.component';
 import { UsersComponent } from './my-pages/users/users.component';
 import { OudLedenComponent } from './my-pages/oud-leden/oud-leden.component';
 import { DownloadComponent } from './my-pages/download/download.component';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { HomeComponent } from './my-pages/home/home.component';
 import { OfflineComponent } from './my-pages/offline/offline.component';
 import { MultiUpdateComponent } from './my-pages/multi-update/multi-update.component';
 import { ContrBedragenComponent } from './my-pages/contr-bedragen/contr-bedragen.component';
@@ -35,6 +35,7 @@ const routes: Routes = [
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
       { path: ROUTE.mailPageRoute, component: MailComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.mailPageRoles } },
       { path: ROUTE.agendaPageRoute, component: AgendaComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaPageRoles } },
+      { path: ROUTE.agendaManagerPageRoute, component: AgendaManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaManagerPageRoles } },
       { path: ROUTE.websitePageRoute, component: WebsiteComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.websitePageRoles } },
       { path: ROUTE.multiupdatePageRoute, component: MultiUpdateComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.multiupdatePageRoles } },
       { path: ROUTE.downloadPageRoute, component: DownloadComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.downloadPageRoles } },

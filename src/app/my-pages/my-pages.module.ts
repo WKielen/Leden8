@@ -28,6 +28,7 @@ import { SignInDialogComponent } from './../my-pages/sign-in/sign-in.dialog';
 import { SingleMailDialogComponent } from './../my-pages/mail/singlemail.dialog';
 import { TrainingOverzichtDialogComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.dialog';
 import { WebsiteDialogComponent } from './../my-pages/website/website.dialog';
+import { AgendaManagerComponent } from './agenda-manager/agenda-manager.component';
 
 import { SelectLidDropdownComponent } from '../shared/components/select.lid.dropdown.component';
 import { CheckboxListComponent } from '../shared/components/checkbox.list.component';
@@ -76,6 +77,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TrainingDeelnameComponent,
     TrainingOverzichtComponent,
     TestComponent,
+    AgendaManagerComponent,
 
     AgendaDialogComponent,
     LedenDialogComponent,

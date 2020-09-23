@@ -1,0 +1,23 @@
+@use "src/styles.module.scss" as s;
+
+.col10 {
+    @include s.mat-text-column-wrap-stuff;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.col20 {
+    @include s.mat-text-column-wrap-stuff;
+    flex: 0 0 15% !important;
+    width: 15% !important;
+}
+
+.col40 {
+    @include s.mat-text-column-wrap-stuff;
+}
+
+.mat-column-Datum {
+    @include s.mat-text-column-wrap-stuff;
+    flex: 0 0 80px !important;
+    width: 80px!important;
+}
