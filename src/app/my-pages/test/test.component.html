@@ -1,2 +1,3 @@
-<full-calendar #calendar deepChangeDetection="true" [options]="calendarOptions"></full-calendar>
+<full-calendar #calendar *ngIf="!authService.isMobile" [options]="calendarOptions"></full-calendar>
+<full-calendar #calendar *ngIf="authService.isMobile" [options]="mobileCalendarOptions"></full-calendar>
 <app-a2hs></app-a2hs>

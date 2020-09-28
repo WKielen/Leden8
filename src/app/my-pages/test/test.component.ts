@@ -68,6 +68,8 @@ export class TestComponent
   / Lees agenda in en voeg deze toe aan de options object
   /***************************************************************************************************/
   ngOnInit() {
+    console.log('authService.isMobile',this.authService.isMobile);
+    
     this.addHolidaysToDict();
     this.registerSubscription(
       this.agendaService.getAll$().subscribe((data: Array<AgendaItem>) => {
@@ -76,6 +78,7 @@ export class TestComponent
           this.eventDict.add(item.Id, this.agendaToEvent(item));
         });
         this.calendarOptions.events = this.eventDict.values();
+        this.mobileCalendarOptions.events = this.eventDict.values();
       })
     );
     console.log("this.eventDict.values()", this.eventDict.values());
@@ -244,4 +247,26 @@ export class TestComponent
     buttonText: { month: "maand", list: "lijst", today: "vandaag" },
     selectable: true,
   };
+
+  mobileCalendarOptions: CalendarOptions = {
+    initialView: "listMonth",
+    firstDay: 1,
+    height: "100%",
+    weekNumbers: true,
+    weekText: "Week ",
+    locale: "nl",
+    eventClick: this.onEventClick.bind(this),
+    dateClick: this.onDateClick.bind(this), // bind is important!
+    // select: this.onSelect.bind(this),
+    headerToolbar: {
+      start: "title",
+      center: "prev,next",
+      end: "dayGridMonth,listMonth",
+    },
+    buttonText: { month: "maand", list: "lijst", today: "vandaag" },
+    selectable: true,
+  };
+
+
+
 }
