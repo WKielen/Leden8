@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 import { ParentComponent } from "src/app/shared/components/parent.component";
-import { CalendarOptions } from "@fullcalendar/angular"; // useful for typechecking
+import { CalendarOptions, ToolbarInput } from "@fullcalendar/angular"; // useful for typechecking
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AgendaDialogComponent } from "../agenda/agenda.dialog";
@@ -69,6 +69,14 @@ export class AgendaComponent
   / Lees agenda in en voeg deze toe aan de options object
   /***************************************************************************************************/
   ngOnInit() {
+    if (this.authService.isMobile) {
+      this.calendarOptions.initialView = 'listMonth';
+      let tbi:ToolbarInput = new Object();
+      tbi.start = 'title';
+      tbi.center = 'prev,next';
+      tbi.end = 'dayGridMonth,listMonth';
+      this.calendarOptions.headerToolbar = tbi;
+    }
     this.addHolidaysToDict();
     this.registerSubscription(
       this.agendaService.getAll$().subscribe((data: Array<AgendaItem>) => {
@@ -79,7 +87,6 @@ export class AgendaComponent
         this.calendarOptions.events = this.eventDict.values();
       })
     );
-    console.log("this.eventDict.values()", this.eventDict.values());
   }
 
   /***************************************************************************************************
@@ -232,7 +239,7 @@ export class AgendaComponent
     firstDay: 1,
     height: "100%",
     weekNumbers: true,
-    weekText: "Week ",
+    weekText: "",
     locale: "nl",
     eventClick: this.onEventClick.bind(this),
     dateClick: this.onDateClick.bind(this), // bind is important!
@@ -244,5 +251,6 @@ export class AgendaComponent
     },
     buttonText: { month: "maand", list: "lijst", today: "vandaag" },
     selectable: true,
+    displayEventTime: false
   };
 }
