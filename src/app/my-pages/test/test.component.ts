@@ -40,12 +40,13 @@ export class TestComponent
     private agendaService: AgendaService,
     public authService: AuthService,
     public dialog: MatDialog,
-    protected snackBar: MatSnackBar,
+    protected snackBar: MatSnackBar
   ) {
     super(snackBar);
   }
 
   private events: EventInput[] = [];
+
 
   /***************************************************************************************************
   / Lees agenda in en voeg deze toe aan de options object
@@ -97,7 +98,7 @@ export class TestComponent
     // See www.fullcalendar.io for all posible events
     select: this.onDateClick.bind(this), //Add
     eventClick: this.onEventClick.bind(this), // Change
-    eventDrop: this.onEventDrop.bind(this),  // dragdrop
+    eventDrop: this.onEventDrop.bind(this), // dragdrop
     eventRemove: this.onEventRemove.bind(this),
   };
 
@@ -112,8 +113,8 @@ export class TestComponent
     let toBeAdded: AgendaItem = new AgendaItem();
     // Defaults
     toBeAdded.Datum = selectInfo.startStr;
-    toBeAdded.Type = 'T';
-    toBeAdded.DoelGroep = 'J';
+    toBeAdded.Type = "T";
+    toBeAdded.DoelGroep = "J";
 
     this.dialog
       .open(AgendaDialogComponent, {
@@ -126,7 +127,7 @@ export class TestComponent
         if (result) {
           // in case of cancel the result will be false
           let sub = this.agendaService.create$(result).subscribe(
-            (addResult:any) => {
+            (addResult: any) => {
               result.Id = addResult.Key.toString();
               const calendarApi = selectInfo.view.calendar;
               calendarApi.unselect(); // clear date selection
@@ -146,14 +147,28 @@ export class TestComponent
       });
   }
 
+
+  // window.onmsgesturedoubletap(ev):void {
+  //   console.log('gesture double tap', ev);
+  // }
+  // window.onmsgesturedoubleclick(ev):void {
+  //   console.log('gesture double tap',ev);
+  // }
+
   /***************************************************************************************************
   / WIJZIGEN: Er is op een event geklikt
   /***************************************************************************************************/
   onEventClick(clickInfo: EventClickArg): void {
+    // console.log("pageinfo", clickInfo.jsEvent, clickInfo.el);
+
+    // return;
     const dialogRef = this.dialog.open(AgendaDialogComponent, {
       panelClass: "custom-dialog-container",
       width: "1200px",
-      data: { method: "Wijzigen", data: clickInfo.event.extendedProps["agendaItem"] },
+      data: {
+        method: "Wijzigen",
+        data: clickInfo.event.extendedProps["agendaItem"],
+      },
     });
 
     dialogRef.afterClosed().subscribe((result: AgendaItem) => {
@@ -186,20 +201,24 @@ export class TestComponent
     // De datum in 'ons' agendaItem record moet worden aangepast voordat we het record opslaan.
     args.event.extendedProps["agendaItem"].Datum = args.event.startStr;
 
-    let sub = this.agendaService.update$(args.event.extendedProps["agendaItem"]).subscribe(
-      (data) => {
-        this.showSnackBar(SnackbarTexts.SuccessFulSaved);
-      },
-      (error: AppError) => {
-        if (error instanceof NoChangesMadeError) {
-          this.showSnackBar(SnackbarTexts.NoChanges);
-        } else if (error instanceof NotFoundError) {
-          this.showSnackBar(SnackbarTexts.NotFound);
-        } else {
-          throw error;
+    let sub = this.agendaService
+      .update$(args.event.extendedProps["agendaItem"])
+      .subscribe(
+        (data) => {
+          this.showSnackBar(SnackbarTexts.SuccessFulSaved);
+        },
+        (error: AppError) => {
+          if (error instanceof NoChangesMadeError) {
+            this.showSnackBar(SnackbarTexts.NoChanges);
+          } else if (error instanceof NotFoundError) {
+            this.showSnackBar(SnackbarTexts.NotFound);
+          } else {
+            throw error;
+          }
         }
-      }
-    );
+      );
     this.registerSubscription(sub);
   }
+
+
 }
