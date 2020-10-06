@@ -42,7 +42,8 @@
                         </mat-form-field>
                         <mat-form-field class="mat-form-max-width">
                             <mat-select placeholder="Organisatie" formControlName="extra1" required>
-                                <mat-option *ngFor="let item of orginisatieValues" [value]="item.Value">{{item.Label}}
+                                <mat-option *ngFor="let item of OrganisatieValues
+" [value]="item.Value">{{item.Label}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="extra1.hasError('required')">

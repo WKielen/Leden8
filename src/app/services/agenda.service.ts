@@ -75,7 +75,8 @@ export class AgendaItem {
 /***************************************************************************************************
 / 
 /***************************************************************************************************/
-export class OrginisatieValues {
+export class OrganisatieValues
+ {
   public static table: any[] = [
     { Value: '0', Label: 'NTTB' },
     { Value: '1', Label: 'Midden' },

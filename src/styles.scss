@@ -117,6 +117,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 6px;
 }
 
+// Deze heb ik toegevoegd voor de agenda detail dialog
+.detail-agenda-dialog-container .mat-dialog-container {
+  padding: 0px 24px 24px 24px !important;
+  border-radius: 6px;
+}
+
 // voor de floating action buttons
 .fab-container {
   position: fixed;

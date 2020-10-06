@@ -20,6 +20,7 @@ import { TrainingOverzichtComponent } from './../my-pages/trainingoverzicht/trai
 import { TestComponent } from './../my-pages/test/test.component';
 
 import { AgendaDialogComponent } from './../my-pages/agenda/agenda.dialog';
+import { AgendaDetailDialogComponent } from './../my-pages/agenda/agenda.detail.dialog';
 import { LedenDialogComponent } from './../my-pages/ledenmanager/ledenmanager.dialog';
 import { LedenDeleteDialogComponent } from './../my-pages/ledenmanager/ledendelete.dialog';
 import { MailDialogComponent } from './../my-pages/mail/mail.dialog';
@@ -80,6 +81,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AgendaManagerComponent,
 
     AgendaDialogComponent,
+    AgendaDetailDialogComponent,
     LedenDialogComponent,
     LedenDeleteDialogComponent,
     MailDialogComponent,

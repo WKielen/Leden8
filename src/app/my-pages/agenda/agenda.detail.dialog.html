@@ -1,0 +1,78 @@
+<header mat-dialog-title class="alternative-theme">
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+    <button mat-icon-button color="primary" (click)="onClickModify()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="onClickCopy()">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="onClickDelete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="accent"
+      [mat-dialog-close]="data.data"
+      cdkFocusInitial
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</header>
+<div mat-dialog-content>
+  <h2>{{data.data.EvenementNaam}}</h2>
+  <table>
+    <tr>
+      <td width="25%"></td>
+      <td width="75%"></td>
+    </tr>
+    <tr *ngIf="data.data.Tijd">
+      <td>Tijd:</td>
+      <td>{{ data.data.Tijd }}</td>
+    </tr>
+    <tr *ngIf="data.data.Lokatie">
+      <td>Lokatie:</td>
+      <td>{{ data.data.Lokatie }}</td>
+    </tr>
+    <tr *ngIf="data.data.Type">
+      <td>Type:</td>
+      <td>{{ type }}</td>
+    </tr>
+    <tr *ngIf="data.data.DoelGroep">
+      <td>DoelGroep:</td>
+      <td>{{ doelGroep }}</td>
+    </tr>
+    <tr *ngIf="data.data.Toelichting">
+      <td>Toelichting:</td>
+      <td>{{ data.data.Toelichting }}</td>
+    </tr>
+    <tr *ngIf="data.data.Inschrijven">
+      <td>Inschrijven:</td>
+      <td>{{ data.data.Inschrijven }}</td>
+    </tr>
+    <tr *ngIf="data.data.Inschrijfgeld > 0">
+      <td>Inschrijfgeld:</td>
+      <td>{{ inschrijfGeld }}</td>
+    </tr>
+    <tr *ngIf="data.data.BetaalMethode">
+      <td>BetaalMethode:</td>
+      <td>{{ data.data.BetaalMethode }}</td>
+    </tr>
+    <tr *ngIf="data.data.ContactPersoon">
+      <td>ContactPersoon:</td>
+      <td>{{ data.data.ContactPersoon }}</td>
+    </tr>
+    <tr *ngIf="data.data.Vervoer">
+      <td>Vervoer:</td>
+      <td>{{ data.data.Vervoer }}</td>
+    </tr>
+    <tr *ngIf="data.data.VerzamelAfspraak">
+      <td>VerzamelAfspraak:</td>
+      <td>{{ data.data.VerzamelAfspraak }}</td>
+    </tr>
+    <tr *ngIf="data.data.Extra1">
+      <td>Organisatie:</td>
+      <td>{{  organisatie }}</td>
+    </tr>
+  </table>
+</div>

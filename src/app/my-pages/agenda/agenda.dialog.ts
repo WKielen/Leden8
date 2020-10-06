@@ -1,4 +1,4 @@
-import { TypeValues, OrginisatieValues, DoelgroepValues } from '../../services/agenda.service';
+import { TypeValues, OrganisatieValues, DoelgroepValues } from '../../services/agenda.service';
 import { Component, Inject, OnInit, Input } from '@angular/core';
 // import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -50,7 +50,7 @@ export class AgendaDialogComponent implements OnInit {
     });
 
     typeValues = TypeValues.table;
-    orginisatieValues = OrginisatieValues.table;
+    OrganisatieValues = OrganisatieValues.table;
     doelgroepValues = DoelgroepValues.table;
 
     constructor(

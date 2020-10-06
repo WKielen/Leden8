@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
-import { AgendaService, OrginisatieValues, AgendaItem } from './../../services/agenda.service';
+import { AgendaService, OrganisatieValues
+, AgendaItem } from './../../services/agenda.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -137,7 +138,7 @@ export class AgendaManagerComponent extends ParentComponent implements OnInit {
     / HTML helper om juiste organisatie te tonen ipv alleen de db waarde
     /***************************************************************************************************/
     getOrganisatie(value: string): string {
-        return OrginisatieValues.GetLabel(value);
+        return OrganisatieValues.GetLabel(value);
     }
 
     /***************************************************************************************************
