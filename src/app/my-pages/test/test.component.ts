@@ -15,8 +15,7 @@ import { NotFoundError } from "src/app/shared/error-handling/not-found-error";
 import { addHolidaysToEvents, agendaToEvent, setEventProps } from "../agenda/event-utils";
 import { EventDropArg } from "@fullcalendar/interaction";
 
-// TODO:
-//  Select Multiple dates into vakantie
+// TODO :Select Multiple dates into vakantie
 
 @Component({
   selector: "app-test",

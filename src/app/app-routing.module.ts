@@ -22,8 +22,10 @@ import { TrainingDeelnameComponent } from './my-pages/trainingdeelname/trainingd
 import { TrainingOverzichtComponent } from './my-pages/trainingoverzicht/trainingoverzicht.component';
 import { DefaultComponent } from './app-nav/default/default.component';
 import { TestComponent } from './my-pages/test/test.component';
+import { LoginComponent } from './app-nav/login/login.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: DefaultComponent,

@@ -1,0 +1,36 @@
+<!-- als we niet zijn aangelogd dan laten we de foto zien -->
+<div *ngIf='!logonData.IsLoggedOn' fxLayout='column' id='bg'>
+    <app-header-landing (logonStatusToSideBar)="logonStatus($event)"></app-header-landing>
+    <main>
+        <section id='card'>
+            <h1>TTVN administratie</h1>
+            <p>Dit is TTVN app voor de ledenadministratie, agendabeheer, 
+                versturen van mail, presentielijsten, website-mededelingen.</p>
+        </section>
+        <section id='primary' class="alternative-theme">
+            <button mat-button mat-raised-button color="primary" (click)=openSigninDialog()>
+                <mat-icon>person</mat-icon>
+                <span style="font-size: 11pt">Inloggen</span>
+            </button>
+        </section>
+        <section id='logo'>
+            LOGO
+        </section>
+    </main> 
+    <app-footer-landing></app-footer-landing>
+</div>
+
+<app-header *ngIf='logonData.IsLoggedOn' (toggleSideBarForMe)="sideBarToggler()" (logonStatusToSideBar)="logonStatus($event)"></app-header>
+
+<mat-drawer-container *ngIf='logonData.IsLoggedOn'>
+    <mat-drawer mode="side" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="sideBarOpen">
+        <app-sidebar [isHandset]="isHandset" (displaySideBar)="sideBarSetVisibilty($event)"></app-sidebar>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div fxFlex>
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+<app-footer *ngIf='logonData.IsLoggedOn'></app-footer>
