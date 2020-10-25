@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  landingPage: 'home',
   dashboardPage: 'dashboard',
   loginPage: 'login',
   baseUrl: 'https://www.ttvn.nl/api',

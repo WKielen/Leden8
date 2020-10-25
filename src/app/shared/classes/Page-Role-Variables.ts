@@ -28,7 +28,6 @@ export const PAGEROLES = {
 };
 
 export const ROUTE = {
-    landingPageRoute: 'home',
     dashboardPageRoute: 'dashboard',
     ledenPageRoute: 'leden',
     ledenmanagerPageRoute: 'ledenmanager',

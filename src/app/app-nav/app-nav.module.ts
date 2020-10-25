@@ -26,7 +26,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DefaultComponent } from './default/default.component';
 import { A2hsSafariHow2 } from '../shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
 import { LoginComponent } from './login/login.component';
-
+import { NotallowedComponent } from './notallowed/notallowed.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { LoginComponent } from './login/login.component';
     ConfigDialogComponent,
     NotificationDialogComponent,
     A2hsSafariHow2,
-    LoginComponent
+    LoginComponent,
+    NotallowedComponent,
   ],
   imports: [
     CommonModule,

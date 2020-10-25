@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeComponent } from './../my-pages/home/home.component';
-
 import { LedenComponent } from './../my-pages/leden/leden.component';
 import { LedenManagerComponent } from './../my-pages/ledenmanager/ledenmanager.component';
 import { MailComponent } from './../my-pages/mail/mail.component';
@@ -30,7 +28,6 @@ import { SingleMailDialogComponent } from './../my-pages/mail/singlemail.dialog'
 import { TrainingOverzichtDialogComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.dialog';
 import { WebsiteDialogComponent } from './../my-pages/website/website.dialog';
 import { AgendaManagerComponent } from './agenda-manager/agenda-manager.component';
-import { NotallowedComponent } from './notallowed/notallowed.component';
 
 import { SelectLidDropdownComponent } from '../shared/components/select.lid.dropdown.component';
 import { CheckboxListComponent } from '../shared/components/checkbox.list.component';
@@ -62,7 +59,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 
 @NgModule({
   declarations: [
-    HomeComponent,
     DashboardComponent,
     LedenComponent,
     LedenManagerComponent,
@@ -89,15 +85,13 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     RolesDialogComponent,
     SignInDialogComponent,
     SingleMailDialogComponent,
-    TrainingOverzichtDialogComponent,  
+    TrainingOverzichtDialogComponent,
     WebsiteDialogComponent,
 
     SelectLidDropdownComponent,
     CheckboxListComponent,
     ParentComponent,
     A2hsComponent,
-    NotallowedComponent,
-  
   ],
   imports: [
     CommonModule,
@@ -115,7 +109,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     // AngularIbanModule,
   ],
   // exports: [
-  //   HomeComponent,
   //   LedenComponent,
   //   LedenManagerComponent,
   //   MailComponent,

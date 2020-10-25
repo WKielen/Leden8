@@ -23,7 +23,7 @@ import { TrainingOverzichtComponent } from './my-pages/trainingoverzicht/trainin
 import { DefaultComponent } from './app-nav/default/default.component';
 import { TestComponent } from './my-pages/test/test.component';
 import { LoginComponent } from './app-nav/login/login.component';
-import { NotallowedComponent } from './my-pages/notallowed/notallowed.component';
+import { NotallowedComponent } from './app-nav/notallowed/notallowed.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,7 +34,6 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'notallowed', component: NotallowedComponent },
 
-      { path: ROUTE.landingPageRoute, component: DashboardComponent },
       { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
@@ -61,11 +60,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  // entryComponents: [SignInDialogComponent, AgendaDialogComponent, WebsiteDialogComponent,
-  //   MailDialogComponent, LedenDialogComponent, LedenDeleteDialogComponent,
-  //   RolesDialogComponent, ConfigDialogComponent, SingleMailDialogComponent,
-  //   TrainingOverzichtDialogComponent, NotificationDialogComponent,
-  // ],  not needed in angular 9 anymore
   declarations: [OfflineComponent],
 })
 
