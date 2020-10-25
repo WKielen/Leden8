@@ -1,13 +1,6 @@
-<!-- als we niet zijn aangelogd dan laten we de foto zien -->
-<div *ngIf='!logonData.IsLoggedOn' fxLayout='column' class='bg'>
-    <app-header-landing (logonStatusToSideBar)="logonStatus($event)"></app-header-landing>
-    <div style="height:100%"></div>
-    <app-footer-landing></app-footer-landing>
-</div>
+<app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
 
-<app-header *ngIf='logonData.IsLoggedOn' (toggleSideBarForMe)="sideBarToggler()" (logonStatusToSideBar)="logonStatus($event)"></app-header>
-
-<mat-drawer-container *ngIf='logonData.IsLoggedOn'>
+<mat-drawer-container>
     <mat-drawer mode="side" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="sideBarOpen">
         <app-sidebar [isHandset]="isHandset" (displaySideBar)="sideBarSetVisibilty($event)"></app-sidebar>
     </mat-drawer>
@@ -18,4 +11,4 @@
     </mat-drawer-content>
 </mat-drawer-container>
 
-<app-footer *ngIf='logonData.IsLoggedOn'></app-footer>
+<app-footer></app-footer>

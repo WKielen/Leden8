@@ -17,7 +17,6 @@ import { A2hsSafariHow2 } from 'src/app/shared/components/a2hs-ios-safari-how2/a
 export class HeaderComponent implements OnInit {
 
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
-  @Output() logonStatusToSideBar: EventEmitter<any> = new EventEmitter();
 
   logonData: LogonData = new LogonData;
   test = !environment.production;
@@ -25,7 +24,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthService,
-    public signinDialog: MatDialog,
+    // public signinDialog: MatDialog,
     public configDialog: MatDialog
   ) {
   }
@@ -49,7 +48,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([environment.loginPage]);
     this.logonData.IsLoggedOn = false;
     this.logonData.ShouldDisplayMenu = false;
-    this.logonStatusToSideBar.emit(this.logonData);
   }
 
   onConfig(): void {
