@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   onSignOff(): void {
     this.authService.logOff();
-    this.router.navigate([environment.landingPage]);
+    this.router.navigate([environment.loginPage]);
     this.logonData.IsLoggedOn = false;
     this.logonData.ShouldDisplayMenu = false;
     this.logonStatusToSideBar.emit(this.logonData);

@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       if (!!this.authService.isLoggedIn()) {
         return true;
       } else {
-        this.router.navigate([environment.landingPage], {queryParams: {returnUrl: state.url}} ); // Query params -> als je specifieke pag opgeeft dan gaat deze pag mee naar de login pag en naar login wordt er direct naar deze pag doorgerouteerd
+        this.router.navigate([environment.loginPage], {queryParams: {returnUrl: state.url}} ); // Query params -> als je specifieke pag opgeeft dan gaat deze pag mee naar de login pag en naar login wordt er direct naar deze pag doorgerouteerd
       }
     return false;
   }

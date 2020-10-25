@@ -23,7 +23,7 @@ export class AdminAuthGuard implements CanActivate {
       }
     }
 
-    this.router.navigate(['/login']); //TODO: not allowed page
+    this.router.navigate(['/notallowed']); //TODO: not allowed page
     return false;
   }
 }

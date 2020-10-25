@@ -5,6 +5,15 @@ import { map } from 'rxjs/operators';
 import { LogonData } from 'src/app/shared/classes/LogonData';
 import { AuthService } from 'src/app/services/auth.service';
 
+/*
+           Nobody said it was easy
+           It's such a shame for us to part
+           Nobody said it was easy
+           No one ever said it would be this hard
+           Oh, take me back to the start
+                 ---//---
+           The Scientist - Coldplay
+*/
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',

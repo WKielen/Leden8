@@ -9,7 +9,7 @@ export const ROLES = {
 };
 
 export const PAGEROLES = {
-    dashboardPageRoute: [ROLES.TEST],
+    dashboardPageRoute: [ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.LEDENADMIN, ROLES.PENNINGMEESTER, ROLES.ADMIN, ROLES.TEST],
     ledenPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER],
     ledenmanagerPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN],
     mailPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
