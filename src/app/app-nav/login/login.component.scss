@@ -1,35 +1,11 @@
-$colors: (
-    primary-dark: darken(#005dff, 40%),
-    accent: #fff6bb,
-    primary-yellow: #fbc02d,
-    primary-blue: #0d47a1,
-    primary-blue-light: lighten(#0d47a1, 40%),
-    primary-yellow-dark: darken(#fbc02d, 10%),
-);
+@import 'src/styles.scss';
+
 
 $padding: 15px;
 $borders: 15px;
 
-@function color($color-name) {
-    @return map-get($colors, $color-name);
-}
-
-$desktop: 840px;
-
-@mixin desktop {
-    @media (min-width: #{$desktop}) {
-        @content;
-    }
-}
-
-body,
-html {
-    height: 100%;
-}
 
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin: 0;
 
     #bg {
         clip-path: polygon(100% 0, 100% 82%, 45% 100%, 0 100%, 0 0);

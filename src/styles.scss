@@ -1,4 +1,3 @@
-
 @use "./styles.module.scss" as s;
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -236,5 +235,29 @@ table
 @media (max-width:s.$max-width) {
   .mat-column-select {
     padding-left: 0px !important;
+  }
+}
+
+
+
+// Hieronder wordt gebruikt in de login pagina
+
+$colors: (
+    primary-dark: darken(#005dff, 40%),
+    primary-yellow: #fbc02d,
+    primary-blue: #0d47a1,
+    primary-blue-light: lighten(#0d47a1, 40%),
+    primary-yellow-dark: darken(#fbc02d, 10%),
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+$desktop: 840px;
+// Hiermee kunnen we in SASS bepalen of we een mobile
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+      @content;
   }
 }

@@ -29,10 +29,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '',
-    component: DefaultComponent,
+    component: DefaultComponent,canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] },
-      { path: 'notallowed', component: NotallowedComponent , canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: '', component: DashboardComponent},
+      { path: 'notallowed', component: NotallowedComponent  },
       { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
