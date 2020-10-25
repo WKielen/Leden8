@@ -31,9 +31,8 @@ const routes: Routes = [
     path: '',
     component: DefaultComponent,
     children: [
-      { path: '', component: DashboardComponent },
-      { path: 'notallowed', component: NotallowedComponent },
-
+      { path: '', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+      { path: 'notallowed', component: NotallowedComponent , canActivate: [AuthGuard, AdminAuthGuard] },
       { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
@@ -51,10 +50,10 @@ const routes: Routes = [
       { path: ROUTE.trainingdeelnamePageRoute, component: TrainingDeelnameComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.trainingdeelnamePageRoles } },
       { path: ROUTE.trainingoverzichtPageRoute, component: TrainingOverzichtComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.trainingdeelnamePageRoles } },
       { path: ROUTE.testPageRoute, component: TestComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
-      { path: ROUTE.offlinePageRoute, component: OfflineComponent },
-      { path: '**', component: DashboardComponent }
+      { path: '**', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] }
     ]
   },
+  { path: ROUTE.offlinePageRoute, component: OfflineComponent },
 ];
 
 @NgModule({

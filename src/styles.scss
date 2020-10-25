@@ -47,17 +47,6 @@ $alt-theme: mat-light-theme($alt-theme-primary, $custom-theme-accent, $custom-th
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
-// Hieronder toegevoegd
-
-
-// @media only screen and (max-width: 900px) {
-//   .hideonmobile{
-//     display: none;
-//  }
-// }
-
-
 @media (min-width:s.$min-width) {
   .boxcontainer {
     display: flex;
