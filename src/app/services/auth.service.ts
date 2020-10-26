@@ -27,6 +27,7 @@ export class AuthService {
         map(response => {
           localData = response;
           if (localData && localData.Token) {
+            localStorage.removeItem('token');
             localStorage.setItem('token', localData.Token);
             return true;
           }

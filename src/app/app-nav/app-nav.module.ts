@@ -1,11 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
@@ -14,11 +8,6 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ConfigDialogComponent } from './headerconfigdialog/config.dialog';
 import { NotificationDialogComponent } from './headernotificationdialog/notification.dialog';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +16,9 @@ import { DefaultComponent } from './default/default.component';
 import { A2hsSafariHow2 } from '../shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
 import { LoginComponent } from './login/login.component';
 import { NotallowedComponent } from './notallowed/notallowed.component';
+import { SignInDialogComponent } from './sign-in/sign-in.dialog';
+import { OfflineComponent } from './offline/offline.component';
+import { CustomMaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +31,8 @@ import { NotallowedComponent } from './notallowed/notallowed.component';
     A2hsSafariHow2,
     LoginComponent,
     NotallowedComponent,
+    SignInDialogComponent,
+    OfflineComponent,
   ],
   imports: [
     CommonModule,
@@ -49,26 +43,8 @@ import { NotallowedComponent } from './notallowed/notallowed.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     LayoutModule,
-
-    MatSidenavModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatListModule,
+    CustomMaterialModule,
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    ConfigDialogComponent,
-    NotificationDialogComponent,
-  ]
 })
 
 export class AppNavModule { }

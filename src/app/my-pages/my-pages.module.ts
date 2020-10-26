@@ -23,7 +23,6 @@ import { LedenDialogComponent } from './../my-pages/ledenmanager/ledenmanager.di
 import { LedenDeleteDialogComponent } from './../my-pages/ledenmanager/ledendelete.dialog';
 import { MailDialogComponent } from './../my-pages/mail/mail.dialog';
 import { RolesDialogComponent } from './../my-pages/users/roles.dialog';
-import { SignInDialogComponent } from './../my-pages/sign-in/sign-in.dialog';
 import { SingleMailDialogComponent } from './../my-pages/mail/singlemail.dialog';
 import { TrainingOverzichtDialogComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.dialog';
 import { WebsiteDialogComponent } from './../my-pages/website/website.dialog';
@@ -83,7 +82,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LedenDeleteDialogComponent,
     MailDialogComponent,
     RolesDialogComponent,
-    SignInDialogComponent,
     SingleMailDialogComponent,
     TrainingOverzichtDialogComponent,
     WebsiteDialogComponent,
@@ -108,37 +106,5 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FullCalendarModule,
     // AngularIbanModule,
   ],
-  // exports: [
-  //   LedenComponent,
-  //   LedenManagerComponent,
-  //   MailComponent,
-  //   AgendaComponent,
-  //   WebsiteComponent,
-  //   LadderComponent,
-  //   MultiUpdateComponent,
-  //   DownloadComponent,
-  //   ContrBedragenComponent,
-  //   OudLedenComponent,
-  //   UsersComponent,
-  //   SyncNttbComponent,
-  //   TrainingDeelnameComponent,
-  //   TrainingOverzichtComponent,
-  //   TestComponent,
-
-  //   AgendaDialogComponent,
-  //   LedenDialogComponent,
-  //   LedenDeleteDialogComponent,
-  //   MailDialogComponent,
-  //   RolesDialogComponent,
-  //   SignInDialogComponent,
-  //   SingleMailDialogComponent,
-  //   TrainingOverzichtDialogComponent,  
-  //   WebsiteDialogComponent,
-
-  //   SelectLidDropdownComponent,
-  //   CheckboxListComponent,
-  //   ParentComponent,
-
-  // ]
 })
 export class MyPagesModule { }

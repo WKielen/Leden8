@@ -10,7 +10,7 @@ import { UsersComponent } from './my-pages/users/users.component';
 import { OudLedenComponent } from './my-pages/oud-leden/oud-leden.component';
 import { DownloadComponent } from './my-pages/download/download.component';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { OfflineComponent } from './my-pages/offline/offline.component';
+import { OfflineComponent } from './app-nav/offline/offline.component';
 import { MultiUpdateComponent } from './my-pages/multi-update/multi-update.component';
 import { ContrBedragenComponent } from './my-pages/contr-bedragen/contr-bedragen.component';
 import { MailComponent } from './my-pages/mail/mail.component';
@@ -27,6 +27,7 @@ import { NotallowedComponent } from './app-nav/notallowed/notallowed.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: ROUTE.offlinePageRoute, component: OfflineComponent },
   {
     path: '',
     component: DefaultComponent,canActivate: [AuthGuard],
@@ -53,13 +54,12 @@ const routes: Routes = [
       { path: '**', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] }
     ]
   },
-  { path: ROUTE.offlinePageRoute, component: OfflineComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  declarations: [OfflineComponent],
+  // declarations: [OfflineComponent],
 })
 
 export class AppRoutingModule { }

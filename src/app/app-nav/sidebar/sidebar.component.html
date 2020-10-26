@@ -1,13 +1,7 @@
+<h2>{{name}}</h2>
+<img src="assets/images/Logo-TTVN.png" alt="TTVN logo">
+<mat-divider></mat-divider>
 <mat-nav-list>
-    <div class="profile-card">
-        <div class="header">
-            <h2>{{name}}</h2>
-        </div>
-        <img src="assets/images/Logo-TTVN.png" alt="TTVN logo">
-    </div>
-
-    <mat-divider></mat-divider>
-
     <a mat-list-item                        (click)="route(routeDashboard)">Dashboard</a>
     <a mat-list-item *ngIf="showRouteLeden" (click)="route(routeLeden)">Leden</a>
     <a mat-list-item *ngIf="showRouteLedenmanager" (click)="route(routeLedenmanager)">Leden manager</a>
