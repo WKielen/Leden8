@@ -10,7 +10,7 @@
     {
       "name": "Ledenlijst",
       "short_name": "Ledenlijst",
-      "url": "https://ttvn.nl/app/#/leden",
+      "url": "/app/#/leden",
       "icons": [
         {
           "src": "assets/icons/app-logo-192x192.png",
@@ -22,7 +22,7 @@
     {
       "name": "Presentielijst Jeugdtrainingen",
       "short_name": "Presentielijst",
-      "url": "https://ttvn.nl/app/#/trainingdeelname",
+      "url": "/app/#/trainingdeelname",
       "icons": [
         {
           "src": "assets/icons/app-logo-192x192.png",
