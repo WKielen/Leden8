@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { ROUTE } from '../shared/classes/Page-Role-Variables';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthGuard implements CanActivate {
       if (!!this.authService.isLoggedIn()) {
         return true;
       } else {
-        this.router.navigate([environment.loginPage], {queryParams: {returnUrl: state.url}} ); // Query params -> als je specifieke pag opgeeft dan gaat deze pag mee naar de login pag en naar login wordt er direct naar deze pag doorgerouteerd
+        this.router.navigate([ROUTE.loginPageRoute], {queryParams: {returnUrl: state.url}} ); // Query params -> als je specifieke pag opgeeft dan gaat deze pag mee naar de login pag en naar login wordt er direct naar deze pag doorgerouteerd
       }
     return false;
   }

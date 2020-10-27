@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ROUTE } from '../shared/classes/Page-Role-Variables';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -23,7 +24,7 @@ export class AdminAuthGuard implements CanActivate {
       }
     }
 
-    this.router.navigate(['/notallowed']); //TODO: not allowed page
+    this.router.navigate([ROUTE.notAllowedPageRoute]);
     return false;
   }
 }

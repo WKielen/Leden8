@@ -45,7 +45,9 @@ export const ROUTE = {
     testPageRoute: 'test',
     trainingdeelnamePageRoute: 'trainingdeelname',
     trainingoverzichtPageRoute: 'trainingoverzicht',
-    offlinePageRoute: 'offline'
+    offlinePageRoute: 'offline',
+    notAllowedPageRoute: 'notallowed',
+    loginPageRoute: 'login'
 };
 
 //anotherfile.ts that refers to global constants

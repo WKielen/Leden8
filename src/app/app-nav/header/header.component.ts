@@ -7,6 +7,7 @@ import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config
 import { NotificationDialogComponent } from 'src/app/app-nav/headernotificationdialog/notification.dialog';
 import { LogonData } from 'src/app/shared/classes/LogonData';
 import { A2hsSafariHow2 } from 'src/app/shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
+import { ROUTE } from 'src/app/shared/classes/Page-Role-Variables';
 
 @Component({
   selector: 'app-header',
@@ -44,7 +45,7 @@ export class HeaderComponent implements OnInit {
 
   onSignOff(): void {
     this.authService.logOff();
-    this.router.navigate([environment.loginPage]);
+    this.router.navigate([ROUTE.loginPageRoute]);
     this.logonData.IsLoggedOn = false;
     this.logonData.ShouldDisplayMenu = false;
   }

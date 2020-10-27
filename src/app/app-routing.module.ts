@@ -26,14 +26,14 @@ import { LoginComponent } from './app-nav/login/login.component';
 import { NotallowedComponent } from './app-nav/notallowed/notallowed.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: ROUTE.loginPageRoute, component: LoginComponent },
   { path: ROUTE.offlinePageRoute, component: OfflineComponent },
   {
     path: '',
     component: DefaultComponent,canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent},
-      { path: 'notallowed', component: NotallowedComponent  },
+      { path: ROUTE.notAllowedPageRoute, component: NotallowedComponent  },
       { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },

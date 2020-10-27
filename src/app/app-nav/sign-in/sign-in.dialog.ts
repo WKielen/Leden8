@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { environment } from './../../../environments/environment';
+import { ROUTE } from 'src/app/shared/classes/Page-Role-Variables';
 
 @Component({
     selector: 'app-signin-dialog',
@@ -46,7 +47,7 @@ export class SignInDialogComponent {
           .subscribe(result => {
             if (result) {
               const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-              this.router.navigate([returnUrl || environment.dashboardPage ]);
+              this.router.navigate([returnUrl || ROUTE.dashboardPageRoute ]);
               this.dialogRef.close(true);
             } else {
               this.invalidLogin = true;
