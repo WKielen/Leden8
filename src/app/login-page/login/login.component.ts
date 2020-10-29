@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SignInDialogComponent } from 'src/app/app-nav/sign-in/sign-in.dialog';
+import { SignInDialogComponent } from 'src/app/login-page/sign-in-dialog/sign-in.dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { LogonData } from 'src/app/shared/classes/LogonData';
 

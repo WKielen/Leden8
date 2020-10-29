@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MyErrorStateMatcher } from '../../shared/error-handling/Field.Error.State.Matcher';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { environment } from './../../../environments/environment';
 import { ROUTE } from 'src/app/shared/classes/Page-Role-Variables';
+import { MyErrorStateMatcher } from 'src/app/shared/error-handling/Field.Error.State.Matcher';
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-signin-dialog',

@@ -21,12 +21,10 @@ import { SyncNttbComponent } from './my-pages/syncnttb/syncnttb.component';
 import { TrainingDeelnameComponent } from './my-pages/trainingdeelname/trainingdeelname.component';
 import { TrainingOverzichtComponent } from './my-pages/trainingoverzicht/trainingoverzicht.component';
 import { DefaultComponent } from './app-nav/default/default.component';
-import { TestComponent } from './my-pages/test/test.component';
-import { LoginComponent } from './app-nav/login/login.component';
 import { NotallowedComponent } from './app-nav/notallowed/notallowed.component';
 
 const routes: Routes = [
-  { path: ROUTE.loginPageRoute, component: LoginComponent },
+  { path: ROUTE.loginPageRoute, loadChildren: () => import('./login-page/login.module').then(m => m.LoginModule) },
   { path: ROUTE.offlinePageRoute, component: OfflineComponent },
   {
     path: '',
@@ -38,7 +36,7 @@ const routes: Routes = [
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
       { path: ROUTE.mailPageRoute, component: MailComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.mailPageRoles } },
-      { path: ROUTE.agendaPageRoute, component: AgendaComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaPageRoles } },
+      { path: ROUTE.agendaPageRoute, loadChildren: () => import('./my-pages/agenda/agenda.module').then(m => m.AgendaModule), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaPageRoles } },
       { path: ROUTE.agendaManagerPageRoute, component: AgendaManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaManagerPageRoles } },
       { path: ROUTE.websitePageRoute, component: WebsiteComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.websitePageRoles } },
       { path: ROUTE.multiupdatePageRoute, component: MultiUpdateComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.multiupdatePageRoles } },
@@ -50,7 +48,7 @@ const routes: Routes = [
       { path: ROUTE.syncnttbPageRoute, component: SyncNttbComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.syncnttbPageRoles } },
       { path: ROUTE.trainingdeelnamePageRoute, component: TrainingDeelnameComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.trainingdeelnamePageRoles } },
       { path: ROUTE.trainingoverzichtPageRoute, component: TrainingOverzichtComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.trainingdeelnamePageRoles } },
-      { path: ROUTE.testPageRoute, component: TestComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
+      { path: ROUTE.testPageRoute, loadChildren: () => import('./my-pages/test/test.module').then(m => m.TestModule), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
       { path: '**', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] }
     ]
   },

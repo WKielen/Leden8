@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LogonData } from 'src/app/shared/classes/LogonData';
 import { AuthService } from 'src/app/services/auth.service';
 
 /*
@@ -22,7 +21,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class DefaultComponent implements OnInit {
 
   sideBarOpen: boolean = false;
-  logonData: LogonData = new LogonData();
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -30,7 +28,7 @@ export class DefaultComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setUserInfo();
+    // this.setUserInfo();
   }
 
   isHandset = false;
@@ -49,15 +47,15 @@ export class DefaultComponent implements OnInit {
     this.sideBarOpen = $event;
   }
 
-  logonStatus($event) {
-    this.logonData = $event;
-    this.sideBarSetVisibilty(this.logonData.ShouldDisplayMenu);
-  }
+  // logonStatus($event) {
+  //   this.logonData = $event;
+  //   this.sideBarSetVisibilty(this.logonData.ShouldDisplayMenu);
+  // }
   
-  setUserInfo(): void {
-    this.logonData.IsLoggedOn = this.authService.isLoggedIn();
-    this.logonData.Name = this.authService.fullName;
-    this.logonData.UserId = this.authService.userId;
-  }
+  // setUserInfo(): void {
+  //   this.logonData.IsLoggedOn = this.authService.isLoggedIn();
+  //   this.logonData.Name = this.authService.fullName;
+  //   this.logonData.UserId = this.authService.userId;
+  // }
 
 }

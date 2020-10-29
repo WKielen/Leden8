@@ -15,7 +15,7 @@ import { UsersComponent } from './../my-pages/users/users.component';
 import { SyncNttbComponent } from './../my-pages/syncnttb/syncnttb.component';
 import { TrainingDeelnameComponent } from './../my-pages/trainingdeelname/trainingdeelname.component';
 import { TrainingOverzichtComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.component';
-import { TestComponent } from './../my-pages/test/test.component';
+// import { TestComponent } from './../my-pages/test/test.component';
 
 import { AgendaDialogComponent } from './../my-pages/agenda/agenda.dialog';
 import { AgendaDetailDialogComponent } from './../my-pages/agenda/agenda.detail.dialog';
@@ -30,7 +30,6 @@ import { AgendaManagerComponent } from './agenda-manager/agenda-manager.componen
 
 import { SelectLidDropdownComponent } from '../shared/components/select.lid.dropdown.component';
 import { CheckboxListComponent } from '../shared/components/checkbox.list.component';
-import { ParentComponent } from '../shared/components/parent.component';
 import { CustomMaterialModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,20 +39,18 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
-import { A2hsComponent } from '../shared/components/a2hs/a2hs.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-
-
-import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import listPlugin from '@fullcalendar/list';
 
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-  dayGridPlugin,
-  interactionPlugin,
-  listPlugin
-]);
+// import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+
+// FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+//   dayGridPlugin,
+//   interactionPlugin,
+//   listPlugin
+// ]);
 
 
 @NgModule({
@@ -62,7 +59,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LedenComponent,
     LedenManagerComponent,
     MailComponent,
-    AgendaComponent,
+    // AgendaComponent,
     WebsiteComponent,
     LadderComponent,
     MultiUpdateComponent,
@@ -73,11 +70,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SyncNttbComponent,
     TrainingDeelnameComponent,
     TrainingOverzichtComponent,
-    TestComponent,
+    // TestComponent,
     AgendaManagerComponent,
 
-    AgendaDialogComponent,
-    AgendaDetailDialogComponent,
+
     LedenDialogComponent,
     LedenDeleteDialogComponent,
     MailDialogComponent,
@@ -88,8 +84,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 
     SelectLidDropdownComponent,
     CheckboxListComponent,
-    ParentComponent,
-    A2hsComponent,
   ],
   imports: [
     CommonModule,
@@ -103,7 +97,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HttpClientModule,
     SharedModule,
     AngularEditorModule,
-    FullCalendarModule,
+    // FullCalendarModule,
     // AngularIbanModule,
   ],
 })
