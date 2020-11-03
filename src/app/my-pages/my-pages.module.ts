@@ -26,7 +26,7 @@ import { RolesDialogComponent } from './../my-pages/users/roles.dialog';
 import { SingleMailDialogComponent } from './../my-pages/mail/singlemail.dialog';
 import { TrainingOverzichtDialogComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.dialog';
 import { WebsiteDialogComponent } from './../my-pages/website/website.dialog';
-import { AgendaManagerComponent } from './agenda-manager/agenda-manager.component';
+// import { AgendaManagerComponent } from './agenda-manager/agenda-manager.component';
 
 import { SelectLidDropdownComponent } from '../shared/components/select.lid.dropdown.component';
 import { CheckboxListComponent } from '../shared/components/checkbox.list.component';
@@ -44,13 +44,13 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import listPlugin from '@fullcalendar/list';
 
-// import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
 
-// FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-//   dayGridPlugin,
-//   interactionPlugin,
-//   listPlugin
-// ]);
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+  listPlugin
+]);
 
 
 @NgModule({
@@ -59,7 +59,9 @@ import listPlugin from '@fullcalendar/list';
     LedenComponent,
     LedenManagerComponent,
     MailComponent,
-    // AgendaComponent,
+    AgendaComponent,
+    AgendaDialogComponent,
+    AgendaDetailDialogComponent,
     WebsiteComponent,
     LadderComponent,
     MultiUpdateComponent,
@@ -71,7 +73,7 @@ import listPlugin from '@fullcalendar/list';
     TrainingDeelnameComponent,
     TrainingOverzichtComponent,
     // TestComponent,
-    AgendaManagerComponent,
+    // AgendaManagerComponent,
 
 
     LedenDialogComponent,
@@ -97,7 +99,7 @@ import listPlugin from '@fullcalendar/list';
     HttpClientModule,
     SharedModule,
     AngularEditorModule,
-    // FullCalendarModule,
+    FullCalendarModule,
     // AngularIbanModule,
   ],
 })

@@ -14,9 +14,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DefaultComponent } from './default/default.component';
 import { A2hsSafariHow2 } from '../shared/components/a2hs-ios-safari-how2/a2hs-ios-safari-how2';
-// import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { NotallowedComponent } from './notallowed/notallowed.component';
-// import { SignInDialogComponent } from './sign-in/sign-in.dialog';
+import { SignInDialogComponent } from './sign-in-dialog/sign-in.dialog';
 import { OfflineComponent } from './offline/offline.component';
 import { CustomMaterialModule } from '../material.module';
 
@@ -31,6 +31,8 @@ import { CustomMaterialModule } from '../material.module';
     A2hsSafariHow2,
     NotallowedComponent,
     OfflineComponent,
+    LoginComponent,
+    SignInDialogComponent,
   ],
   imports: [
     CommonModule,

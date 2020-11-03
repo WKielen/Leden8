@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { TestRoutingModule } from './test-routing.module';
 import { TestComponent } from './test.component';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
@@ -21,9 +21,15 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     A2hsComponent,
   ],
   imports: [
+    RouterModule.forChild([
+      {
+        path: '',
+        component: TestComponent
+      }
+    ]),
     CommonModule,
-    TestRoutingModule,
     FullCalendarModule
   ]
 })
-export class TestModule { }
+
+export class Module { }
