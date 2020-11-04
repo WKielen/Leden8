@@ -44,10 +44,10 @@ export function BerekenContributie(lid: LedenItemExt,
     }
 
     if (lid.LidType == LidTypeValues.ZWERFLID) {             // Zwerflid
-        berekendeBedragen.BasisContributie = Math.round(((berekendeBedragen.BasisContributie * contributieBedragen.ZwerflidPercentage / 100) + Number.EPSILON ) * 100 ) / 100;
+        berekendeBedragen.BasisContributie = Math.round(((berekendeBedragen.BasisContributie * contributieBedragen.ZwerflidPercentage / 100) + Number.EPSILON) * 100) / 100;
     }
 
-    if (String(lid.VrijwilligersKorting ).toBoolean()) {
+    if (String(lid.VrijwilligersKorting).toBoolean()) {
         berekendeBedragen.KortingVrijwilliger = contributieBedragen.KortingVrijwilliger * -1;
     }
 
@@ -95,6 +95,9 @@ export function BerekenContributieOudeMethode(lid: LedenItemExt,
         if (String(lid.CompGerechtigd).toBoolean()) {
             berekendeBedragen.CompetitieBijdrage = contributieBedragen.CompetitieBijdrageJeugd;
         }
+        if (String(lid.LidBond).toBoolean()) {
+            berekendeBedragen.Bondsbijdrage = contributieBedragen.HalfjaarBondBijdrage;
+        }
     }
     if (lid.LeeftijdCategorieBond.substring(0, 3) == 'Wel' || lid.LeeftijdCategorieBond.substring(0, 3) == 'Pup') {
         berekendeBedragen.BasisContributie -= 2.50;
@@ -108,7 +111,7 @@ export function BerekenContributieOudeMethode(lid: LedenItemExt,
     }
 
     if (lid.LidType == LidTypeValues.ZWERFLID) {             // Zwerflid
-        berekendeBedragen.BasisContributie = Math.round(((berekendeBedragen.BasisContributie * contributieBedragen.ZwerflidPercentage / 100) + Number.EPSILON ) * 100 ) / 100;
+        berekendeBedragen.BasisContributie = Math.round(((berekendeBedragen.BasisContributie * contributieBedragen.ZwerflidPercentage / 100) + Number.EPSILON) * 100) / 100;
     }
 
     if (String(lid.VrijwilligersKorting).toBoolean()) {
