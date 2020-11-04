@@ -21,7 +21,7 @@ import { Moment } from 'moment';
   templateUrl: './trainingdeelname.component.html',
   styleUrls: ['./trainingdeelname.component.scss'],
   providers: [
-    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' }   // veranderd het click gedrag van (alle) checkboxen. Zie material docs
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } }   // veranderd het click gedrag van (alle) checkboxen. Zie material docs
   ],
 })
 export class TrainingDeelnameComponent extends ParentComponent implements OnInit {
@@ -29,7 +29,7 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
   @ViewChild('picker', {static: false}) picker: MatDatepicker<any>;
 
-  public displayedColumns: string[] = ['Naam', 'actions1'];
+  public displayedColumns: string[] = ['actions1', 'Naam'];
   public dataSource = new MatTableDataSource<LedenItemTableRow>();
   public fabButtons = [];  // dit zijn de buttons op het scherm
   public fabIcons = [{ icon: 'save' }, { icon: 'event' }];
@@ -167,6 +167,7 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
   / The onRowClick from a row that has been hit
   /***************************************************************************************************/
   onRowClick(row: LedenItemTableRow): void {
+    // console.log('onRowClick', row.State );
     row.SetNextState();
   }
 }
