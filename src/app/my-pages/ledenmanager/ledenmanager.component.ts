@@ -38,7 +38,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
 
     ngOnInit(): void {
         this.registerSubscription(
-            this.ledenService.getActiveMembers$()
+            this.ledenService.getActiveMembers$(true)
                 .subscribe((data: Array<LedenItem>) => {
                     this.dataSource.data = data;
                 }));
