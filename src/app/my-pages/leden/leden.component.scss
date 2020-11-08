@@ -11,8 +11,8 @@
 }
 
 .cell {
-  text-align:left;
-  vertical-align:top;
+  text-align: left;
+  vertical-align: top;
 }
 
 // row van de drie tabellen, zonder dit komt er een grijze regel onder elke regel
@@ -32,33 +32,39 @@ tr.detail-row {
 }
 
 th.mat-column-Naam {
-  width:10px;
+  width: 10px;
 }
 
 th.mat-header-cell {
-  width:10px;
+  width: 10px;
 }
 
-
-
- // omgekeerde kleuren ivm uitklap frame
- .mat-row:nth-child( even )
- {
-     background-color: #f5f5f5;
- }
- .mat-row:nth-child( odd )
- {
-     background-color: white;
- }
-
+// omgekeerde kleuren ivm uitklap frame
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+.mat-row:nth-child(odd) {
+  background-color: white;
+}
 
 // voor het linkse overzicht
 .cell-static {
-  padding: 10px 0px 10px 40px!important;
+  padding: 10px 0px 10px 40px !important;
 }
 
 // voor het linkse overzicht
 .cell-header-static {
-  padding: 10px 0px 10px 25px!important;
+  padding: 10px 0px 10px 25px !important;
 }
 
+.mat-icon-button {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  .mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+}

@@ -14,7 +14,7 @@
             </div>
             <mat-form-field floatLabel="never" style="width:100px">
               <mat-label>Zoek</mat-label>
-              <input matInput [formControl]="nameFilter" autocomplete="off">
+              <input matInput id="zoek1" [formControl]="nameFilter" autocomplete="off">
             </mat-form-field>
           </th>
           <td mat-cell *matCellDef="let element" class='firstcolumnshrink'> {{ element.Naam }} </td>
@@ -28,7 +28,7 @@
             </div>
             <mat-form-field class="filter" floatLabel="never" style="width:60px">
               <mat-label>Zoek</mat-label>
-              <input matInput [formControl]="ageFilter">
+              <input matInput id="zoek2" [formControl]="ageFilter">
             </mat-form-field>
           </th>
           <td mat-cell *matCellDef="let element" class='lastcolumnshrink'> {{ element.LeeftijdCategorieBond }} </td>
@@ -42,7 +42,8 @@
               <table>
                 <tr>
                   <td width="30%"></td>
-                  <td width="70%"></td>
+                  <td width="65%"></td>
+                  <td width="5%"></td>
                 </tr>
                 <!-- <tr>    TODO:     has to be sanatized -> uitzoeken hoe! 
                   <td class='cell'>
@@ -56,6 +57,11 @@
                 <tr *ngIf='element.Mobiel'>
                   <td class='cell'>Mobiel:</td>
                   <td class='cell'>{{ element.Mobiel }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Mobiel)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Telefoon'>
                   <td class='cell'>Telefoon:</td>
@@ -64,6 +70,11 @@
                 <tr *ngIf='element.GeboorteDatum'>
                   <td class='cell'>Geboortedatum:</td>
                   <td class='cell'>{{ element.GeboorteDatum }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.GeboorteDatum)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Leeftijd'>
                   <td class='cell'>Leeftijd:</td>
@@ -76,14 +87,29 @@
                 <tr *ngIf='element.Email1'>
                   <td class='cell'>Email 1 :</td>
                   <td class='cell'>{{ element.Email1 }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Email1)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Email2'>
                   <td class='cell'>Email 2 :</td>
                   <td class='cell'>{{ element.Email2 }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Email2)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.BondsNr'>
                   <td class='cell'>BondsNr:</td>
                   <td class='cell'>{{ element.BondsNr }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.BondsNr)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.LeeftijdCategorieBond'>
                   <td class='cell'>Categorie:</td>
@@ -100,14 +126,29 @@
                 <tr *ngIf='element.Adres'>
                   <td class='cell'>Adres:</td>
                   <td class='cell'>{{ element.Adres }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Adres)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Woonplaats'>
                   <td class='cell'>Woonplaats:</td>
                   <td class='cell'>{{ element.Woonplaats }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Woonplaats)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Postcode'>
                   <td class='cell'>Postcode:</td>
                   <td class='cell'>{{ element.Postcode }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Postcode)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
 
                 <tr *ngIf='element.Geslacht'>
@@ -151,19 +192,37 @@
                 </tr>
                 <tr *ngIf='element.Ouder1_Email1'>
                   <td class='cell'>Ouder Email 1:</td>
-                  <td class='cell'>{{ element. Ouder1_Email1 }}</td>
+                  <td class='cell'>{{ element.Ouder1_Email1 }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Ouder1_Email1)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Ouder1_Email2'>
                   <td class='cell'>Ouder Email 2:</td>
-                  <td class='cell'>{{ element. Ouder1_Email2 }}</td>
+                  <td class='cell'>{{ element.Ouder1_Email2 }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Ouder1_Email2)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Ouder1_Mobiel'>
                   <td class='cell'>Ouder mobiel:</td>
-                  <td class='cell'>{{ element. Ouder1_Mobiel }}</td>
+                  <td class='cell'>{{ element.Ouder1_Mobiel }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Ouder1_Mobiel)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Ouder1_Telefoon'>
                   <td class='cell'>Ouder telefoon :</td>
                   <td class='cell'>{{ element.Ouder1_Telefoon }}</td>
+                  <td>
+                    <mat-icon [inline]="true">content_copy</mat-icon>
+                  </td>
                 </tr>
                 <tr *ngIf='element.Medisch'>
                   <td class='cell'>Medisch:</td>
@@ -373,4 +432,3 @@
     </div>
   </div>
 </div>
-

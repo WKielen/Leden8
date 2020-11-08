@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LedenService, LedenItem, LidTypeValues, BetaalWijzeValues } from '../../services/leden.service';
+import { LedenService, LedenItem, LidTypeValues, BetaalWijzeValues, LedenItemExt } from '../../services/leden.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CountingValues } from 'src/app/shared/modules/CountingValues';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-leden',
@@ -24,7 +25,8 @@ export class LedenComponent extends ParentComponent implements OnInit {
 
   constructor(
     protected snackBar: MatSnackBar,
-    protected ledenService: LedenService) {
+    protected ledenService: LedenService,
+    private clipboard: Clipboard) {
     super(snackBar)
   }
 
@@ -34,7 +36,7 @@ export class LedenComponent extends ParentComponent implements OnInit {
   public ledenDataArrayOpgezegd: LedenItem[] = [];
   public columnsToDisplay: string[] = ['Naam', 'Leeftijd'];
   public categories = new CountingValues([]);
-  public expandedElement; // added on the angular 8 upgrade to suppres error message
+  public expandedElement: LedenItemExt; // added on the angular 8 upgrade to suppres error message
 
 
   nameFilter = new FormControl('');
@@ -112,6 +114,15 @@ export class LedenComponent extends ParentComponent implements OnInit {
   }
 
   /***************************************************************************************************
+  / Als er op een copy icon wordt gekikt dan wordt de waarde in het clipboard gezet
+  /***************************************************************************************************/
+  onClickCopy(field:string) {
+    console.log('copied: ', field);
+    this.clipboard.copy(field);
+    this.showSnackBar('Copied: ' + field);
+  }
+
+  /***************************************************************************************************
   / HTML help functies
   /***************************************************************************************************/
   getLidType(value: string): string {
@@ -121,6 +132,7 @@ export class LedenComponent extends ParentComponent implements OnInit {
   getLidCategory(value: string): number {
     return this.categories.get(value);
   }
+
 }
 
 
