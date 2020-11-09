@@ -24,7 +24,9 @@ export const PAGEROLES = {
     ladderPageRoles: [ROLES.ADMIN, ROLES.JC],
     syncnttbPageRoles: [ROLES.ADMIN, ROLES.LEDENADMIN],
     testPageRoles: [ROLES.TEST],
-    trainingdeelnamePageRoles: [ROLES.TRAINER, ROLES.ADMIN, ROLES.BESTUUR,],
+    trainingdeelnamePageRoles: [ROLES.TRAINER, ROLES.JC, ROLES.ADMIN, ROLES.BESTUUR,],
+    masterzPageRoles: [ROLES.TRAINER, ROLES.JC, ROLES.ADMIN, ROLES.BESTUUR,],
+
 };
 
 export const ROUTE = {
@@ -47,16 +49,7 @@ export const ROUTE = {
     trainingoverzichtPageRoute: 'trainingoverzicht',
     offlinePageRoute: 'offline',
     notAllowedPageRoute: 'notallowed',
-    loginPageRoute: 'login'
+    loginPageRoute: 'login',
+    masterzPageRoute: 'masterz',
 };
 
-//anotherfile.ts that refers to global constants
-/*
-import { GlobalVariable } from './path/global';
-
-export class HeroService {
-    private baseApiUrl = GlobalVariable.BASE_API_URL;
-
-    //... more code
-}
-*/

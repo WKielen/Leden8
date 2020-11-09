@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { LedenItem, LedenService } from 'src/app/services/leden.service';
+import { LedenItem, LedenItemExt, LedenService } from 'src/app/services/leden.service';
 import * as moment from 'moment';
 import { formatDate } from '@angular/common';
 import { DateRoutines } from 'src/app/services/leden.service';
@@ -16,7 +16,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
   private todayMoment = moment();
   private todayDate = moment().toDate();
-  private ledenDataArray: LedenItem[] = [];
+  private ledenDataArray = [];
 
   // input voor de linechart
   public bigChart = null;
@@ -46,14 +46,14 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   private countAge_35_65: number = 0;
   private countAge_65_100: number = 0;
 
-  private countMembershipLengt_1: number = 0;
-  private countMembershipLengt_2: number = 0;
-  private countMembershipLengt_3: number = 0;
-  private countMembershipLengt_5: number = 0;
-  private countMembershipLengt_7: number = 0;
-  private countMembershipLengt_10: number = 0;
-  private countMembershipLengt_20: number = 0;
-  private countMembershipLengt_30: number = 0;
+  private countMembershipLenght_1: number = 0;
+  private countMembershipLenght_2: number = 0;
+  private countMembershipLenght_3: number = 0;
+  private countMembershipLenght_5: number = 0;
+  private countMembershipLenght_7: number = 0;
+  private countMembershipLenght_10: number = 0;
+  private countMembershipLenght_20: number = 0;
+  private countMembershipLenght_30: number = 0;
 
 
   constructor(
@@ -64,9 +64,11 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    /***************************************************************************************************
+    / We halen alle leden op en vullen vervolgens de counters.
+    /***************************************************************************************************/
     let sub = this.ledenService.getAll$()
-      .subscribe((data: Array<LedenItem>) => {
+      .subscribe((data: Array<object>) => {
         this.ledenDataArray = data;
         this.FillTheCounters();
         this.bigChart = this.GetDataForLineChart();
@@ -78,12 +80,112 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     this.registerSubscription(sub);
   }
 
+  /***************************************************************************************************
+  / We vullen de counters voor al de vier grafieken
+  /***************************************************************************************************/
   FillTheCounters(): void {
+
+    // Vanaf hier gaan we actuele gegevens voor de piecharts verzamelen
+    this.ledenDataArray.forEach(lid => {
+      if (lid.Opgezegd == '1') return;
+      lid.Leeftijd = DateRoutines.AgeRel(lid.GeboorteDatum, this.todayDate);
+      lid.membershipYears = this.todayMoment.get('years') - moment(lid.LidVanaf).get('years');
+
+      if (lid.Leeftijd <= 17) {
+        if (lid.Geslacht == 'M') {
+          this.countJunMale += 1;
+        } else {
+          this.countJunFemale += 1;
+        }
+      } else {
+        if (lid.Geslacht == 'M') {
+          this.countSenMale += 1;
+        } else {
+          this.countSenFemale += 1;
+        }
+      }
+
+      switch (true) {
+        case lid.Leeftijd <= 10: {
+          this.countAge_0_10 += 1;
+          break;
+        }
+        case lid.Leeftijd <= 12: {
+          this.countAge_11_12 += 1;
+          break;
+        }
+        case lid.Leeftijd <= 14: {
+          this.countAge_13_14 += 1;
+          break;
+        }
+        case lid.Leeftijd <= 17: {
+          this.countAge_15_17 += 1;
+          break;
+        }
+        case lid.Leeftijd <= 25: {
+          this.countAge_17_25 += 1;
+          break;
+        }
+        case lid.Leeftijd <= 35: {
+          this.countAge_25_35 += 1;
+          break;
+        }
+        case lid.Leeftijd <= 65: {
+          this.countAge_35_65 += 1;
+          break;
+        }
+        default: {
+          this.countAge_65_100 += 1;
+          break;
+        }
+      }
+
+      switch (true) {
+        case lid.membershipYears <= 1: {
+          this.countMembershipLenght_1 += 1;
+          break;
+        }
+        case lid.membershipYears <= 2: {
+          this.countMembershipLenght_2 += 1;
+          break;
+        }
+        case lid.membershipYears <= 3: {
+          this.countMembershipLenght_3 += 1;
+          break;
+        }
+        case lid.membershipYears <= 5: {
+          this.countMembershipLenght_5 += 1;
+          break;
+        }
+        case lid.membershipYears <= 7: {
+          this.countMembershipLenght_7 += 1;
+          break;
+        }
+        case lid.membershipYears <= 10: {
+          this.countMembershipLenght_10 += 1;
+          break;
+        }
+        case lid.membershipYears <= 20: {
+          this.countMembershipLenght_20 += 1;
+          break;
+        }
+        default: {
+          this.countMembershipLenght_30 += 1;
+          break;
+        }
+      }
+    });
+
+    // Eerst creeren we de datums op de x-as
     this.CreateArrayWithReferenceDates();   // fills referenceDateArray and xAxisValueArray
+
+    // per datum op de x-as gaan we het aantal leden tellen
     this.referenceDateArray.forEach(referenceDate => {
       let countLeden = 0;
       let countJuniorLeden = 0;
       let countSeniorLeden = 0;
+
+      // voor een datum gaan we alle leden langs of ze misschien al lid waren. 
       this.ledenDataArray.forEach(lid => {
         let lidvanaf: Date = new Date(lid.LidVanaf);
         let lidtot: Date = new Date(lid.LidTot);
@@ -99,107 +201,19 @@ export class DashboardComponent extends ParentComponent implements OnInit {
           }
         }
       });
+
+      // we hebben de tellers voor een datum. Voeg ze toe aan de array
       this.countMemberArray.push(countLeden);
       this.countJuniorMemberArray.push(countJuniorLeden);
       this.countSeniorMemberArray.push(countSeniorLeden);
     });
 
-    this.ledenDataArray.forEach(lid => {
-      let lidtot: Date = new Date(lid.LidTot);
-
-      if (this.todayDate < lidtot || lid.Opgezegd == '0') {
-        let age = DateRoutines.AgeRel(lid.GeboorteDatum, this.todayDate);
-        let membershipYears = this.todayMoment.get('years') - moment(lid.LidVanaf).get('years');
-
-        if (age <= 17) {
-          if (lid.Geslacht == 'M') {
-            this.countJunMale += 1;
-          } else {
-            this.countJunFemale += 1;
-          }
-        } else {
-          if (lid.Geslacht == 'M') {
-            this.countSenMale += 1;
-          } else {
-            this.countSenFemale += 1;
-          }
-        }
-
-        switch (true) {
-          case age <= 10: {
-            this.countAge_0_10 += 1;
-            break;
-          }
-          case age <= 12: {
-            this.countAge_11_12 += 1;
-            break;
-          }
-          case age <= 14: {
-            this.countAge_13_14 += 1;
-            break;
-          }
-          case age <= 17: {
-            this.countAge_15_17 += 1;
-            break;
-          }
-          case age <= 25: {
-            this.countAge_17_25 += 1;
-            break;
-          }
-          case age <= 35: {
-            this.countAge_25_35 += 1;
-            break;
-          }
-          case age <= 65: {
-            this.countAge_35_65 += 1;
-            break;
-          }
-          default: {
-            this.countAge_65_100 += 1;
-            break;
-          }
-        }
-
-        switch (true) {
-          case membershipYears <= 1: {
-            this.countMembershipLengt_1 += 1;
-            break;
-          }
-          case membershipYears <= 2: {
-            this.countMembershipLengt_2 += 1;
-            break;
-          }
-          case membershipYears <= 3: {
-            this.countMembershipLengt_3 += 1;
-            break;
-          }
-          case membershipYears <= 5: {
-            this.countMembershipLengt_5 += 1;
-            break;
-          }
-          case membershipYears <= 7: {
-            this.countMembershipLengt_7 += 1;
-            break;
-          }
-          case membershipYears <= 10: {
-            this.countMembershipLengt_10 += 1;
-            break;
-          }
-          case membershipYears <= 20: {
-            this.countMembershipLengt_20 += 1;
-            break;
-          }
-          default: {
-            this.countMembershipLengt_30 += 1;
-            break;
-          }
-        }
-      }
-    });
-
   }
 
 
+  /***************************************************************************************************
+  / Definitie voor de 3 lijnen op de lijngrafiek
+  /***************************************************************************************************/
   GetDataForLineChart(): GraphData {
     let lineData = new GraphData();
     lineData.xAxis = this.xAxisValueArray;
@@ -223,6 +237,23 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     return lineData;
   }
 
+  /***************************************************************************************************
+  / Maak een array met datums die onder aan de line grafiek komen te staan
+  /***************************************************************************************************/
+  CreateArrayWithReferenceDates(): void {
+    let mydate = moment('2013-01-01');
+    while (mydate < this.todayMoment) {
+      let date = mydate.toDate();
+      this.referenceDateArray.push(date);
+      this.xAxisValueArray.push(formatDate(date, 'yyyy-MM', 'nl'));
+      mydate = mydate.add(6, 'M');
+    }
+  }
+
+
+  /***************************************************************************************************
+  / PIE 1: Vrouw / Man verdeling
+  /***************************************************************************************************/
   GetDataForMaleFemalePie(): GraphData {
     let pieData = new GraphData();
     pieData.Title = 'Vrouw / Man verdeling';
@@ -252,6 +283,9 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   }
 
 
+  /***************************************************************************************************
+  / PIE 2: Leeftijd verdeling
+  /***************************************************************************************************/
   GetDataForAgePie(): GraphData {
     let pieData = new GraphData();
     pieData.Title = 'Leeftijd verdeling';
@@ -287,51 +321,42 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     return pieData;
   }
 
-
+  /***************************************************************************************************
+  / PIE 3: Lenghte Lidmaatschap verdeling
+  /***************************************************************************************************/
   GetDataForMemberschipPie(): GraphData {
     let pieData = new GraphData();
-    pieData.Title = 'Lengte lidmaatschap';
+    pieData.Title = 'Lenghte lidmaatschap';
     pieData.yAxisTitle = 'leden';
     pieData.LabelFormat = '<b>{point.name}</b>: {point.percentage:.1f} %';
     pieData.TooltipFormat = '{point.y} {series.name}: <b>{point.percentage:.1f}%</b>';
     pieData.Data = [{
       name: '< 1 jaar',
-      y: this.countMembershipLengt_1,
+      y: this.countMembershipLenght_1,
     }, {
       name: '2 jaar',
-      y: this.countMembershipLengt_2
+      y: this.countMembershipLenght_2
     }, {
       name: '3 jaar',
-      y: this.countMembershipLengt_3
+      y: this.countMembershipLenght_3
     }, {
       name: '4-5 jaar',
-      y: this.countMembershipLengt_5,
+      y: this.countMembershipLenght_5,
     }, {
       name: '6-7 jaar',
-      y: this.countMembershipLengt_7,
+      y: this.countMembershipLenght_7,
     }, {
       name: '8-10 jaar',
-      y: this.countMembershipLengt_10
+      y: this.countMembershipLenght_10
     }, {
       name: '11-20 jaar',
-      y: this.countMembershipLengt_20
+      y: this.countMembershipLenght_20
     }, {
       name: '> 20 jaar',
-      y: this.countMembershipLengt_30,
+      y: this.countMembershipLenght_30,
     }];
 
     return pieData;
-  }
-
-
-  CreateArrayWithReferenceDates(): void {
-    let mydate = moment('2013-01-01');
-    while (mydate < this.todayMoment) {
-      let date = mydate.toDate();
-      this.referenceDateArray.push(date);
-      this.xAxisValueArray.push(formatDate(date, 'yyyy-MM', 'nl'));
-      mydate = mydate.add(6, 'M');
-    }
   }
 
   /***************************************************************************************************

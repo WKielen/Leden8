@@ -23,7 +23,6 @@ export class SidebarComponent implements OnInit {
   showRouteLedenmanager: boolean = false;
   showRouteMail: boolean = false;
   showRouteAgenda: boolean = false;
-  // showRouteAgendamanager: boolean = false;
   showRouteWebsite: boolean = false;
   showRouteLadder: boolean = false;
   showRouteMultiupdate: boolean = false;
@@ -35,6 +34,7 @@ export class SidebarComponent implements OnInit {
   showRouteTest: boolean = false;
   showRouteTrainingDeelname: boolean = false;
   showRouteTrainingOverzicht: boolean = false;
+  showRouteMasterz: boolean = false;
 
   // De routes naar de pagina's 
   routeDashboard = ROUTE.dashboardPageRoute;
@@ -42,7 +42,6 @@ export class SidebarComponent implements OnInit {
   routeLedenmanager = ROUTE.ledenmanagerPageRoute;
   routeMail = ROUTE.mailPageRoute;
   routeAgenda = ROUTE.agendaPageRoute;
-  // routeAgendamanager = ROUTE.agendaManagerPageRoute;
   routeWebsite = ROUTE.websitePageRoute;
   routeLadder = ROUTE.ladderPageRoute;
   routeMultiupdate = ROUTE.multiupdatePageRoute;
@@ -54,6 +53,7 @@ export class SidebarComponent implements OnInit {
   routeTest = ROUTE.testPageRoute;
   routeTrainingDeelname = ROUTE.trainingdeelnamePageRoute;
   routeTrainingOverzicht = ROUTE.trainingoverzichtPageRoute;
+  routeMasterz = ROUTE.masterzPageRoute;
 
   // Wordt gebruikt om de naam te tonen bovenaan het menu
   name = this.authService.fullName;
@@ -69,7 +69,6 @@ export class SidebarComponent implements OnInit {
     this.showRouteLedenmanager = this.authService.showRoute(PAGEROLES.ledenmanagerPageRoles);
     this.showRouteMail = this.authService.showRoute(PAGEROLES.mailPageRoles);
     this.showRouteAgenda = this.authService.showRoute(PAGEROLES.agendaPageRoles);
-    // this.showRouteAgendamanager = this.authService.showRoute(PAGEROLES.agendaManagerPageRoles);
     this.showRouteWebsite = this.authService.showRoute(PAGEROLES.websitePageRoles);
     this.showRouteLadder = this.authService.showRoute(PAGEROLES.ladderPageRoles);
     this.showRouteMultiupdate = this.authService.showRoute(PAGEROLES.multiupdatePageRoles);
@@ -81,6 +80,7 @@ export class SidebarComponent implements OnInit {
     this.showRouteTest = this.authService.showRoute(PAGEROLES.testPageRoles);
     this.showRouteTrainingDeelname = this.authService.showRoute(PAGEROLES.trainingdeelnamePageRoles);
     this.showRouteTrainingOverzicht = this.authService.showRoute(PAGEROLES.trainingdeelnamePageRoles);
+    this.showRouteMasterz = this.authService.showRoute(PAGEROLES.masterzPageRoles);
   }
   // Op de mobiel wordt het menu automatisch gesloten wanneer en een keuze is gemaakt.
   route(myRoute: string): void {
