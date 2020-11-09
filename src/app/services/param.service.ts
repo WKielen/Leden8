@@ -20,7 +20,7 @@ export class ParamService extends DataService {
   / Read the Parameter and CREATE one in the database if it doesn't exist. After this read only an 
   / update statement is needed.
   /***************************************************************************************************/
-  readParamData$(Id: string, Default?: string, Description?: string): Observable<String>{
+  readParamData$(Id: string, Default?: string, Description?: string): Observable<string>{
     return this.http.get(environment.baseUrl + "/param/get?Id='" + Id + "'")
       .pipe(
         map(response => {
