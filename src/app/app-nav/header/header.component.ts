@@ -24,13 +24,14 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthService,
-    // public signinDialog: MatDialog,
     public configDialog: MatDialog
   ) {
   }
 
   ngOnInit() {
-    this.setUserInfo();
+    this.logonData.IsLoggedOn = this.authService.isLoggedIn();
+    this.logonData.Name = this.authService.fullName;
+    this.logonData.UserId = this.authService.userId;
   }
 
   // Toggle de sidebar via de DOM. 
@@ -71,11 +72,4 @@ export class HeaderComponent implements OnInit {
       data: {}
     })
   }
-
-  setUserInfo(): void {
-    this.logonData.IsLoggedOn = this.authService.isLoggedIn();
-    this.logonData.Name = this.authService.fullName;
-    this.logonData.UserId = this.authService.userId;
-  }
-
 }

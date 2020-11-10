@@ -150,3 +150,31 @@ class LedenItemTableRow {
   LidNr: number;
   Checked: any;
 }
+
+
+
+
+
+/*
+Beste TTVN-er,
+
+'Veilig sporten' is de speerpunten van het NOC/NSF (Nederlands Olympisch Comite). Bij 'Veilig sporten' kan je denken aan regels tegen pesten, ongewenste opmerkingen en aanrakingen. Naast deze zaken valt ook het spelen van wedstrijden onder 'Veilig sporten'. Hier moet je er aan denken dat het prettig is als je tegenstander volgens dezelfde spelregels speelt, als jij. 
+Om dit te bereiken, heeft het NOC/NSF bepaald dat alle jeugdsporten op de hoogte moeten zijn van de spelregels van hun sport. Dit geldt dus ook voor tafeltennissers. 
+Onze eigen bond, de Nationale Tafeltennisbond (NTTB), heeft bepaald dat alle jeugdspelers van 13 jaar en ouder moeten laten zien dat ze op de hoogte zijn van de spelregels. Ze hebben daarvoor een test gemaakt die je via een website kan invullen. Op website staan ook de belangrijkste spelregels en oefentoetsen.
+Dus als je 13 of ouder bent en je gaat competitie spelen dan moet je deze test doen. 
+
+Het werkt als volgt:
+1. Ga naar www.tafeltennismasterz.nl
+2. Voer je bondsnummer in
+3. Klik op  [Wachtwoord (opnieuw) instellen]
+4. Je ontvangt een mail met bevestigingslink. Je ontvangt deze op het mailadres dat jij of je ouders aan TTVN hebt doorgegeven.
+5. Klik op de link
+6. Vervolgens wordt gevraagd om een wachtwoord (Zelf bedenken!)
+7. Vul het wachtwoord twee keer in en bevestig
+8. Je kunt inloggen met je bondsnummer en wachtwoord
+
+Als je je bondsnummer of email niet meer weet, neem dan contact op met mij.
+
+
+
+*/
