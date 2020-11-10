@@ -1,4 +1,4 @@
-<div class="boxcontainer alternative-theme">
+<div class="boxcontainer">
   <div fxLayout="column" style='margin-right: 10px;'>
     <div class="box">
       <form [formGroup]="mailForm" novalidate>
@@ -7,7 +7,7 @@
         <div class="boxcontent">
           <mat-dialog-content>
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
-              <div fxFlex="30">
+              <div fxFlex="0 0 30%">
                 <mat-form-field class="mat-form-max-width">
                   <mat-select placeholder="Bewaarde mails" formControlName="SavedMails"
                     (selectionChange)="onMailNameChanged($event)">
@@ -16,36 +16,29 @@
                 </mat-form-field>
               </div>
 
-              <div fxFlex="66">
+              <div fxFlex="0 0 66%">
+                <div fxLayout="column">
 
-                <mat-form-field style="width: 50%">
-                  <input matInput type="text" placeholder="Naam mail" formControlName="EmailName"
-                    [formControl]="EmailName">
-                  <mat-error *ngIf="EmailName.hasError('required')">
-                    Veld is verplicht
-                  </mat-error>
-                </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="Naam mail" formControlName="EmailName"
+                      [formControl]="EmailName">
+                    <mat-error *ngIf="EmailName.hasError('required')">
+                      Veld is verplicht
+                    </mat-error>
+                  </mat-form-field>
 
-                <mat-form-field class="mat-form-max-width">
-                  <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject"
-                    [formControl]="EmailSubject">
-                  <mat-error *ngIf="EmailSubject.hasError('required')">
-                    Veld is verplicht
-                  </mat-error>
-                </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject"
+                      [formControl]="EmailSubject">
+                    <mat-error *ngIf="EmailSubject.hasError('required')">
+                      Veld is verplicht
+                    </mat-error>
+                  </mat-form-field>
 
-                <!-- <mat-form-field class="mat-form-max-width">
-                  <textarea matInput type="text" placeholder="Email tekst" formControlName="TypeYourMail"
-                    [formControl]="TypeYourMail" matTextareaAutosize matAutosizeMinRows='5'></textarea>
-                  <mat-error *ngIf="TypeYourMail.hasError('required')">
-                    Veld is verplicht
-                  </mat-error>
-                </mat-form-field> -->
-                <angular-editor formControlName="HtmlContent" [config]="editorConfig"
-                  [placeholder]="'Enter text here...'"></angular-editor>
-                <!-- <mat-form-field class="mat-form-max-width">
-                  <angular-editor formControlName="htmlContent" [formControl]="TypeYourMail" [config]="editorConfig"></angular-editor>
-                </mat-form-field> -->
+                  <angular-editor formControlName="HtmlContent" [config]="editorConfig"
+                    [placeholder]="'Enter text here...'"></angular-editor>
+
+                </div>
               </div>
 
             </div>

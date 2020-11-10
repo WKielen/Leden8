@@ -26,14 +26,14 @@
 // // that you are using.
 // @include angular-material-theme($Leden-theme);
 
-$custom-theme-primary: mat-palette($mat-yellow, 700); 
+$custom-theme-primary: mat-palette($mat-blue, 900); 
 $custom-theme-accent: mat-palette($mat-grey); 
 $custom-theme-warn: mat-palette($mat-red); 
 $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
 @include angular-material-theme($custom-theme);
 
-$alt-theme-primary: mat-palette($mat-blue, 900); 
+$alt-theme-primary: mat-palette($mat-yellow, 700); 
 $alt-theme: mat-light-theme($alt-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
 .alternative-theme {

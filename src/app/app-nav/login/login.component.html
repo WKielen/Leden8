@@ -1,7 +1,5 @@
 <body>
-
     <div id="bg"></div>
-
     <main>
         <section id="card">
             <ul>
@@ -22,11 +20,12 @@
         <section id="primary">
             <h1>TTVN Nieuwegein</h1>
             <p>Administratie</p>
-
-            <button mat-button mat-raised-button color="primary" (click)="openSigninDialog()">
-                <mat-icon>person</mat-icon>
-                <span style="font-size: 11pt">Inloggen</span>
-            </button>
+            <div class="alternative-theme">
+                <button mat-button mat-raised-button color="primary" (click)="openSigninDialog()">
+                    <mat-icon>person</mat-icon>
+                    <span style="font-size: 11pt">Inloggen</span>
+                </button>
+            </div>
         </section>
     </main>
 

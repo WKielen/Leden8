@@ -29,7 +29,7 @@ main.ts  import extensions gekopieerd
 
 inhoud manifest.json gekopieerd naar manifest.webmanifest
 inhoud styles.scss toegevoegd aan styles.scss
-inhoud van alternative-theme gekopieerd in styles.scss
+inhoud van gekopieerd in styles.scss
 
 folders gekopieerd:
 - src/app/app-nav

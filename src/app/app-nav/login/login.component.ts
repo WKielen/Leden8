@@ -19,9 +19,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-//todo token weggooiren
-
-
     this.setUserInfo();
   }
   /* Een pop-up signinDialog heeft een witte rand waardoor de opmaak niet netjes is. Voeg onderstaande toe aan styles.css */
@@ -38,9 +35,6 @@ export class LoginComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {  // in case of cancel the result will be false
         this.setUserInfo();
-        // this.logonData.IsLoggedOn = true;
-        // this.logonData.ShouldDisplayMenu = true;
-        // this.changeLogonStatus(this.logonData);
       }
     });
   }

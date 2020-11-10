@@ -1,48 +1,46 @@
-<div class="boxcontainer alternative-theme">
-  <div class="box" style="flex-basis: 70%;">
-    <div class="boxheader">Website mededelingen</div>
-    <div class="boxcontent">
+<div class="box" style="flex-basis: 70%;">
+  <div class="boxheader">Website mededelingen</div>
+  <div class="boxcontent">
 
-      <mat-table #table [dataSource]="dataSource" class="mat-cell">
+    <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
-        <ng-container matColumnDef="StartDate">
-          <mat-header-cell *matHeaderCellDef class="hideonmobile">Vanaf</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="hideonmobile">{{ element.StartDate }}</mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="StartDate">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Vanaf</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="hideonmobile">{{ element.StartDate }}</mat-cell>
+      </ng-container>
 
-        <ng-container matColumnDef="EndDate">
-          <mat-header-cell *matHeaderCellDef class="hideonmobile ">Tot en met</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="hideonmobile">{{ element.EndDate }}</mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="EndDate">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile ">Tot en met</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="hideonmobile">{{ element.EndDate }}</mat-cell>
+      </ng-container>
 
-        <ng-container matColumnDef="Header">
-          <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Onderwerp</mat-header-cell>
-          <mat-cell *matCellDef="let element" class='firstcolumnshrink'>{{ element.Header }}</mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="Header">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Onderwerp</mat-header-cell>
+        <mat-cell *matCellDef="let element" class='firstcolumnshrink'>{{ element.Header }}</mat-cell>
+      </ng-container>
 
-        <!-- actions -->
-        <ng-container matColumnDef="actions2">
-          <mat-header-cell *matHeaderCellDef>
-            <button mat-icon-button color="primary" (click)="onAdd()">
-              <mat-icon aria-label="Add icon">add</mat-icon>
-            </button>
-          </mat-header-cell>
+      <!-- actions -->
+      <ng-container matColumnDef="actions2">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="onAdd()">
+            <mat-icon aria-label="Add icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
 
-          <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="primary" (click)="onEdit(i)">
-              <mat-icon aria-label="Edit">edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
-              <mat-icon aria-label="Delete" (click)="onDelete(i)">delete</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="primary" (click)="onEdit(i)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn">
+            <mat-icon aria-label="Delete" (click)="onDelete(i)">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
 
-        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-        <mat-row *matRowDef="let row; index as i; columns: columnsToDisplay;" (dblclick)="onDblclick($event, i)">
-        </mat-row>
-      </mat-table>
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; index as i; columns: columnsToDisplay;" (dblclick)="onDblclick($event, i)">
+      </mat-row>
+    </mat-table>
 
-    </div>
   </div>
 </div>

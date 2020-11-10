@@ -1,15 +1,13 @@
-<div class="alternative-theme">
-    <h2 mat-dialog-title class="boxheader">Mail</h2>
-    <div class="boxcontent">
+<h2 mat-dialog-title class="boxheader">Mail</h2>
+<div class="boxcontent">
 
-        <mat-form-field class='mat-form-max-width'>
-            <textarea matInput type="text" placeholder="Email tekst" [(ngModel)]="mailText" matTextareaAutosize
-                matAutosizeMinRows='5'></textarea>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="onSendMail($event)">Verzend
-            mail</button>
+    <mat-form-field class='mat-form-max-width'>
+        <textarea matInput type="text" placeholder="Email tekst" [(ngModel)]="mailText" matTextareaAutosize
+            matAutosizeMinRows='5'></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="onSendMail($event)">Verzend
+        mail</button>
 
-        <button mat-raised-button mat-dialog-close color="accent" class="box-bottom-button">Cancel</button>
+    <button mat-raised-button mat-dialog-close color="accent" class="box-bottom-button">Cancel</button>
 
-    </div>
 </div>
