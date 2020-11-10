@@ -42,7 +42,7 @@ export function ReplaceKeywords(lid: LedenItemExt, body: string): string {
     body = Replace(body, /%leeftijdscategorie%/gi, lid.LeeftijdCategorieBond);
     body = Replace(body, /%leeftijd%/gi, lid.Leeftijd);
     body = Replace(body, /%iban%/gi, lid.IBAN);
-    body = Replace(body, /%magopfoto%/gi, String(lid.MagNietOpFoto).toDutchTextString()); // Omgedraaid?
+    body = Replace(body, /%magopfoto%/gi, String(!lid.MagNietOpFoto).toDutchTextString());
 
     return body;
 }
