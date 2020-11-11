@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { digest } from '@angular/compiler/src/i18n/digest';
 import { LedenDialogComponent } from '../ledenmanager/ledenmanager.dialog';
 import { MatDialog } from '@angular/material/dialog';
 

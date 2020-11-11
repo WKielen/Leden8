@@ -14,7 +14,6 @@ export const PAGEROLES = {
     ledenmanagerPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN],
     mailPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
     agendaPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
-    // agendaManagerPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
     websitePageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
     multiupdatePageRoles: [ROLES.ADMIN, ROLES.PENNINGMEESTER, ROLES.LEDENADMIN],
     downloadPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
@@ -26,7 +25,6 @@ export const PAGEROLES = {
     testPageRoles: [ROLES.TEST],
     trainingdeelnamePageRoles: [ROLES.TRAINER, ROLES.JC, ROLES.ADMIN, ROLES.BESTUUR,],
     masterzPageRoles: [ROLES.TRAINER, ROLES.JC, ROLES.ADMIN, ROLES.BESTUUR,],
-
 };
 
 export const ROUTE = {
@@ -51,5 +49,6 @@ export const ROUTE = {
     notAllowedPageRoute: 'notallowed',
     loginPageRoute: 'login',
     masterzPageRoute: 'masterz',
+    compadminPageRoute: 'compadmin',
 };
 

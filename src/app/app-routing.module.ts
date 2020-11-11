@@ -51,6 +51,7 @@ const routes: Routes = [
       { path: ROUTE.trainingoverzichtPageRoute, component: TrainingOverzichtComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.trainingdeelnamePageRoles } },
       { path: ROUTE.masterzPageRoute, component: MasterzComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.masterzPageRoles } },
       { path: ROUTE.testPageRoute, loadChildren: () => import('./my-pages/test/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
+      { path: ROUTE.compadminPageRoute, loadChildren: () => import('./my-pages/comp-admin/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
       { path: '**', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] }
     ]
   },
