@@ -1,14 +1,12 @@
 <div class="boxcontainer">
   <div class="box" style="flex-basis: 30%;">
 
-    <div class="boxheader">Upload XLS Ledenlijst uit NAS</div>
+    <div class="boxheader">Upload TXT met bondsnummers</div>
     <div class="boxcontent">
-      De Sync NTTB functie is om te controleren welke verschillen er zijn in onze eigen ledenadministratie en NAS. Dit
-      is vooral nuttig om te controleren we geen onnodige competitiebonds bijdrage betalen.<br>
-      Met onderstaande knoppen kan je een ledenlijst uploaden die in NAS is gemaakt. In NAS onder 'Overzicht
-      Exporteren' kies 'LedenLijst'. Onder het overzicht staat 'genereer xls'. Het bestand dat je in NAS aanmaakt moet
-      worden ingelezen met onderstaande knop.
-
+      Deze functie is om te controleren welke verschillen er zijn in onze eigen ledenadministratie en de uitslagen NAS. Dit
+      is vooral nuttig om te controleren we geen onnodige competitie bijdrage betalen.<br>
+      Met onderstaande knoppen kan je een bestand uploaden. Dit tekst bestand moet op iedere regel beginnen met een bondsnummer (+ spatie) van een speler
+      die in de uitslagen voorkomt.
       <br><br>
       <div>
         <button mat-raised-button color="primary" (click)="fileInput.click()">
@@ -32,6 +30,34 @@
   <div class="box" style="flex-basis: 50%;">
     <div class="boxheader">Verschillen</div>
     <div class="boxcontent">
+      <mat-table #table [dataSource]="dataSource" class="mat-cell">
+
+        <ng-container matColumnDef="Naam">
+          <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Naam</mat-header-cell>
+          <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{row.naam}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Verschil">
+          <mat-header-cell *matHeaderCellDef>Verschil</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.verschil}}</mat-cell>
+        </ng-container>
+
+
+        <!-- actions -->
+        <ng-container matColumnDef="actions1">
+          <mat-header-cell *matHeaderCellDef class='lastcolumnshrink'></mat-header-cell>
+
+          <mat-cell *matCellDef="let row; let i=index;" class='lastcolumnshrink'>
+            <button mat-icon-button color="primary" (click)="onEdit(i)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+      </mat-table>
 
 
     </div>

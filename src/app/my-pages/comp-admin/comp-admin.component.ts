@@ -6,156 +6,208 @@ import { LedenItem, LedenItemExt, LedenService } from 'src/app/services/leden.se
 import { ParamService } from 'src/app/services/param.service';
 import { ParentComponent } from "src/app/shared/components/parent.component";
 import { AppError } from 'src/app/shared/error-handling/app-error';
-
+import { LedenDialogComponent } from '../ledenmanager/ledenmanager.dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
+import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
+import { DuplicateKeyError } from 'src/app/shared/error-handling/duplicate-key-error';
 @Component({
   selector: "app-test",
   templateUrl: "./comp-admin.component.html",
   styleUrls: ["./comp-admin.component.scss"],
 })
-export class CompAdminComponent  extends ParentComponent implements OnInit {
-constructor(private ledenService: LedenService,
-  private paramService: ParamService,
-  private authService: AuthService,
-  protected snackBar: MatSnackBar,
-) {
-  super(snackBar)
-}
+export class CompAdminComponent extends ParentComponent implements OnInit {
+  constructor(private ledenService: LedenService,
+    private paramService: ParamService,
+    public dialog: MatDialog,
+    private authService: AuthService,
+    protected snackBar: MatSnackBar,
+  ) {
+    super(snackBar)
+  }
 
-// nasLedenItems = new NasLedenList();
-private nasLedenItems = [];
-private ledenLijst: LedenItemExt[] = [];
+  private bondsNummers = [];
+  private nasLedenItems = [];
+  private ledenLijst: LedenItemExt[] = [];
 
-@ViewChild(MatTable, { static: false }) table: MatTable<any>;
-public dataSource = new MatTableDataSource<LidDifference>();
-public columnsToDisplay: string[] = ['Naam', 'Verschil', 'actions1'];
+  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  public dataSource = new MatTableDataSource<LidDifference>();
+  public columnsToDisplay: string[] = ['Naam', 'Verschil', 'actions1'];
 
 
-ngOnInit(): void {
-  this.readNasLedenLijst();
-  this.readLedenLijst();
-}
+  ngOnInit(): void {
+    this.readnasComplijst();
+    this.readLedenLijst();
+  }
 
-/***************************************************************************************************
-/ Lees het bewaard mail overzicht uit de Param tabel
-/***************************************************************************************************/
-private readNasLedenLijst(): void {
-  let sub = this.paramService.readParamData$('nasLedenlijst' + this.authService.userId, JSON.stringify([]), 'NAS Ledenlijst' + this.authService.userId)
+  /***************************************************************************************************
+  / Lees het bewaard mail overzicht uit de Param tabel
+  /***************************************************************************************************/
+  private readnasComplijst(): void {
+    let sub = this.paramService.readParamData$('nasComplijst' + this.authService.userId, JSON.stringify([]), 'NAS Ledenlijst' + this.authService.userId)
       .subscribe(data => {
-          this.nasLedenItems = JSON.parse(data as string) as any;;
+        this.bondsNummers = JSON.parse(data as string) as any;;
       },
-          (error: AppError) => {
-              console.log("error", error);
-          }
+        (error: AppError) => {
+          console.log("error", error);
+        }
       )
-  this.registerSubscription(sub);
-}
-
-/***************************************************************************************************
-/ Lees TTVN Ledenlijst uit DB
-/***************************************************************************************************/
-private readLedenLijst(): void {
-  let sub = this.ledenService.getActiveMembers$()
+    this.registerSubscription(sub);
+  }
+  
+  /***************************************************************************************************
+  / Lees TTVN Ledenlijst uit DB
+  /***************************************************************************************************/
+  private readLedenLijst(): void {
+    let sub = this.ledenService.getActiveMembers$()
       .subscribe((data: Array<LedenItem>) => {
-          this.ledenLijst = data;
-          this.onCompare();
+        this.ledenLijst = data;
+        this.onCompare();
       });
-  this.registerSubscription(sub);
-}
-
-/***************************************************************************************************
-/ Importeer de NAS ledenlijst
-/***************************************************************************************************/
-async onClickLedenLijstImport(): Promise<void> {
-
-}
-
-/***************************************************************************************************
-/ Vergelijk de ledenlijst van de bond met die van TTVN
-/***************************************************************************************************/
-onCompare(): void {
-  this.dataSource = new MatTableDataSource<LidDifference>();
-
-  for (let i_ttvn = 0; i_ttvn < this.ledenLijst.length; i_ttvn++) {
-      let lid_ttvn = this.ledenLijst[i_ttvn];
-      let lid_ttvn_in_nas: boolean = false;
-      innerloop:
-      for (let i_nas = 0; i_nas < this.nasLedenItems.length; i_nas++) {
-          let lid_nas = this.nasLedenItems[i_nas];
-
-          if (lid_ttvn.BondsNr == lid_nas['Bondsnr']) {
-              lid_ttvn_in_nas = true;
-              if (String(lid_ttvn.CompGerechtigd).toBoolean() && lid_nas['CG'] == 'N') {
-                  this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'CG: Wel in ttvn maar niet in NAS', lid_ttvn));
-              }
-              if (!String(lid_ttvn.CompGerechtigd).toBoolean() && lid_nas['CG'] == 'J') {
-                  this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'CG: Wel in NAS maar niet in ttvn', lid_ttvn));
-              }
-              break innerloop;
-          }
-      }
-      // Dit lid staat niet in NAS maar staat wel als zodanig in de administratie
-      if (String(lid_ttvn.LidBond).toBoolean() && !lid_ttvn_in_nas) {
-          this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'LB: Wel in ttvn maar niet NAS', lid_ttvn));
-      }
+    this.registerSubscription(sub);
   }
 
-  for (let i_nas = 0; i_nas < this.nasLedenItems.length; i_nas++) {
-      let lid_nas = this.nasLedenItems[i_nas];
-      let lid_nas_in_ttvn: boolean = false;
-      innerloop:
-      for (let i_ttvn = 0; i_ttvn < this.ledenLijst.length; i_ttvn++) {
-          let lid_ttvn = this.ledenLijst[i_ttvn];
-          if (lid_ttvn.BondsNr == lid_nas['Bondsnr']) {
-
-              lid_nas_in_ttvn = true;
-              break innerloop;
-          }
+  /***************************************************************************************************
+  / Importeer de NAS ledenlijst
+  /***************************************************************************************************/
+  async onClickLedenLijstImport(): Promise<void> {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const lines: Array<string> = reader.result.toString().trim().split('\n');
+      this.SubtractBondsNummers(lines);
+      if (lines.length > 0) {
+        this.addImportedNasLedenToDB();
       }
-
-      if (!lid_nas_in_ttvn) {
-          this.dataSource.data.push(addToDifferenceList(lid_nas['Naam'], 'LB: Wel in NAS niet in TTVN', null));
-      }
+      this.onCompare();
+    }
+    reader.readAsText(this.selectedFile);
   }
-}
 
-/***************************************************************************************************
-/ Er is een verschil. Dit gaan we via een dialoog oplossen.
-/***************************************************************************************************/
-onEdit(index: number): void {
+  /***************************************************************************************************
+  / Aanname: Iedere regel van het bestand begint met een bondsnummer
+  /***************************************************************************************************/
+  private SubtractBondsNummers(lines: Array<string>):void {
+    this.bondsNummers = [];
+    lines.forEach(line => {
+      if (line.search(/TTVN/gi) == -1) return;
+      // ik heb hier alleen regels over met TTVN spelers
+      const comps: Array<string> = line.split(' ');
+      this.bondsNummers.push(comps[0]);
+    });
+  }
 
-}
+  /***************************************************************************************************
+  / Vergelijk de lijst bondsnummers met de ledenlijst
+  /***************************************************************************************************/
+  onCompare(): void {
+    this.dataSource = new MatTableDataSource<LidDifference>();
 
-/***************************************************************************************************
-/ We hebben een Nas export ingelezen. Deze gaan we in de DB bewaren
-/***************************************************************************************************/
-private addImportedNasLedenToDB(): void {
-}
+    this.ledenLijst.forEach(lid => {
+      let bondsnummerFound:boolean = false;
+      this.bondsNummers.forEach(bondsnummer => {
+        if (lid.BondsNr == bondsnummer) {
+          bondsnummerFound = true;
+          return;
+        }
+      });
+      if (bondsnummerFound && !lid.CompGerechtigd.toBoolean()) {
+        this.dataSource.data.push(addToDifferenceList(lid.Naam, 'Staat in team maar is niet CG in admin', lid));
+      }
+      if (!bondsnummerFound && lid.CompGerechtigd.toBoolean()) {
+        this.dataSource.data.push(addToDifferenceList(lid.Naam, 'CG in admin maar staat niet in een team', lid));
+      }
+    });
+    this.table.renderRows();
+  }
 
-/***************************************************************************************************
-/ 
-/***************************************************************************************************/
-selectedFile: File = null;
-uploadFileName: string = '';
+  /***************************************************************************************************
+  / Er is een verschil. Dit gaan we via een dialoog oplossen.
+  /***************************************************************************************************/
+  onEdit(index: number): void {
+    let difRecord: LidDifference = this.dataSource.data[index];
+    if (!difRecord.lid) {
+      this.snackBar.open('Dit lid bestaat niet in de administratie');
+      return;
+    }
 
-onFileSelected(fileList: FileList): void {
-  this.selectedFile = fileList[0];
-  this.uploadFileName = this.selectedFile.name;
-}
+    const toBeEdited: LedenItem = difRecord.lid;
+
+    const dialogRef = this.dialog.open(LedenDialogComponent, {
+      panelClass: 'custom-dialog-container', width: '1200px',
+      data: { 'method': 'Wijzigen', 'data': toBeEdited }
+    });
+
+    dialogRef.afterClosed().subscribe((result: LedenItem) => {
+      // console.log('received in OnEdit from dialog');
+      if (result) {  // in case of cancel the result will be false
+        let sub = this.ledenService.update$(result)
+          .subscribe(data => {
+            this.readnasComplijst();
+            this.readLedenLijst();
+            this.showSnackBar(SnackbarTexts.SuccessFulSaved);
+          },
+            (error: AppError) => {
+              if (error instanceof NoChangesMadeError) {
+                this.showSnackBar(SnackbarTexts.NoChanges);
+              } else { throw error; }
+            });
+        this.registerSubscription(sub);
+      }
+    });
+  }
+
+  /***************************************************************************************************
+  / We hebben een Nas export ingelezen. Deze gaan we in de DB bewaren
+  /***************************************************************************************************/
+  private addImportedNasLedenToDB(): void {
+    this.paramService.saveParamData$('nasComplijst' + this.authService.userId, JSON.stringify(this.bondsNummers), 'NAS Ledenlijst' + this.authService.userId)
+    .subscribe(data => {
+        this.showSnackBar(SnackbarTexts.SuccessFulSaved, '');
+    },
+        (error: AppError) => {
+            if (error instanceof NotFoundError) {
+                this.showSnackBar(SnackbarTexts.NotFound, '');
+            }
+            else if (error instanceof DuplicateKeyError) {
+                this.showSnackBar(SnackbarTexts.DuplicateKey, '');
+
+            }
+            else if (error instanceof NoChangesMadeError) {
+                this.showSnackBar(SnackbarTexts.NoChanges, '');
+            }
+            else {
+                this.showSnackBar(SnackbarTexts.UpdateError, '');
+            }
+        });
+
+  }
+
+  /***************************************************************************************************
+  / 
+  /***************************************************************************************************/
+  selectedFile: File = null;
+  uploadFileName: string = '';
+
+  onFileSelected(fileList: FileList): void {
+    this.selectedFile = fileList[0];
+    this.uploadFileName = this.selectedFile.name;
+  }
 }
 
 /***************************************************************************************************
 / Difference between out admin and the NTTB admin
 /***************************************************************************************************/
 export class LidDifference {
-public naam: string = '';
-public verschil: string = '';
-public lid: LedenItemExt;
+  public naam: string = '';
+  public verschil: string = '';
+  public lid: LedenItemExt;
 }
 
 function addToDifferenceList(name: string, message: string, lid: LedenItemExt): LidDifference {
-let dif = new LidDifference();
-dif.naam = name;
-dif.verschil = message;
-dif.lid = lid;
-return dif;
+  let dif = new LidDifference();
+  dif.naam = name;
+  dif.verschil = message;
+  dif.lid = lid;
+  return dif;
 }
