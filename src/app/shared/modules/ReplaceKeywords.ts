@@ -36,9 +36,7 @@ export function ReplaceKeywords(lid: LedenItemExt, body: string): string {
     body = Replace(body, /%lidbond%/gi, String(lid.LidBond).toDutchTextString());
     body = Replace(body, /%compgerechtigd%/gi, String(lid.CompGerechtigd).toDutchTextString());
     body = Replace(body, /%naam%/gi, lid.Naam);
-    body = Replace(body, /%vrijwregeling%/gi, lid.VrijwillgersRegelingIsVanToepassing);
     body = Replace(body, /%rating%/gi, lid.Rating);
-    body = Replace(body, /%vastetaak%/gi, lid.VrijwillgersVasteTaak);
     body = Replace(body, /%leeftijdscategorie%/gi, lid.LeeftijdCategorieBond);
     body = Replace(body, /%leeftijd%/gi, lid.Leeftijd);
     body = Replace(body, /%iban%/gi, lid.IBAN);

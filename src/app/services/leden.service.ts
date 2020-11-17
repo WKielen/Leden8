@@ -214,16 +214,10 @@ export class LedenItem {
   Ouder1_Mobiel?: string = '';
   Ouder1_Telefoon?: string = '';
   Geincasseerd?: string = '';
-  VrijwillgersRegelingIsVanToepassing?: string = '';
   Rating?: number = 0;
-  VrijwillgersVasteTaak?: string = '';
-  VrijwillgersAfgekocht?: string = '';
   LicentieJun?: string = '';
   VrijwillgersToelichting?: string = '';
   LicentieSen?: string = '';
-  ExtraD?: string = '';
-  ExtraE?: string = '';
-  Image?: any = '';
   MagNietOpFoto?: string = '';
   VrijwilligersKorting?: string = '';
   Rol?: string = '';

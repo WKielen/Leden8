@@ -120,10 +120,6 @@
                   <td class='cell'>Medisch:</td>
                   <td class='cell'>{{ element.Medisch }}</td>
                 </tr>
-                <tr *ngIf='element.VrijwillgersRegelingIsVanToepassing'>
-                  <td class='cell'>Vrijw. Regeling :</td>
-                  <td class='cell'>{{ element.VrijwillgersRegelingIsVanToepassing.toDutchTextString() }}</td>
-                </tr>
                 <tr *ngIf='element.VrijwillgersVasteTaak'>
                   <td class='cell'>Vaste Taak :</td>
                   <td class='cell'>{{ element.VrijwillgersVasteTaak.toDutchTextString() }}</td>
