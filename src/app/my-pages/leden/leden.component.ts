@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LedenService, LedenItem, LidTypeValues, BetaalWijzeValues, LedenItemExt } from '../../services/leden.service';
+import { LedenService, LedenItem, LidTypeValues, LedenItemExt } from '../../services/leden.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CountingValues } from 'src/app/shared/modules/CountingValues';
 import { FormControl } from '@angular/forms';
@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { objectEach } from 'highcharts';
 
 @Component({
   selector: 'app-leden',
@@ -34,7 +35,9 @@ export class LedenComponent extends ParentComponent implements OnInit {
   public ledenDataArray: LedenItem[] = [];
   public ledenDataArrayNieuw: LedenItem[] = [];
   public ledenDataArrayOpgezegd: LedenItem[] = [];
+  public ledenDataArrayFotoVerbod: any[] = [];
   public columnsToDisplay: string[] = ['Naam', 'Leeftijd'];
+  public columnsToDisplayPhoto: string[] = ['Naam', 'Groep'];
   public categories = new CountingValues([]);
   public expandedElement: LedenItemExt; // added on the angular 8 upgrade to suppres error message
 
@@ -47,6 +50,7 @@ export class LedenComponent extends ParentComponent implements OnInit {
   };
 
   ngOnInit(): void {
+
     let sub = this.ledenService.getActiveMembers$()
       .subscribe((data) => {
         this.ledenDataArray = data;
@@ -56,9 +60,11 @@ export class LedenComponent extends ParentComponent implements OnInit {
           this.categories.Increment(lid.LeeftijdCategorie);
           this.categories.Increment(lid.LeeftijdCategorieWithSex);
           this.categories.Increment('Totaal');
+          if (lid.MagNietOpFoto == '1')
+            this.ledenDataArrayFotoVerbod.push({VolledigeNaam: lid.VolledigeNaam, LeeftijdCategorie: lid.LeeftijdCategorie });
 
         });
-        //      this.fabButtons = this.fabIcons;  // plaats add button op scherm
+        console.log( this.ledenDataArrayFotoVerbod );
         this.dataSource.data = this.ledenDataArray;
         this.dataSource.filterPredicate = this.createFilter();
       });
