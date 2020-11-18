@@ -86,14 +86,14 @@
 
                 <br>
 
-                <mat-form-field class="margin-right-20" style="width: 150px;">
+                <mat-form-field class="margin-right-20" style="width: 180;">
                     <input matInput placeholder="Email 1" formControlName="email1" [formControl]="email1">
                     <mat-error *ngIf="email1.hasError('email')">
                         Onjuist email adres
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field style="width: 150px;">
+                <mat-form-field style="width: 180;">
                     <input matInput placeholder="Email 2" formControlName="email2" [formControl]="email2">
                     <mat-error *ngIf="email2.hasError('email')">
                         Onjuist email adres
@@ -163,9 +163,12 @@
 
                 <br>
 
-                <mat-form-field class="margin-right-20" style="width: 160px;">
+                <mat-form-field class="margin-right-20" style="width: 180px;">
                     <input matInput placeholder="IBAN" formControlName="iban" [formControl]="iban"
                         oninput="this.value = this.value.toUpperCase()">
+                    <mat-error *ngIf="iban.hasError('iban')">
+                        IBAN onjuist
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field style="width: 120px;">
@@ -240,14 +243,14 @@
 
                 <br>
 
-                <mat-form-field class="margin-right-20" style="width: 150px;">
+                <mat-form-field class="margin-right-20" style="width: 180;">
                     <input matInput placeholder="Email 1" formControlName="ouder1_email1" [formControl]="ouder1_email1">
                     <mat-error *ngIf="ouder1_email1.hasError('email')">
                         Onjuist email adres
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field style="width: 150px;">
+                <mat-form-field style="width: 180;">
                     <input matInput placeholder="Email 2" formControlName="ouder1_email2" [formControl]="ouder1_email2">
                     <mat-error *ngIf="ouder1_email2.hasError('email')">
                         Onjuist email adres
