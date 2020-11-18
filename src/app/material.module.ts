@@ -14,10 +14,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatNativeDateModule } from '@angular/material/'
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
@@ -25,7 +23,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
    exports: [
     MatToolbarModule,
@@ -42,9 +40,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatMenuModule,
     MatSelectModule,
     MatSnackBarModule,
-    // MatProgressSpinnerModule,
     MatDatepickerModule,
-    // MatNativeDateModule,
     MatTableModule,
     MatExpansionModule,
     MatBadgeModule,
@@ -53,6 +49,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatGridListModule,
     MatTooltipModule,
     MatDividerModule,
+    MatTabsModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })

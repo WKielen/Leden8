@@ -1,9 +1,27 @@
-.headers-align .mat-expansion-panel-header-title,
-.headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
+// .headers-align .mat-expansion-panel-header-title,
+// .headers-align .mat-expansion-panel-header-description {
+//   flex-basis: 0;
+// }
+
+// .headers-align .mat-expansion-panel-header-description {
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+
+
+.tab-group {
+  height: 450px;
+  margin: 10px 10px 0px;
+  padding: 0px 10px;
 }
 
-.headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+  min-width: 0!important;
+  padding: 3px!important;
+  margin: 3px!important;
+ }
+
+#tab {
+  margin: 10px 0px 0px 10px !important; 
 }

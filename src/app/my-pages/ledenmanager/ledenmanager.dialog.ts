@@ -2,11 +2,9 @@ import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BetaalWijzeValues, LidTypeValues } from 'src/app/services/leden.service';
-//import { ValidatorService } from 'angular-iban';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
-
 // import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import {ValidatorService} from 'angular-iban';
 
 @Component({
     selector: 'app-ledenmanager-dialog',
@@ -30,7 +28,7 @@ export class LedenDialogComponent implements OnInit {
         medisch: new FormControl(),
         magnietopfoto: new FormControl(),
         //-------------------------------------------------------
-        iban: new FormControl(/*'',  [ValidatorService.validateIban] */),
+        iban: new FormControl('',  [ValidatorService.validateIban] ),
         bic: new FormControl(),
         u_pasNr: new FormControl(),
         vrijwillgersToelichting: new FormControl(),

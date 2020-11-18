@@ -13,7 +13,6 @@ import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { SingleMailDialogComponent, SingleMail } from '../mail/singlemail.dialog';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 import { NotificationService } from 'src/app/services/notification.service';
-import { LidDifference } from '../syncnttb/syncnttb.component';
 import { ROLES } from 'src/app/shared/classes/Page-Role-Variables';
 
 @Component({
@@ -65,8 +64,9 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
 
         // let tmp;
         this.dialog.open(LedenDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '1200px',
-            data: { 'method': 'Toevoegen', 'data': toBeAdded }
+            panelClass: 'custom-dialog-container', width: '600px',
+            data: { 'method': 'Toevoegen', 'data': toBeAdded },  
+            disableClose: true
         })
             .afterClosed()  // returns an observable
             .subscribe(result => {
@@ -112,7 +112,8 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         toBeDeleted.LidTot = new Date().to_YYYY_MM_DD();
         const dialogRef = this.dialog.open(LedenDeleteDialogComponent, {
             panelClass: 'custom-dialog-container', width: '300px',
-            data: { 'method': 'Opzeggen', 'data': toBeDeleted }
+            data: { 'method': 'Opzeggen', 'data': toBeDeleted },  
+            disableClose: true 
         });
 
         dialogRef.afterClosed().subscribe((result: LedenItem) => {
@@ -153,8 +154,9 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         let toBeEdited: LedenItem = this.dataSource.data[index];
 
         const dialogRef = this.dialog.open(LedenDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '1200px',
-            data: { 'method': 'Wijzigen', 'data': toBeEdited }
+            panelClass: 'custom-dialog-container', width: '600px', 
+            data: { 'method': 'Wijzigen', 'data': toBeEdited },  
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe((result: LedenItemExt) => {
@@ -203,7 +205,8 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
 
         this.dialog.open(SingleMailDialogComponent, {
             panelClass: 'custom-dialog-container', width: '800px',
-            data: data
+            data: data,  
+            disableClose: true
         })
     }
 
