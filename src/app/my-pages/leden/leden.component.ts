@@ -7,8 +7,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ParentComponent } from 'src/app/shared/components/parent.component';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { objectEach } from 'highcharts';
-
 @Component({
   selector: 'app-leden',
   templateUrl: './leden.component.html',

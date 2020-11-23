@@ -116,6 +116,7 @@ export class TypeValues {
   public static table: any[] = [
     { Value: 'T', Label: 'Toernooi' },
     { Value: 'C', Label: 'Competitie' },
+    { Value: 'V', Label: 'Vergadering' },
   ];
   public static GetLabel(value: string): string {
     if (!value) {

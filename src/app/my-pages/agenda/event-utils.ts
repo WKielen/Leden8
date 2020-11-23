@@ -70,19 +70,19 @@ export const HOLIDAYS = [
   / Transformeer een Agendaitem naar een event dat aan het Calendar object kan worden toegevoegd.
   / Het AngendaItem object zelf zit in de ExtendedProps
   /***************************************************************************************************/
-export function agendaToEvent(item: AgendaItem): any {
+export function agendaToEvent(agendaItem: AgendaItem): any {
   let event: any = new Object();
-  event.title = item.EvenementNaam;
-  event.date = item.Datum;
+  event.title = agendaItem.EvenementNaam;
+  event.date = agendaItem.Datum;
 
   // Als je start gebruikt dat krijg je een punt te zien met de begintijd. Als je het niet gebruikt dan
   // krijgen we een 'allDay' te zien. Dus een gekleurde achtergrond.
-  //event.start = item.Datum + 'T'+ item.Tijd;
-  event.id = item.Id;
-  event.borderColor = setBorderColor(item.DoelGroep);
-  event.backgroundColor = setBackgroundColor(item.Extra1)[0];
-  event.textColor = setBackgroundColor(item.Extra1)[1];
-  event.extendedProps = { agendaItem: item };
+  //event.start = agendaItem.Datum + 'T'+ agendaItem.Tijd;
+  event.id = agendaItem.Id;
+  event.borderColor = setBorderColor(agendaItem.DoelGroep);
+  event.backgroundColor = setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[0];
+  event.textColor = setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[1];
+  event.extendedProps = { agendaItem: agendaItem };
   return event;
 }
 
@@ -96,9 +96,9 @@ export function setEventProps(
   eventApi.setExtendedProp("agendaItem", agendaItem);
   eventApi.setProp("title", agendaItem.EvenementNaam);
   eventApi.setProp("id", agendaItem.Id);
+  eventApi.setProp("backgroundColor", setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[0]);
+  eventApi.setProp("textColor", setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[1]);
   eventApi.setProp("borderColor", setBorderColor(agendaItem.DoelGroep));
-  eventApi.setProp("backgroundColor", setBackgroundColor(agendaItem.Extra1)[0]);
-  eventApi.setProp("textColor", setBackgroundColor(agendaItem.Extra1)[1]);
 }
 
 function setBorderColor(doelGroep: string): string {
@@ -110,7 +110,19 @@ function setBorderColor(doelGroep: string): string {
   }
 }
 
-function setBackgroundColor(organiser: string): string[] {
+function setBackgroundColor(type: string, organiser: string): string[] {
+  let boxcolor: string = "white";
+  let textcolor: string = "black";
+
+  if (type == 'V') {
+    boxcolor = 'white';
+    if (organiser == '0') textcolor = "orange";
+    if (organiser == '1') textcolor = "blue";
+    if (organiser == '2') textcolor = "#fbc02d";
+    if (organiser == '3') textcolor = "gray";
+    return [boxcolor, textcolor];
+  }
+
   switch (organiser) {
     case "0":
       return ["orange", "white"];
@@ -121,4 +133,5 @@ function setBackgroundColor(organiser: string): string[] {
     case "3":
       return ["gray", "black"];
   }
+  return [boxcolor, textcolor];
 }

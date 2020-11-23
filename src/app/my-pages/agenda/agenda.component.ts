@@ -174,9 +174,12 @@ export class AgendaComponent
         sub = this.agendaService.create$(result.data).subscribe(
           (addResult: any) => {
             result.Id = addResult.Key.toString();
+            result.data.Id = addResult.Key.toString();
+            this.events.push(agendaToEvent(result.data));
             this.calendarApi.unselect(); // clear date selection
             this.calendarApi.addEvent(agendaToEvent(result.data));
             this.showSnackBar(SnackbarTexts.SuccessNewRecord);
+            // bug gevonden. Het ID wordty niet goed bewaard
           },
           (error: AppError) => {
             if (error instanceof DuplicateKeyError) {
