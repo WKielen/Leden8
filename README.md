@@ -123,7 +123,7 @@ Het project is alsvolgt gemaakt:
 * npm install --save angular-iban iban       from https://www.npmjs.com/package/angular-iban
 
 * npm install web-push -g                    look at https://blog.angular-university.io/angular-push-notifications/
-
+* npm install jqwidgets-scripts --save
 
 ```
 

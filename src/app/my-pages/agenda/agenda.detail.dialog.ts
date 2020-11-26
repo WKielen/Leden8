@@ -20,6 +20,7 @@ export class AgendaDetailDialogComponent {
     public doelGroep: string = DoelgroepValues.GetLabel(this.data.data.DoelGroep);
     public type: string = TypeValues.GetLabel(this.data.data.Type);
     public inschrijfGeld: string = Number(this.data.data.Inschrijfgeld).AmountFormat();
+    public toelichting: string = this.data.data.Toelichting.replace(new RegExp('\n', 'g'), "<br>")
 
     onClickModify() {
         this.showDialog('Wijzigen');

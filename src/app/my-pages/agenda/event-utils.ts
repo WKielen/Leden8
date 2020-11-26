@@ -122,7 +122,12 @@ function setBackgroundColor(type: string, organiser: string): string[] {
     if (organiser == '3') textcolor = "gray";
     return [boxcolor, textcolor];
   }
-
+  if (type == 'C') {
+    boxcolor = 'green';
+    textcolor = 'white'
+    return [boxcolor, textcolor];
+  }
+  
   switch (organiser) {
     case "0":
       return ["orange", "white"];

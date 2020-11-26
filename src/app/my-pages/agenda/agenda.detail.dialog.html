@@ -39,7 +39,7 @@
     </tr>
     <tr *ngIf="data.data.Toelichting">
       <td>Toelichting:</td>
-      <td>{{ data.data.Toelichting }}</td>
+      <td><div [innerHTML]="toelichting"></div></td>
     </tr>
     <tr *ngIf="data.data.Inschrijven">
       <td>Inschrijven:</td>

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { LedenComponent } from './../my-pages/leden/leden.component';
 import { LedenManagerComponent } from './../my-pages/ledenmanager/ledenmanager.component';
-import { MailComponent } from './../my-pages/mail/mail.component';
 import { AgendaComponent } from './../my-pages/agenda/agenda.component';
 import { WebsiteComponent } from './../my-pages/website/website.component';
 import { LadderComponent } from './../my-pages/ladder/ladder.component';
@@ -15,7 +14,6 @@ import { UsersComponent } from './../my-pages/users/users.component';
 import { SyncNttbComponent } from './../my-pages/syncnttb/syncnttb.component';
 import { TrainingDeelnameComponent } from './../my-pages/trainingdeelname/trainingdeelname.component';
 import { TrainingOverzichtComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.component';
-// import { TestComponent } from './../my-pages/test/test.component';
 
 import { AgendaDialogComponent } from './../my-pages/agenda/agenda.dialog';
 import { AgendaDetailDialogComponent } from './../my-pages/agenda/agenda.detail.dialog';
@@ -26,7 +24,6 @@ import { RolesDialogComponent } from './../my-pages/users/roles.dialog';
 import { SingleMailDialogComponent } from './../my-pages/mail/singlemail.dialog';
 import { TrainingOverzichtDialogComponent } from './../my-pages/trainingoverzicht/trainingoverzicht.dialog';
 import { WebsiteDialogComponent } from './../my-pages/website/website.dialog';
-// import { AgendaManagerComponent } from './agenda-manager/agenda-manager.component';
 
 import { SelectLidDropdownComponent } from '../shared/components/select.lid.dropdown.component';
 import { CheckboxListComponent } from '../shared/components/checkbox.list.component';
@@ -39,7 +36,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import listPlugin from '@fullcalendar/list';
@@ -59,7 +55,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DashboardComponent,
     LedenComponent,
     LedenManagerComponent,
-    MailComponent,
     AgendaComponent,
     AgendaDialogComponent,
     AgendaDetailDialogComponent,
@@ -100,7 +95,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LayoutModule,
     HttpClientModule,
     SharedModule,
-    AngularEditorModule,
     FullCalendarModule,
     // AngularIbanModule,
   ],
