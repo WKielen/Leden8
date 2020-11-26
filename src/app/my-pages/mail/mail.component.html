@@ -8,7 +8,7 @@
           <mat-dialog-content>
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
               <div fxFlex="0 0 30%">
-                <mat-form-field class="mat-form-max-width">
+                <mat-form-field>
                   <mat-select placeholder="Bewaarde mails" formControlName="SavedMails"
                     (selectionChange)="onMailNameChanged($event)">
                     <mat-option *ngFor="let item of savedMailNames.MailNameItems" [value]="item">{{item}}</mat-option>
@@ -27,7 +27,7 @@
                     </mat-error>
                   </mat-form-field>
 
-                  <mat-form-field>
+                  <mat-form-field class="EmailSubject">
                     <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject"
                       [formControl]="EmailSubject">
                     <mat-error *ngIf="EmailSubject.hasError('required')">

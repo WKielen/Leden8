@@ -82,7 +82,8 @@ export class MailComponent extends ParentComponent implements OnInit {
       height: 'auto',
       minHeight: '20',
       maxHeight: 'auto',
-      width: 'auto',
+      width: '800px',
+      // width: 'auto',
       minWidth: '0',
       translate: 'yes',
       enableToolbar: true,
@@ -118,7 +119,6 @@ export class MailComponent extends ParentComponent implements OnInit {
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
       ['insertImage', 'insertVideo',    
-      'textColor',
       'backgroundColor',
       'customClasses',
       'link',
