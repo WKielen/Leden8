@@ -18,7 +18,7 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
 import { ExternalMailApiRecord, MailItem, MailService } from 'src/app/services/mail.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { jqxEditorComponent } from 'jqwidgets-ng/jqxeditor';
+// import { jqxEditorComponent } from 'jqwidgets-ng/jqxeditor';
 
 @Component({
   selector: 'mail',
@@ -29,7 +29,7 @@ import { jqxEditorComponent } from 'jqwidgets-ng/jqxeditor';
 export class MailComponent extends ParentComponent implements OnInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-  @ViewChild('editor', { static: false }) grid: jqxEditorComponent;
+  // @ViewChild('editor', { static: false }) grid: jqxEditorComponent;
 
   dataSource = new MatTableDataSource<LedenItemExt>();
   itemsToMail: Array<LedenItemExt> = [];
