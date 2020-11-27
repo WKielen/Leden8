@@ -41,7 +41,8 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import listPlugin from '@fullcalendar/list';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { MasterzComponent } from './masterz/masterz.component'; // the main connector. must go first
+import { MasterzComponent } from './masterz/masterz.component';
+import { KomendeWeekComponent } from './komendeweek/komendeweek.component'; // the main connector. must go first
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -83,6 +84,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SelectLidDropdownComponent,
     CheckboxListComponent,
     MasterzComponent,
+    KomendeWeekComponent,
   ],
   imports: [
     CommonModule,

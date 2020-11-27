@@ -9,7 +9,6 @@ export const ROLES = {
 };
 
 export const PAGEROLES = {
-    dashboardPageRoute: [ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.LEDENADMIN, ROLES.PENNINGMEESTER, ROLES.ADMIN, ROLES.TEST],
     ledenPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER],
     ledenmanagerPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN],
     mailPageRoles: [ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC],
@@ -29,6 +28,7 @@ export const PAGEROLES = {
 
 export const ROUTE = {
     dashboardPageRoute: 'dashboard',
+    komendeweekPageRoute: 'komendeweek',
     ledenPageRoute: 'leden',
     ledenmanagerPageRoute: 'ledenmanager',
     mailPageRoute: 'mail',

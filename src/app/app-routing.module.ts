@@ -22,6 +22,7 @@ import { DefaultComponent } from './app-nav/default/default.component';
 import { NotallowedComponent } from './app-nav/notallowed/notallowed.component';
 import { LoginComponent } from './app-nav/login/login.component';
 import { MasterzComponent } from './my-pages/masterz/masterz.component';
+import { KomendeWeekComponent } from './my-pages/komendeweek/komendeweek.component';
 
 const routes: Routes = [
   { path: ROUTE.loginPageRoute, component: LoginComponent },
@@ -32,11 +33,10 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent},
       { path: ROUTE.notAllowedPageRoute, component: NotallowedComponent  },
-      { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.dashboardPageRoute } },
+      { path: ROUTE.komendeweekPageRoute, component: KomendeWeekComponent, canActivate: [AuthGuard] },
+      { path: ROUTE.dashboardPageRoute, component: DashboardComponent, canActivate: [AuthGuard] },
       { path: ROUTE.ledenPageRoute, component: LedenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenPageRoles } },
       { path: ROUTE.ledenmanagerPageRoute, component: LedenManagerComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.ledenmanagerPageRoles } },
-      // { path: ROUTE.mailPageRoute, component: MailComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.mailPageRoles } },
-      // { path: ROUTE.agendaPageRoute, loadChildren: () => import('./my-pages/agenda/agenda.module').then(m => m.AgendaModule), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaPageRoles } },
       { path: ROUTE.agendaPageRoute, component: AgendaComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.agendaPageRoles } },
       { path: ROUTE.websitePageRoute, component: WebsiteComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.websitePageRoles } },
       { path: ROUTE.multiupdatePageRoute, component: MultiUpdateComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.multiupdatePageRoles } },
@@ -52,7 +52,7 @@ const routes: Routes = [
       { path: ROUTE.mailPageRoute, loadChildren: () => import('./my-pages/mail/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.mailPageRoles } },
       { path: ROUTE.testPageRoute, loadChildren: () => import('./my-pages/test/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
       { path: ROUTE.compadminPageRoute, loadChildren: () => import('./my-pages/comp-admin/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
-      { path: '**', component: DashboardComponent, canActivate: [AuthGuard, AdminAuthGuard] }
+      { path: '**', component: DashboardComponent, canActivate: [AuthGuard] }
     ]
   },
 ];

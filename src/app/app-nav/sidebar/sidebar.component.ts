@@ -39,6 +39,7 @@ export class SidebarComponent implements OnInit {
 
   // De routes naar de pagina's 
   routeDashboard = ROUTE.dashboardPageRoute;
+  routeKomendeWeek = ROUTE.komendeweekPageRoute;
   routeLeden = ROUTE.ledenPageRoute;
   routeLedenmanager = ROUTE.ledenmanagerPageRoute;
   routeMail = ROUTE.mailPageRoute;
