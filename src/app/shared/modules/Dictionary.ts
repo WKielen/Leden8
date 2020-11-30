@@ -1,9 +1,10 @@
 export interface IDictionary {
     add(key: string, value: any): void;
     remove(key: string): void;
-    containsKey(key: string): boolean;
+    containsKey(key: string): any;
     keys(): string[];
     values(): any[];
+    getIndex(index: number): any;
 }
 
 export class Dictionary {
@@ -19,7 +20,7 @@ export class Dictionary {
             this._values.push(init[x].value);
         }
     }
-    ;
+    
     add(key: string, value: any) {
         this[key] = value;
         this._keys.push(key);
@@ -33,6 +34,9 @@ export class Dictionary {
     }
     get(key:string) {
         const index = this._keys.indexOf(key, 0);
+        return this._values[index];
+    }
+    getIndex(index:number): any {
         return this._values[index];
     }
     set(key: string, value: any) {

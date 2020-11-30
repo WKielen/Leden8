@@ -1,1 +1,13 @@
-<p>komendeweek works!</p>
+<div id="box" class=" box">
+    <div class="boxheader">Programma komende week</div>
+    <div class="boxcontent">
+        <mat-card *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
+            {{ dagen.keys()[i]  }} <br>
+            
+            <label *ngFor="let item of dagen.getIndex(i); index as j" id='id{{j}}'>
+                {{ dagen.getIndex(i)[j].EvenementNaam  }} <br>
+                {{ dagen.getIndex(i)[j].Toelichting  }} <br>
+            </label>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+@import 'src/styles.scss';
+#box {
+    text-align: center;
+    @include desktop {
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
