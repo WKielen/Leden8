@@ -1,5 +1,5 @@
-<h2 mat-dialog-title class="boxheader">Parameters</h2>
-<div class="boxcontent" style='padding-top: 0px;'>
+<h2 mat-dialog-title>Parameters</h2>
+<mat-dialog-content>
     <mat-card-subtitle>Dagen in overzicht</mat-card-subtitle>
     <section>
         <mat-checkbox color="primary" [(ngModel)]="cb_maandag">M</mat-checkbox>
@@ -19,10 +19,10 @@
     </section>
     <mat-slider thumbLabel color="primary" [(ngModel)]="data.alertAfterNumberOfDays" [displayWith]="formatSliderLabel"
         tickInterval="1" min="1" max="31"></mat-slider>
-    <br>
-</div>
-<div class="boxbottom">
-    <button mat-raised-button class='box-bottom-button' color="primary" (click)='onExit()'>Akkoord</button>
-    <button mat-raised-button class='box-bottom-button' color="primary" (click)="onDownloadOverzicht()"
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)='onExit()'>Akkoord</button>
+    <button mat-raised-button color="primary" (click)="onDownloadOverzicht()"
         matTooltip="Download in CSV van huidige!!! scherm">Download</button>
-</div>
+</mat-dialog-actions>

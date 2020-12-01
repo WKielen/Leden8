@@ -1,11 +1,11 @@
-<h2 mat-dialog-title class="boxheader">Configuratie</h2>
-<div class="boxcontent">
+<h2 mat-dialog-title>Configuratie</h2>
+<mat-dialog-content>
     Aanmelden voor meldingen op deze browser of afmelden voor alle browsers<br>
-</div>
-<div class="boxbottom">
+</mat-dialog-content>
+<mat-dialog-actions>
     <button mat-raised-button color="primary" [disabled]="!enableSubscribeButton" type="button" (click)="onSubscribe()"
-        class='box-bottom-button'>Aanmelden</button>
+        >Aanmelden</button>
     <button mat-raised-button color="primary" [disabled]="!enableUnSubscribeButton" type="button"
-        (click)="onUnSubscribe()" class='box-bottom-button'>Afmelden</button>
-    <button mat-raised-button color="accent" mat-dialog-close class='box-bottom-button'>Cancel</button>
-</div>
+        (click)="onUnSubscribe()" >Afmelden</button>
+    <button mat-raised-button color="accent" mat-dialog-close >Cancel</button>
+</mat-dialog-actions>

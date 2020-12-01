@@ -122,7 +122,6 @@ export class UsersComponent extends ParentComponent implements OnInit {
     /***************************************************************************************************/
     onShowRoles(): void {
         this.dialog.open(RolesDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '800px',
             data: this.myCheckboxDictionairy
         })
     }
@@ -154,15 +153,4 @@ export class UsersComponent extends ParentComponent implements OnInit {
         return this.passWordFormGroup.get('password2');
     }
 }
-
-/***************************************************************************************************
-/ 
-/***************************************************************************************************/
-// export interface LidExtract {
-//     LidNr: number;
-//     Voornaam: string;
-//     Achternaam: string;
-//     Tussenvoegsel: string;
-//     Rol: string;
-// }
 

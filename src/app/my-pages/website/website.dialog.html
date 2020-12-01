@@ -1,48 +1,43 @@
-<h2 mat-dialog-title class="boxheader">{{data.method}}</h2>
-<div class="boxcontent">
-
-    <form [formGroup]="websiteItemForm" (ngSubmit)="onSubmit()" novalidate>
-
-        <div>
-            <mat-form-field style="width: 40%">
-                <input matInput placeholder="Kies de vanaf datum" [matDatepicker]="startpicker"
-                    formControlName="StartDate" [formControl]="StartDate" required>
-                <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
-                <mat-datepicker #startpicker></mat-datepicker>
-                <mat-error *ngIf="StartDate.hasError('required')">
-                    Veld is verplicht
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field style="width: 40%;margin-left: 40px;">
-                <input matInput placeholder="Kies de eind datum" [matDatepicker]="endpicker" formControlName="EndDate"
-                    [formControl]="EndDate" required>
-                <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
-                <mat-datepicker #endpicker></mat-datepicker>
-                <mat-error *ngIf="EndDate.hasError('required')">
-                    Veld is verplicht
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-
-        <mat-form-field class="mat-form-max-width">
-            <input matInput placeholder="Onderwerp" formControlName="Header" [formControl]="Header" required>
-            <mat-error *ngIf="Header.hasError('required')">
+<h2 mat-dialog-title>{{data.method}}</h2>
+<mat-dialog-content [formGroup]="websiteItemForm" novalidate>
+    <div>
+        <mat-form-field style="width: 40%">
+            <input matInput placeholder="Kies de vanaf datum" [matDatepicker]="startpicker" formControlName="StartDate"
+                [formControl]="StartDate" required>
+            <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+            <mat-datepicker #startpicker></mat-datepicker>
+            <mat-error *ngIf="StartDate.hasError('required')">
                 Veld is verplicht
             </mat-error>
         </mat-form-field>
-        <br>
-        <mat-form-field class="mat-form-max-width">
-            <textarea matInput type="text" placeholder="Tekst van de mededeling" formControlName="Text"
-                [formControl]="Text" matTextareaAutosize matAutosizeMinRows='5' required></textarea>
-            <mat-error *ngIf="Text.hasError('required')">
+        <mat-form-field style="width: 40%;margin-left: 40px;">
+            <input matInput placeholder="Kies de eind datum" [matDatepicker]="endpicker" formControlName="EndDate"
+                [formControl]="EndDate" required>
+            <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+            <mat-datepicker #endpicker></mat-datepicker>
+            <mat-error *ngIf="EndDate.hasError('required')">
                 Veld is verplicht
             </mat-error>
         </mat-form-field>
+    </div>
 
 
-        <button mat-raised-button color="primary" [disabled]='!websiteItemForm.valid'>Save</button>
-        <button mat-raised-button type="button" color="accent" mat-dialog-close style="margin-left:25px">Cancel</button>
-    </form>
-
-</div>
+    <mat-form-field class="mat-form-max-width">
+        <input matInput placeholder="Onderwerp" formControlName="Header" [formControl]="Header" required>
+        <mat-error *ngIf="Header.hasError('required')">
+            Veld is verplicht
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="mat-form-max-width">
+        <textarea matInput type="text" placeholder="Tekst van de mededeling" formControlName="Text" [formControl]="Text"
+            matTextareaAutosize matAutosizeMinRows='5' required></textarea>
+        <mat-error *ngIf="Text.hasError('required')">
+            Veld is verplicht
+        </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]='!websiteItemForm.valid' (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

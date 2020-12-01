@@ -15,6 +15,7 @@ import { NoChangesMadeError } from '../../shared/error-handling/no-changes-made-
 @Component({
     selector: 'config-dialog',
     templateUrl: './config.dialog.html',
+    styles: ['mat-form-field {display: block;}']
 })
 export class ConfigDialogComponent extends ParentComponent implements OnInit {
 

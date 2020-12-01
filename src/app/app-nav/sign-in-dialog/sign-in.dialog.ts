@@ -9,7 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-signin-dialog',
-    templateUrl: './sign-in.dialog.html'
+    templateUrl: './sign-in.dialog.html',
+    styles: ['mat-form-field {width: 100%;}']
+
 })
 export class SignInDialogComponent {
 

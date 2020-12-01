@@ -1,6 +1,5 @@
-<h2 mat-dialog-title class="boxheader" style="margin-bottom: 0px;">{{data.method}}</h2>
-<form [formGroup]="ledenItemForm" (ngSubmit)="onSubmit()" novalidate>
-    <!-- <div class="boxcontent"> -->
+<h2 mat-dialog-title>{{data.method}}</h2>
+<mat-dialog-content [formGroup]="ledenItemForm" novalidate>
     <mat-tab-group [disablePagination]="true" class="tab-group mat-elevation-z4">
         <mat-tab label="Persoonlijk">
             <div id="tab">
@@ -259,9 +258,8 @@
             </div>
         </mat-tab>
     </mat-tab-group>
-    <div class="boxbottom" style="padding-bottom: 0px;">
-        <button mat-raised-button color="primary" [disabled]='!ledenItemForm.valid'>Save</button>
-        <button mat-raised-button class='box-bottom-button' color="accent" mat-dialog-close>Cancel</button>
-    </div>
-    <!-- </div> -->
-</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]='!ledenItemForm.valid' (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="accent" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -1,13 +1,14 @@
-<h2 mat-dialog-title class="boxheader">Mail versturen</h2>
-<div class="boxcontent" style="margin: -20pt 0pt 0pt 0pt">
+<h2 mat-dialog-title>Mail versturen</h2>
+<mat-dialog-content>
     Je staat op het punt om {{dataFromCaller.MailItems.length}} personen te mailen.<br><br>
     <mat-progress-bar [value]="percentageComplete" color="primary" mode="determinate">
     </mat-progress-bar>
+    <br>
+    <mat-checkbox [(ngModel)]="ckbTest" [ngModelOptions]="{standalone: true}" color='primary'>
+        Naar bestand ipv Verzenden</mat-checkbox>    
+</mat-dialog-content>
+<mat-dialog-actions>
     <button mat-raised-button color="primary" (click)="onSendMail()" [disabled]='percentageComplete > 0'>Verzend
         mail</button>
-
-    <button mat-raised-button color="accent" (click)="onCancel()" class='box-bottom-button'>Cancel</button>
-
-    <mat-checkbox class="margin-top-left" [(ngModel)]="ckbTest" [ngModelOptions]="{standalone: true}" color='primary'>
-        Test</mat-checkbox>
-</div>
+    <button mat-raised-button color="accent" (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

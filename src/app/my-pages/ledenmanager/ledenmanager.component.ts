@@ -64,7 +64,6 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
 
         // let tmp;
         this.dialog.open(LedenDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '600px',
             data: { 'method': 'Toevoegen', 'data': toBeAdded },  
             disableClose: true
         })
@@ -85,12 +84,12 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                             this.refreshTableLayout();
                             this.showSnackBar(SnackbarTexts.SuccessNewRecord);
 
-                            let message = "Nieuw lid: " + result.VolledigeNaam + " , " + result.Leeftijd + " jaar"
-                            this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
-
                             if (LedenItem.GetEmailList(toBeAdded).length > 0) {
                                 this.showMailDialog(toBeAdded, 'add');
                             }
+
+                            let message = "Nieuw lid: " + result.VolledigeNaam + " , " + result.Leeftijd + " jaar"
+                            this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
                         },
                             (error: AppError) => {
                                 if (error instanceof DuplicateKeyError) {
@@ -111,13 +110,11 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
 
         toBeDeleted.LidTot = new Date().to_YYYY_MM_DD();
         const dialogRef = this.dialog.open(LedenDeleteDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '300px',
             data: { 'method': 'Opzeggen', 'data': toBeDeleted },  
             disableClose: true 
         });
 
         dialogRef.afterClosed().subscribe((result: LedenItem) => {
-            // console.log('received in OnEdit from dialog', result);
             if (result) {  // in case of cancel the result will be false
                 console.log('toBeDeleted', toBeDeleted);
 
@@ -129,12 +126,12 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                         this.refreshTableLayout();
                         this.showSnackBar('Jammer, dat dit lid heeft opgezegd');
 
-                        let message = "Lid Opgezegd: " + LedenItem.getFullNameVtA(toBeDeleted.Voornaam, toBeDeleted.Tussenvoegsel, toBeDeleted.Achternaam);
-                        this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
-
                         if (LedenItem.GetEmailList(toBeDeleted).length > 0) {
                             this.showMailDialog(toBeDeleted, 'delete');
                         }
+
+                        let message = "Lid Opgezegd: " + LedenItem.getFullNameVtA(toBeDeleted.Voornaam, toBeDeleted.Tussenvoegsel, toBeDeleted.Achternaam);
+                        this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
                     },
                         (error: AppError) => {
                             if (error instanceof NotFoundError) {
@@ -154,13 +151,11 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         let toBeEdited: LedenItem = this.dataSource.data[index];
 
         const dialogRef = this.dialog.open(LedenDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '600px', 
             data: { 'method': 'Wijzigen', 'data': toBeEdited },  
             disableClose: true
         });
 
         dialogRef.afterClosed().subscribe((result: LedenItemExt) => {
-            // console.log('received in OnEdit from dialog');
             if (result) {  // in case of cancel the result will be false
                 let sub = this.ledenService.update$(result)
                     .subscribe(data => {
@@ -204,7 +199,6 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
         data.Lid = lid;
 
         this.dialog.open(SingleMailDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '800px',
             data: data,  
             disableClose: true
         })

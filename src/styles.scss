@@ -112,12 +112,6 @@ body {
   padding: 0px 0px 15px 10px;
 }
 
-// Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is.
-.custom-dialog-container .mat-dialog-container {
-  padding: 0px !important;
-  border-radius: 6px;
-}
-
 // Deze heb ik toegevoegd voor de agenda detail dialog
 .detail-agenda-dialog-container .mat-dialog-container {
   padding: 0px 24px 24px 24px !important;
@@ -266,6 +260,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.custom-dialog-container {
+  // padding: 0px !important;
+  // border-radius: 5px;
+}
+
+
 :root {
   mat-card {
     padding: 0 0 10px 0;
@@ -294,6 +294,36 @@ body {
   }
 
   mat-card-actions {
+    margin: 0px !important;
+    padding: 0px 0px 0px 25px !important;
+  }
+
+    // Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is.
+
+  // Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is.
+  .mat-dialog-container {
+    padding: 0px !important;
+    border-radius: 5px;
+  }
+
+  .mat-dialog-title {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 18px !important;
+    font-weight: 500;
+    background: #0d47a1;
+    color: white;
+    margin: 0px !important;
+    padding: 10px 10px 10px 25px;
+  }
+
+  mat-dialog-content {
+    margin: 0px!important;
+    padding: 25px 25px 15px 25px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    width: fit-content;
+  }
+
+  mat-dialog-actions {
     margin: 0px !important;
     padding: 0px 0px 0px 25px !important;
   }

@@ -1,44 +1,36 @@
-<h2 mat-dialog-title class="boxheader">Configuratie</h2>
+<h2 mat-dialog-title>Configuratie</h2>
+    <mat-dialog-content [formGroup]="mailboxparamForm" novalidate>
+        Deze velden zijn nodig voor het inloggen in je mailbox<br><br>
 
-<form [formGroup]="mailboxparamForm" novalidate>
-    <div class="box">
-        <div class="boxcontent">
-            Deze velden zijn nodig voor het inloggen in je mailbox<br><br>
-            <mat-dialog-content>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Email adres" formControlName="ElecPostAddress"
+                [formControl]="ElecPostAddress">
+            <mat-error *ngIf="ElecPostAddress.hasError('email') && !ElecPostAddress.hasError('required')">
+                Vul een geldig email adres in
+            </mat-error>
+            <mat-error *ngIf="ElecPostAddress.hasError('required')">
+                Veld is verplicht
+            </mat-error>
+        </mat-form-field>
 
-                <mat-form-field class="mat-form-max-width">
-                    <input matInput type="text" placeholder="Email adres" formControlName="ElecPostAddress"
-                        [formControl]="ElecPostAddress">
-                    <mat-error *ngIf="ElecPostAddress.hasError('email') && !ElecPostAddress.hasError('required')">
-                        Vul een geldig email adres in
-                    </mat-error>
-                    <mat-error *ngIf="ElecPostAddress.hasError('required')">
-                        Veld is verplicht
-                    </mat-error>
-                </mat-form-field>
+        <mat-form-field>
+            <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord" [formControl]="EmailPassword"
+                formControlName="EmailPassword">
+            <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
+            </mat-icon>
+            <mat-error *ngIf="EmailPassword.hasError('required')">
+                Wachtwoord is <strong>verplicht</strong>
+            </mat-error>
+        </mat-form-field>
 
-                <mat-form-field class="mat-form-max-width">
-                    <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord"
-                        [formControl]="EmailPassword" formControlName="EmailPassword">
-                    <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
-                    </mat-icon>
-                    <mat-error *ngIf="EmailPassword.hasError('required')">
-                        Wachtwoord is <strong>verplicht</strong>
-                    </mat-error>
-                </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Naam afzender" [formControl]="EmailSender" formControlName="EmailSender">
+        </mat-form-field>
 
-                <mat-form-field class="mat-form-max-width">
-                    <input matInput placeholder="Naam afzender" [formControl]="EmailSender"
-                        formControlName="EmailSender">
-                </mat-form-field>
+    </mat-dialog-content>
 
-            </mat-dialog-content>
-        </div>
-        <div class="boxbottom">
-
-            <button mat-raised-button color="primary" type="button" (click)="onSaveEmailParameters()"
-                class='box-bottom-button' [disabled]='!mailboxparamForm.valid'>Save</button>
-            <button mat-raised-button color="accent" mat-dialog-close class='box-bottom-button'>Cancel</button>
-        </div>
-    </div>
-</form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" type="button" (click)="onSaveEmailParameters()"
+            [disabled]='!mailboxparamForm.valid'>Save</button>
+        <button mat-raised-button color="accent" mat-dialog-close >Cancel</button>
+    </mat-dialog-actions>

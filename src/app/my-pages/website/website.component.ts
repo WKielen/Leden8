@@ -39,7 +39,6 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
     onAdd(): void {
         const toBeAdded = new WebsiteText();
         this.dialog.open(WebsiteDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '500px',
             data: { 'method': 'Toevoegen', 'data': toBeAdded }
         })
             .afterClosed()  // returns an observable
@@ -70,7 +69,6 @@ export class WebsiteComponent extends ParentComponent implements OnInit {
 
         let tmp;
         const dialogRef = this.dialog.open(WebsiteDialogComponent, {
-            panelClass: 'custom-dialog-container', width: '800px',
             data: { 'method': 'Wijzigen', 'data': toBeEdited }
         });
 

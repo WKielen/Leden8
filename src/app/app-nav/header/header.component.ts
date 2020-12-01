@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
 
   onConfig(): void {
     this.configDialog.open(ConfigDialogComponent, {
-      panelClass: 'custom-dialog-container', width: '800px',
+      // panelClass: 'custom-dialog-container', width: '800px', 
       data: {}
     })
   }
