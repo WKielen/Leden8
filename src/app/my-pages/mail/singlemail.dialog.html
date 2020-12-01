@@ -4,9 +4,8 @@
         <textarea matInput type="text" placeholder="Email tekst" [(ngModel)]="mailText" matTextareaAutosize
             matAutosizeMinRows='5'></textarea>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="onSendMail($event)">Verzend
-        mail</button>
 </mat-dialog-content>
 <mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSendMail($event)">Verzend mail</button>
     <button mat-raised-button mat-dialog-close color="accent">Cancel</button>
 </mat-dialog-actions>
