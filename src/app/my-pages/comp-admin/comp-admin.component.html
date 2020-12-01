@@ -1,11 +1,15 @@
-<div class="boxcontainer">
-  <div class="box" style="flex-basis: 30%;">
+<div class="flexcontainer">
+  <mat-card style="flex-basis: 30%;">
+    <mat-card-header>
+      <mat-card-title>Upload TXT met bondsnummers</mat-card-title>
+    </mat-card-header>
 
-    <div class="boxheader">Upload TXT met bondsnummers</div>
-    <div class="boxcontent">
-      Deze functie is om te controleren welke verschillen er zijn in onze eigen ledenadministratie en de uitslagen NAS. Dit
+    <mat-card-content>
+      Deze functie is om te controleren welke verschillen er zijn in onze eigen ledenadministratie en de uitslagen NAS.
+      Dit
       is vooral nuttig om te controleren we geen onnodige competitie bijdrage betalen.<br>
-      Met onderstaande knoppen kan je een bestand uploaden. Dit tekst bestand moet op iedere regel beginnen met een bondsnummer (+ spatie) van een speler
+      Met onderstaande knoppen kan je een bestand uploaden. Dit tekst bestand moet op iedere regel beginnen met een
+      bondsnummer (+ spatie) van een speler
       die in de uitslagen voorkomt.
       <br><br>
       <div>
@@ -17,19 +21,20 @@
         <br><br>
         <input matInput readonly='true' value={{uploadFileName}}>
       </div>
-    </div>
+    </mat-card-content>
 
-    <div class="boxbottom">
-      <button mat-raised-button class='box-bottom-button' color="primary"
-        (click)="onClickLedenLijstImport()">Uploaden</button>
-    </div>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onClickLedenLijstImport()">Uploaden</button>
+    </mat-card-actions>
 
-  </div>
+  </mat-card>
+  <br>
 
-
-  <div class="box" style="flex-basis: 50%;">
-    <div class="boxheader">Verschillen</div>
-    <div class="boxcontent">
+  <mat-card style="flex-basis: 50%;">
+    <mat-card-header>
+      <mat-card-title>Verschillen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
         <ng-container matColumnDef="Naam">
@@ -58,7 +63,6 @@
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
       </mat-table>
-
-
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
+</div>

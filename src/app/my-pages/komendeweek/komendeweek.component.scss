@@ -1,5 +1,6 @@
-@import 'src/styles.scss';
-#box {
+@import "src/mixins.scss";
+
+mat-card {
     text-align: center;
     @include desktop {
         width: 50%;
@@ -8,4 +9,28 @@
         margin-right: auto;
         text-align: left;
     }
+}
+
+.internalcard {
+    // color: green !important;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 2px 5px 5px lightgrey;
+    margin: 0px 0px 15px 0px;
+    background: white;
+    border-radius: 5px;
+}
+
+.internalcardcontent {
+    margin: 10px 10px 10px 20px;
+}
+
+#datum {
+    font-size: 21px;
+    font-weight: 700;
+    background: white;
+    margin: 10px 10px 10px 20px;
+}
+#evenementnaam {
+    font-size: 16px;
+    font-weight: bolder;
 }

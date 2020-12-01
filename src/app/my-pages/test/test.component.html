@@ -1,23 +1,17 @@
-<div class="demo-app">
-  <div class="demo-app-sidebar">
-    <div class="demo-app-sidebar-section">
-      <h2>Instructions</h2>
-      <ul>
-        <li>Select dates and you will be prompted to create a new event</li>
-        <li>Drag, drop, and resize events</li>
-        <li>Click an event to delete it</li>
-      </ul>
-      <button mat-raised-button (click)="onClick()" color="warn">Testje</button>
-      <div style="padding: 10px 0px 0px 0px;">
-      {{ resultString }}
-      </div>
-    </div>
-  </div>
-
-  <div class="demo-app-main">
-    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
-  </div>
-  <!-- deepChangeDetection="true" -->
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Kopje pagina</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-a2hs></app-a2hs>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" type="button" class='box-bottom-button'>Maak Incasso bestand</button>
+    <button mat-raised-button color="primary" type="button" class='box-bottom-button'>Maak Rekening bestand</button>
+    <button mat-raised-button color="primary" type="button" class='box-bottom-button'>Maak Overigen bestand</button>
+    <button mat-raised-button color="secondary" type="button" class='box-bottom-button'>Maak berekening
+      overzicht</button>
+  </mat-card-actions>
+</mat-card>
 
 <app-a2hs></app-a2hs>

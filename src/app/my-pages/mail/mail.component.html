@@ -1,11 +1,13 @@
-<div class="boxcontainer">
+<div class="flexcontainer">
   <div fxLayout="column" style='margin-right: 10px;'>
-    <div class="box">
+    
+    <mat-card>
       <form [formGroup]="mailForm" novalidate>
+        <mat-card-header>
+          <mat-card-title>Mail bericht</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
 
-        <div class="boxheader">Mail bericht</div>
-        <div class="boxcontent">
-          <mat-dialog-content>
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
               <div fxFlex="0 0 30%">
                 <mat-form-field>
@@ -42,48 +44,53 @@
               </div>
 
             </div>
-          </mat-dialog-content>
-        </div>
-        <div class="boxbottom">
-          <button mat-raised-button class='box-bottom-button' color="primary" (click)='onSaveEmail()'
+          </mat-card-content>
+
+          <mat-card-actions>
+          <button mat-raised-button color="primary" (click)='onSaveEmail()'
             [disabled]='!mailForm.valid'>Save</button>
-          <button class='box-bottom-button' mat-raised-button color="primary" (click)='onDeleteMail()'>Delete</button>
-        </div>
+          <button mat-raised-button color="primary" (click)='onDeleteMail()'>Delete</button>
+        </mat-card-actions>
 
       </form>
-    </div>
-
-    <div class="boxcontainer" style="justify-content: space-between;">
-      <div class="box" style="flex-basis: 48%;">
-        <!-- <mat-card *ngIf='!mailServiceIsOkay' style='background:red;font-size:18px;font-weight:500;color:white;margin-bottom: 20px;'>
-          Mail server niet aanwezig, bel Wim
-        </mat-card> -->
-        <div class="boxheader">Verstuur Mail</div>
+    </mat-card>
+<br>
+    <div class="flexcontainer" style="justify-content: space-between;">
+      <mat-card style="flex-basis: 48%;">
+        <mat-card-header>
+          <mat-card-title>Verstuur Mail</mat-card-title>
+        </mat-card-header>
         <form [formGroup]="mailboxparamForm" novalidate>
-          <div class="boxcontent">
+          <mat-card-content>
+
             <button mat-raised-button color="primary" (click)="onSendMail($event)" [disabled]='itemsToMail.length == 0'
               matBadge={{itemsToMail.length}} matBadgePosition="after" matBadgeColor="warn">Verzend mail</button>
-          </div>
+          </mat-card-content>
         </form>
-      </div>
-      <div class="box" style="flex-basis: 48%;">
-        <div class="boxheader">Selectie</div>
-        <div class="boxcontent">
+      </mat-card>
+      <mat-card style="flex-basis: 48%;">
+        <mat-card-header>
+          <mat-card-title>Selectie</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
           <mat-checkbox [(ngModel)]="ckbVolwassenen" (change)="onChangeckbVolwassenen($event)" color='primary'
             class='margin-right-20'>Volwassenen
           </mat-checkbox>
           <mat-checkbox [(ngModel)]="ckbJeugd" (change)="onChangeckbJeugd($event)" color='primary'>
             Jeugd</mat-checkbox>
-        </div>
-      </div>
+        </mat-card-content>
+      </mat-card>
     </div>
 
   </div>
 
 
-  <div class="box" style="flex-basis: 30%;">
-    <div class="boxheader">Leden</div>
-    <div class="boxcontent">
+  <mat-card style="flex-basis: 30%;">
+    <mat-card-header>
+      <mat-card-title>Leden</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
         <ng-container matColumnDef="select">
@@ -109,6 +116,6 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
       </mat-table>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>

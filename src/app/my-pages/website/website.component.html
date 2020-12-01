@@ -1,7 +1,8 @@
-<div class="box" style="flex-basis: 70%;">
-  <div class="boxheader">Website mededelingen</div>
-  <div class="boxcontent">
-
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Website mededelingen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
       <ng-container matColumnDef="StartDate">
@@ -42,5 +43,5 @@
       </mat-row>
     </mat-table>
 
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

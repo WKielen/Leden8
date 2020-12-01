@@ -1,6 +1,13 @@
+$desktop: 840px;
+// Hiermee kunnen we in SASS bepalen of we een mobile
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+      @content;
+  }
+}
+
 $max-width: 800px;
 $min-width: $max-width + 1px;
-
 @mixin mat-text-column-wrap-stuff {
     word-wrap: break-word !important;
     white-space: unset !important;

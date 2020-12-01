@@ -22,18 +22,18 @@ export class KomendeWeekComponent extends ParentComponent implements OnInit {
   dagen: Dictionary = new Dictionary([]);
 
   ngOnInit(): void {
-    const options = { weekday: 'short', month: 'short', day: 'numeric' };
-    let uitersteDate = moment().add(7, 'days').toDate();
+    const options = { weekday: 'long', month: 'short', day: 'numeric' };
     this.registerSubscription(
       this.agendaService
-        .getAllFromNow$()
+        .nextWeek$()
         .pipe(
           map(function (value: AgendaItem[]) {
             let localdata: Array<AgendaItem> = []
             value.forEach(element => {
-              let agendaDate = moment(element.Datum).toDate();
-              if (agendaDate <= uitersteDate)
-                localdata.push(element)
+              element.Toelichting = element.Toelichting.replace(new RegExp('\n', 'g'), "<br>")
+              if (!moment(element.Tijd, "HH:mm", true).isValid())
+                element.Tijd = '';
+              localdata.push(element)
             });
             return localdata;
           })
@@ -42,22 +42,14 @@ export class KomendeWeekComponent extends ParentComponent implements OnInit {
           agendaLijst.forEach(element => {
             let agendaDate: Date = moment(element.Datum).toDate();
             let dagnaam: string = agendaDate.toLocaleDateString('nl-NL', options)
-            if (!this.dagen.containsKey(element.Datum)) {
-              console.log('datum', dagnaam);
+            if (!this.dagen.containsKey(dagnaam)) {
               this.dagen.add(dagnaam, []);
             }
             let dag: Array<AgendaItem> = this.dagen.get(dagnaam);
             dag.push(element);
           });
-          console.log('', this.dagen);
         })
     );
-  }
-
-  xyz(): void {
-    let v = this.dagen.getIndex(0);
-
-
   }
 
 

@@ -1,5 +1,15 @@
-@use "src/styles.module.scss" as s;
+@use "src/mixins.scss" as s;
 
+mat-card {
+    text-align: center;
+    @include s.desktop {
+        width: 40%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
 .mat-column-Naam {
   @include s.mat-text-column-wrap-stuff;
   flex: 0 0 60% !important;

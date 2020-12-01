@@ -326,7 +326,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   /***************************************************************************************************/
   GetDataForMemberschipPie(): GraphData {
     let pieData = new GraphData();
-    pieData.Title = 'Lenghte lidmaatschap';
+    pieData.Title = 'Lengte lidmaatschap';
     pieData.yAxisTitle = 'leden';
     pieData.LabelFormat = '<b>{point.name}</b>: {point.percentage:.1f} %';
     pieData.TooltipFormat = '{point.y} {series.name}: <b>{point.percentage:.1f}%</b>';

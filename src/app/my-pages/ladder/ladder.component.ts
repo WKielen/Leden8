@@ -12,7 +12,7 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
 @Component({
   selector: 'app-ladder',
   templateUrl: './ladder.component.html',
-  styleUrls: ['./ladder.component.css']
+  styleUrls: ['./ladder.component.scss']
 })
 
 export class LadderComponent extends ParentComponent implements OnInit {

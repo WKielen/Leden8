@@ -1,13 +1,15 @@
-<div id="box" class=" box">
-    <div class="boxheader">Programma komende week</div>
-    <div class="boxcontent">
-        <mat-card *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
-            {{ dagen.keys()[i]  }} <br>
-            
-            <label *ngFor="let item of dagen.getIndex(i); index as j" id='id{{j}}'>
-                {{ dagen.getIndex(i)[j].EvenementNaam  }} <br>
-                {{ dagen.getIndex(i)[j].Toelichting  }} <br>
-            </label>
-        </mat-card>
-    </div>
-</div>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Programma komende week</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="internalcard" *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
+            <div id="datum">{{ dagen.keys()[i] }}</div>
+            <div class="internalcardcontent" *ngFor="let item of dagen.getIndex(i); index as j" id='id{{j}}'>
+                <div id="evenementnaam">{{ dagen.getIndex(i)[j].EvenementNaam }}</div>
+                <div *ngIf="dagen.getIndex(i)[j].Tijd">Aanvang: {{dagen.getIndex(i)[j].Tijd }}</div>
+                <div [innerHTML]="dagen.getIndex(i)[j].Toelichting"></div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

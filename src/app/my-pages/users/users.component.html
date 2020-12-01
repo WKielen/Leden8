@@ -1,63 +1,65 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
-    <div fxFlex="30">
-        <div class="box">
-            <div class="boxheader">Rollen toekennen</div>
-            <div class="boxcontent">
-                <app-select-lid-dropdown [leden-array]="ledenArray" (valueSelected)="onUserSelectedRole($event)">
+    <mat-card style="flex-basis: 30%;">
+        <mat-card-header>
+            <mat-card-title>Rollen toekennen</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+
+            <app-select-lid-dropdown [leden-array]="ledenArray" (valueSelected)="onUserSelectedRole($event)">
+            </app-select-lid-dropdown>
+            <app-checkbox-list [csString]="csString" [checkboxDictionairy]='myCheckboxDictionairy'
+                (click)="onRoleClicked($event)"></app-checkbox-list>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="onSaveRol()">Save</button>
+            <button mat-raised-button color="alternative" (click)='onShowRoles()'>Info Rollen</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card style="flex-basis: 30%;">
+        <form [formGroup]="passWordFormGroup" (ngSubmit)="passWordFormGroup.valid && onSavePassword()" novalidate>
+            <mat-card-header>
+                <mat-card-title>Wachtwoord instellen</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <app-select-lid-dropdown [leden-array]="ledenArray" (valueSelected)="onUserSelectedPassword($event)">
                 </app-select-lid-dropdown>
-                <app-checkbox-list [csString]="csString" [checkboxDictionairy]='myCheckboxDictionairy'
-                    (click)="onRoleClicked($event)"></app-checkbox-list>
-            </div>
-            <div class="boxbottom">
-                <button mat-raised-button class='box-bottom-button' color="primary" (click)="onSaveRol()">Save</button>
-                <button mat-raised-button class='box-bottom-button' color="alternative" (click)='onShowRoles()'
-                    class='box-bottom-button'>Info Rollen</button>
-            </div>
-        </div>
-    </div>
-    <div fxFlex="30">
-        <div class="box">
-            <form [formGroup]="passWordFormGroup" (ngSubmit)="passWordFormGroup.valid && onSavePassword()" novalidate>
-                <div class="boxheader">Wachtwoord instellen</div>
-                <div class="boxcontent">
-                    <app-select-lid-dropdown [leden-array]="ledenArray"
-                        (valueSelected)="onUserSelectedPassword($event)"></app-select-lid-dropdown>
-                    <mat-form-field class='mat-form-max-width'>
-                        <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord"
-                            [formControl]="password1" [errorStateMatcher]="matcher" formControlName="password1">
-                        <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
-                        </mat-icon>
-                        <mat-error *ngIf="password1.hasError('minlength') && !password1.hasError('required')">
-                            Het wachtwoord moet {{
+                <mat-form-field class='mat-form-max-width'>
+                    <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord"
+                        [formControl]="password1" [errorStateMatcher]="matcher" formControlName="password1">
+                    <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="password1.hasError('minlength') && !password1.hasError('required')">
+                        Het wachtwoord moet {{
                             password1.errors.minlength.requiredLength }} lang zijn
-                        </mat-error>
-                        <mat-error *ngIf="password1.hasError('required')">
-                            Wachtwoord is <strong>verplicht</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class='mat-form-max-width'>
-                        <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord controleren"
-                            [formControl]="password2" [errorStateMatcher]="matcher" formControlName="password2">
-                        <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
-                        </mat-icon>
-                        <mat-error *ngIf="password2.hasError('minlength') && !password2.hasError('required')">
-                            Het wachtwoord moet {{
+                    </mat-error>
+                    <mat-error *ngIf="password1.hasError('required')">
+                        Wachtwoord is <strong>verplicht</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class='mat-form-max-width'>
+                    <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord controleren"
+                        [formControl]="password2" [errorStateMatcher]="matcher" formControlName="password2">
+                    <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="password2.hasError('minlength') && !password2.hasError('required')">
+                        Het wachtwoord moet {{
                             password2.errors.minlength.requiredLength }} lang zijn
-                        </mat-error>
-                        <mat-error *ngIf="password2.hasError('required')">
-                            Wachtwoord is <strong>verplicht</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <div *ngIf="password2.valid && passWordFormGroup.invalid && passWordFormGroup.errors.passwordsShouldMatch"
-                        class="alert alert-danger">
-                        Wachtwoorden moeten gelijk zijn
-                    </div>
+                    </mat-error>
+                    <mat-error *ngIf="password2.hasError('required')">
+                        Wachtwoord is <strong>verplicht</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div *ngIf="password2.valid && passWordFormGroup.invalid && passWordFormGroup.errors.passwordsShouldMatch"
+                    class="alert alert-danger">
+                    Wachtwoorden moeten gelijk zijn
                 </div>
-                <div class="boxbottom">
-                    <button mat-raised-button class='box-bottom-button' color="primary" type="submit"
-                        [disabled]='!passWordFormGroup.valid'>Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]='!passWordFormGroup.valid'>Save</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
 </div>

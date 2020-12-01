@@ -1,7 +1,7 @@
-@use "./styles.module.scss" as s;
+// @use "./styles.module.scss" as s;
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -26,43 +26,56 @@
 // // that you are using.
 // @include angular-material-theme($Leden-theme);
 
-$custom-theme-primary: mat-palette($mat-blue, 900); 
-$custom-theme-accent: mat-palette($mat-grey); 
-$custom-theme-warn: mat-palette($mat-red); 
+$custom-theme-primary: mat-palette($mat-blue, 900);
+$custom-theme-accent: mat-palette($mat-grey);
+$custom-theme-warn: mat-palette($mat-red);
 $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
 @include angular-material-theme($custom-theme);
 
-$alt-theme-primary: mat-palette($mat-yellow, 700); 
+$alt-theme-primary: mat-palette($mat-yellow, 700);
 $alt-theme: mat-light-theme($alt-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
 .alternative-theme {
-    @include angular-material-theme($alt-theme);
+  @include angular-material-theme($alt-theme);
 }
 
+$desktop: 840px;
+// Hiermee kunnen we in SASS bepalen of we een mobile
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-@media (min-width:s.$min-width) {
-  .boxcontainer {
+@media (min-width: 800px) {
+  .flexcontainer {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
   }
   .box {
-    flex-basis: 50%;      
+    flex-basis: 50%;
   }
 }
 
-@media (max-width:s.$max-width) {
-  .hideonmobile{
+@media (max-width: 801px) {
+  .hideonmobile {
     display: none;
   }
-  .boxcontainer {
+  .flexcontainer {
     display: flex;
     flex-direction: column !important;
     justify-content: center;
@@ -74,32 +87,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .box {
-    border:1px solid rgba(0,0,0,.03);
-    box-shadow: 5px 10px 10px lightgrey;
-    margin:0px 0px 15px 0px;
-    background:white;
-    border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 5px 10px 10px lightgrey;
+  margin: 0px 0px 15px 0px;
+  background: white;
+  border-radius: 5px;
 }
 .boxheader {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 18px;
   font-weight: 500;
-  background:#0D47A1;
-  color:white;
-  padding:10px 10px 10px 25px;
-  margin:-1px -1px 1px -1px;
+  background: #0d47a1;
+  color: white;
+  padding: 10px 10px 10px 25px;
+  margin: -1px -1px 1px -1px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 .boxcontent {
-  padding:25px 25px 15px 25px;
+  padding: 25px 25px 15px 25px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .boxbottom {
   padding: 0px 0px 15px 10px;
 }
 
-// Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is. 
+// Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is.
 .custom-dialog-container .mat-dialog-container {
   padding: 0px !important;
   border-radius: 6px;
@@ -133,87 +146,80 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-.mat-form-max-width
-{
+.mat-form-max-width {
   width: 100%;
 }
 
-.margin-top-left 
-{
+.margin-top-left {
   margin-top: 10px;
   margin-left: 15px;
 }
 
-
-button.mat-raised-button.box-bottom-button
-{
+button.mat-raised-button.box-bottom-button {
   //margin: 10px 0px 0px 15px; // top 10 and left 15
   margin-top: 10px;
   margin-left: 15px;
 }
 
 // zorgt ervoor dat de inhoud van een tabel over de gehele container wordt verdeeld.
-table
-{
+table {
   width: 100%;
 }
 
 // hightligted van oneven rows
-.mat-row:nth-child( even )
-{
-    background-color: white;
+.mat-row:nth-child(even) {
+  background-color: white;
 }
-.mat-row:nth-child( odd )
-{
-    background-color: #f5f5f5;
+.mat-row:nth-child(odd) {
+  background-color: #f5f5f5;
 }
 
 // als er rechts van de checkbox nog een ander veld staat
-.margin-right-20  {
+.margin-right-20 {
   margin-right: 20px;
 }
 
-.margin-top-15  {
+.margin-top-15 {
   margin-top: 15px;
 }
 
 // Voor kolommen met 1 actions. Kolom naam moet 'actions1' zijn.  actions zijn dan edit en delete
 .mat-column-actions1 {
   flex: 0 0 30px !important;
-  width: 30px!important;
+  width: 30px !important;
 }
 
 // Voor kolommen met 2 actions. Kolom naam moet 'actions' zijn.  actions zijn dan edit en delete
 .mat-column-actions2 {
   flex: 0 0 50px !important;
-  width: 50px!important;
+  width: 50px !important;
 }
 
 // Voor kolommen met 3 actions. Kolom naam moet 'actions3' zijn.  actions zijn dan edit en delete en bijvoorbeeld copy
 .mat-column-actions3 {
   flex: 0 0 100px !important;
-  width: 100px!important;
+  width: 100px !important;
 }
 
-@media (max-width:s.$max-width) {
+@media (max-width: 800px) {
   .mat-column-actions2 {
     flex: 0 0 40px !important;
-    width: 40px!important;
+    width: 40px !important;
 
-    .mat-icon-button{ 
-      height:20px !important;
-      width:20px !important;
+    .mat-icon-button {
+      height: 20px !important;
+      width: 20px !important;
       margin-left: 5px !important;
       margin-right: 5px !important;
     }
   }
   .mat-column-actions3 {
     flex: 0 0 70px !important;
-    width: 70px!important;
-    
-    .mat-icon-button{
-      height:20px !important;
-      width:20px !important;
+    width: 70px !important;
+
+    .mat-icon-button {
+      height: 20px !important;
+      width: 20px !important;
       margin-left: 5px !important;
       margin-right: 5px !important;
     }
@@ -226,41 +232,69 @@ table
   }
 }
 
-
 // Voor kolommen met een checkbox. Kolom naam moet 'select' zijn
 .mat-column-select {
   flex: 0 0 30px !important;
   width: 30px !important;
 }
-@media (max-width:s.$max-width) {
+@media (max-width: 801px) {
   .mat-column-select {
     padding-left: 0px !important;
   }
 }
 
-
-
 // Hieronder wordt gebruikt in de login pagina
 
 $colors: (
-    primary-dark: darken(#005dff, 40%),
-    primary-yellow: #fbc02d,
-    primary-blue: #0d47a1,
-    primary-blue-light: lighten(#0d47a1, 40%),
-    primary-yellow-dark: darken(#fbc02d, 10%),
+  primary-dark: darken(#005dff, 40%),
+  primary-yellow: #fbc02d,
+  primary-blue: #0d47a1,
+  primary-blue-light: lighten(#0d47a1, 40%),
+  primary-yellow-dark: darken(#fbc02d, 10%),
 );
 
 @function color($color-name) {
   @return map-get($colors, $color-name);
 }
 
-$desktop: 840px;
-// Hiermee kunnen we in SASS bepalen of we een mobile
-@mixin desktop {
-  @media (min-width: #{$desktop}) {
-      @content;
-  }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  mat-card {
+    padding: 0 0 10px 0;
+    border-radius: 5px;
+    box-shadow: 5px 10px 10px lightgrey !important;
+    background: white;
+  }
+
+  mat-card-header {
+    border-radius: 5px 5px 0px 0px;
+    background: #0d47a1;
+  }
+
+  mat-card-title {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 18px !important;
+    font-weight: 500;
+    color: white;
+    margin: 0px !important;
+    padding: 10px 10px 10px 9px;
+  }
+
+  mat-card-content {
+    padding: 25px 25px 15px 25px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  mat-card-actions {
+    margin: 0px !important;
+    padding: 0px 0px 0px 25px !important;
+  }
+}
