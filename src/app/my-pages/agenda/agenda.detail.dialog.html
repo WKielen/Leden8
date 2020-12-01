@@ -1,22 +1,22 @@
-<header mat-dialog-title>
+<h2 mat-dialog-title>
   <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
-    <button mat-icon-button color="primary" (click)="onClickModify()">
+    <button mat-icon-button color="white" (click)="onClickModify()">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button color="primary" (click)="onClickCopy()">
+    <button mat-icon-button color="white" (click)="onClickCopy()">
       <mat-icon>content_copy</mat-icon>
     </button>
     <button mat-icon-button color="warn" (click)="onClickDelete()">
       <mat-icon>delete</mat-icon>
     </button>
-    <button mat-icon-button color="accent" [mat-dialog-close]="data.data" cdkFocusInitial>
+    <button mat-icon-button color="white" [mat-dialog-close]="data.data" cdkFocusInitial>
       <mat-icon>close</mat-icon>
     </button>
   </div>
-</header>
-<div mat-dialog-content>
+</h2>
+<mat-dialog-content>
   <h2>{{data.data.EvenementNaam}}</h2>
-  <table>
+  <table id="table">
     <tr>
       <td width="25%"></td>
       <td width="75%"></td>
@@ -70,4 +70,4 @@
       <td>{{  organisatie }}</td>
     </tr>
   </table>
-</div>
+</mat-dialog-content>

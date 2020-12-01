@@ -57,6 +57,7 @@ th.mat-header-cell {
   padding: 10px 0px 10px 25px !important;
 }
 
+// De kleine copy buttons op de detailpag
 .mat-icon-button {
   width: 16px;
   height: 16px;
@@ -67,4 +68,9 @@ th.mat-header-cell {
     height: 16px;
     line-height: 16px;
   }
+}
+
+// Voor de tabel met aantallen per leeftijd
+table {
+  width: 100%
 }

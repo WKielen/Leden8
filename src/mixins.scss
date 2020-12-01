@@ -1,13 +1,17 @@
-$desktop: 840px;
+@import "src/variables.scss";
+
 // Hiermee kunnen we in SASS bepalen of we een mobile
+// het gebruik is nu in het component. 
+// Meestal om een MAT-CARD om te laten springen naar een 100%
+// breedte als het een mobiel betreft.
+// Wordt nu alleen gebruikt als er geen sprake is van een flex container
+
 @mixin desktop {
   @media (min-width: #{$desktop}) {
       @content;
   }
 }
 
-$max-width: 800px;
-$min-width: $max-width + 1px;
 @mixin mat-text-column-wrap-stuff {
     word-wrap: break-word !important;
     white-space: unset !important;

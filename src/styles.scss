@@ -40,16 +40,9 @@ $alt-theme: mat-light-theme($alt-theme-primary, $custom-theme-accent, $custom-th
   @include angular-material-theme($alt-theme);
 }
 
-$desktop: 840px;
-// Hiermee kunnen we in SASS bepalen of we een mobile
-@mixin desktop {
-  @media (min-width: #{$desktop}) {
-    @content;
-  }
-}
+@import "src/variables.scss";
 
 /* You can add global styles to this file, and also import other style files */
-
 html,
 body {
   height: 100%;
@@ -59,64 +52,70 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-@media (min-width: 800px) {
+//
+// Flex-Contrainer: Voor GROTE schermen, hebben we een kolommen naast elkaar
+//
+@media (min-width: $desktop) {
   .flexcontainer {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
   }
-  .box {
-    flex-basis: 50%;
+  // Voor kolommen met 1 actions. Kolom naam moet 'actions1' zijn.  actions zijn dan edit en delete
+  .mat-column-actions1 {
+    flex: 0 0 30px !important;
+    width: 30px !important;
+  }
+
+  // Voor kolommen met 2 actions. Kolom naam moet 'actions' zijn.  actions zijn dan edit en delete
+  .mat-column-actions2 {
+    flex: 0 0 50px !important;
+    width: 50px !important;
   }
 }
 
-@media (max-width: 801px) {
-  .hideonmobile {
-    display: none;
-  }
+
+//
+// Flex-Contrainer: Voor KLEINE schermen, hebben we een kolommen onder elkaar
+//
+@media (max-width: $desktop - 1px) {
   .flexcontainer {
     display: flex;
     flex-direction: column !important;
     justify-content: center;
     // background-color: blue;
   }
-  .box {
-    flex-basis: 100% !important;
+  .mat-column-actions2 {
+    flex: 0 0 40px !important;
+    width: 40px !important;
+
+    .mat-icon-button {
+      height: 20px !important;
+      width: 20px !important;
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+    }
+  }
+  .firstcolumnshrink {
+    padding-left: 5px !important;
+  }
+  .lastcolumnshrink {
+    padding-right: 5px !important;
+  }
+  // Voor kolommen met een checkbox. Kolom naam moet 'select' zijn
+  .mat-column-select {
+    padding-left: 0px !important;
+  }
+  .hideonmobile {
+    // Hiermee kan je elementen verbergen op een mobiel
+    display: none;
   }
 }
 
-.box {
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 5px 10px 10px lightgrey;
-  margin: 0px 0px 15px 0px;
-  background: white;
-  border-radius: 5px;
-}
-.boxheader {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  background: #0d47a1;
-  color: white;
-  padding: 10px 10px 10px 25px;
-  margin: -1px -1px 1px -1px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.boxcontent {
-  padding: 25px 25px 15px 25px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-.boxbottom {
-  padding: 0px 0px 15px 10px;
-}
 
-// Deze heb ik toegevoegd voor de agenda detail dialog
-.detail-agenda-dialog-container .mat-dialog-container {
-  padding: 0px 24px 24px 24px !important;
-  border-radius: 6px;
-}
+
+
 
 // voor de floating action buttons
 .fab-container {
@@ -140,105 +139,30 @@ body {
   }
 }
 
-.mat-form-max-width {
-  width: 100%;
-}
 
-.margin-top-left {
-  margin-top: 10px;
-  margin-left: 15px;
-}
 
-button.mat-raised-button.box-bottom-button {
-  //margin: 10px 0px 0px 15px; // top 10 and left 15
-  margin-top: 10px;
-  margin-left: 15px;
-}
 
-// zorgt ervoor dat de inhoud van een tabel over de gehele container wordt verdeeld.
-table {
-  width: 100%;
-}
-
-// hightligted van oneven rows
+// hightlighted van oneven rows
 .mat-row:nth-child(even) {
   background-color: white;
 }
 .mat-row:nth-child(odd) {
   background-color: #f5f5f5;
 }
-
+.mat-form-max-width {
+  width: 100%;
+}
 // als er rechts van de checkbox nog een ander veld staat
 .margin-right-20 {
   margin-right: 20px;
 }
 
-.margin-top-15 {
-  margin-top: 15px;
-}
 
-// Voor kolommen met 1 actions. Kolom naam moet 'actions1' zijn.  actions zijn dan edit en delete
-.mat-column-actions1 {
-  flex: 0 0 30px !important;
-  width: 30px !important;
-}
 
-// Voor kolommen met 2 actions. Kolom naam moet 'actions' zijn.  actions zijn dan edit en delete
-.mat-column-actions2 {
-  flex: 0 0 50px !important;
-  width: 50px !important;
-}
 
-// Voor kolommen met 3 actions. Kolom naam moet 'actions3' zijn.  actions zijn dan edit en delete en bijvoorbeeld copy
-.mat-column-actions3 {
-  flex: 0 0 100px !important;
-  width: 100px !important;
-}
 
-@media (max-width: 800px) {
-  .mat-column-actions2 {
-    flex: 0 0 40px !important;
-    width: 40px !important;
-
-    .mat-icon-button {
-      height: 20px !important;
-      width: 20px !important;
-      margin-left: 5px !important;
-      margin-right: 5px !important;
-    }
-  }
-  .mat-column-actions3 {
-    flex: 0 0 70px !important;
-    width: 70px !important;
-
-    .mat-icon-button {
-      height: 20px !important;
-      width: 20px !important;
-      margin-left: 5px !important;
-      margin-right: 5px !important;
-    }
-  }
-  .firstcolumnshrink {
-    padding-left: 5px !important;
-  }
-  .lastcolumnshrink {
-    padding-right: 5px !important;
-  }
-}
-
-// Voor kolommen met een checkbox. Kolom naam moet 'select' zijn
-.mat-column-select {
-  flex: 0 0 30px !important;
-  width: 30px !important;
-}
-@media (max-width: 801px) {
-  .mat-column-select {
-    padding-left: 0px !important;
-  }
-}
-
+// Voorbeeld van functies in SASS. Voor kleuren buiten het material theme om.
 // Hieronder wordt gebruikt in de login pagina
-
 $colors: (
   primary-dark: darken(#005dff, 40%),
   primary-yellow: #fbc02d,
@@ -251,21 +175,12 @@ $colors: (
   @return map-get($colors, $color-name);
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.custom-dialog-container {
-  // padding: 0px !important;
-  // border-radius: 5px;
-}
 
 
+
+//
+// Material boxes and dialogs
+//
 :root {
   mat-card {
     padding: 0 0 10px 0;
@@ -298,9 +213,6 @@ body {
     padding: 0px 0px 0px 25px !important;
   }
 
-    // Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is.
-
-  // Een pop-up dialog heeft een witte rand waardoor de opmaak niet netjes is.
   .mat-dialog-container {
     padding: 0px !important;
     border-radius: 5px;
@@ -317,7 +229,7 @@ body {
   }
 
   mat-dialog-content {
-    margin: 0px!important;
+    margin: 0px !important;
     padding: 25px 25px 15px 25px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     width: fit-content;
@@ -326,5 +238,9 @@ body {
   mat-dialog-actions {
     margin: 0px !important;
     padding: 0px 0px 0px 25px !important;
+  }
+
+  .mat-table {
+    width: 100%;
   }
 }
