@@ -32,7 +32,7 @@ export class MailComponent extends ParentComponent implements OnInit {
   dataSource = new MatTableDataSource<LedenItemExt>();
   itemsToMail: Array<LedenItemExt> = [];
   selection = new SelectionModel<LedenItem>(true, []); //used for checkboxes
-  displayedColumns: string[] = ['select', 'Naam'];
+  displayedColumns: string[] = ['actions1', 'Naam'];
   filterValues = {
     LeeftijdCategorieJ: '',
     LeeftijdCategorieV: '',
@@ -82,8 +82,8 @@ export class MailComponent extends ParentComponent implements OnInit {
       height: 'auto',
       minHeight: '20',
       maxHeight: 'auto',
-      width: '800px',
-      // width: 'auto',
+      // width: '800px',
+      width: 'auto',
       minWidth: '0',
       translate: 'yes',
       enableToolbar: true,

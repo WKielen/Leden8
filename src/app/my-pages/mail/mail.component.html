@@ -1,5 +1,5 @@
 <div class="flexcontainer">
-  <div fxLayout="column" style='margin-right: 10px;'>
+  <div style="flex-basis: 65%;">
     
     <mat-card>
       <form [formGroup]="mailForm" novalidate>
@@ -93,7 +93,7 @@
     <mat-card-content>
       <mat-table #table [dataSource]="dataSource" class="mat-cell">
 
-        <ng-container matColumnDef="select">
+        <ng-container matColumnDef="actions1">
           <mat-header-cell *matHeaderCellDef>select</mat-header-cell>
           <mat-checkbox (change)="$event ? masterToggle() : null" color='primary'
             [checked]="selection.hasValue() && isAllSelected()"
