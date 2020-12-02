@@ -1,10 +1,8 @@
 <h2 mat-dialog-title>Mail</h2>
-<mat-dialog-content>
-    <mat-form-field class='mat-form-max-width'>
-        <textarea matInput type="text" placeholder="Email tekst" [(ngModel)]="mailText" matTextareaAutosize
-            matAutosizeMinRows='5'></textarea>
-    </mat-form-field>
-</mat-dialog-content>
+<mat-card-content>
+    <angular-editor [(ngModel)]="mailText" [config]="editorConfig" [placeholder]="'Enter text here...'">
+    </angular-editor>
+</mat-card-content>
 <mat-dialog-actions>
     <button mat-raised-button color="primary" (click)="onSendMail($event)">Verzend mail</button>
     <button mat-raised-button mat-dialog-close color="accent">Cancel</button>

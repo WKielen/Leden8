@@ -105,18 +105,18 @@
                     <mat-checkbox class="margin-right-20" color="primary" formControlName="OudeBerekenMethode"
                         [formControl]="OudeBerekenMethode">Oude contributie bereken methode</mat-checkbox>
                 </mat-card-content>
-                <mat-card-actions >
-                    <button mat-raised-button id="mat-card-actions" color="primary" type="button" (click)="onIncassoBestand()"
-                        [disabled]='!incassoForm.valid'>Maak Incasso bestand</button>
+                <mat-card-actions>
+                    <button mat-raised-button id="mat-card-actions" color="primary" type="button"
+                        (click)="onIncassoBestand()" [disabled]='!incassoForm.valid'>Maak Incasso bestand</button>
                 </mat-card-actions>
                 <mat-card-actions>
-                    <button mat-raised-button id="mat-card-actions" color="primary" type="button" (click)='onRekeningBestand()'
-                        [disabled]='!incassoForm.valid'>Maak Rekening
+                    <button mat-raised-button id="mat-card-actions" color="primary" type="button"
+                        (click)='onRekeningBestand()' [disabled]='!incassoForm.valid'>Maak Rekening
                         bestand</button>
                 </mat-card-actions>
                 <mat-card-actions>
-                    <button mat-raised-button id="mat-card-actions" color="primary" type="button" (click)='onAndersBetalenden()'
-                        [disabled]='!incassoForm.valid'>Maak Overigen
+                    <button mat-raised-button id="mat-card-actions" color="primary" type="button"
+                        (click)='onAndersBetalenden()' [disabled]='!incassoForm.valid'>Maak Overigen
                         bestand</button>
                 </mat-card-actions>
                 <mat-card-actions>
@@ -126,7 +126,7 @@
                 </mat-card-actions>
             </form>
         </mat-card>
-        <br>
+
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Verstuur Contributie Mail</mat-card-title>

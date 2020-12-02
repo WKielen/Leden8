@@ -18,7 +18,6 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
 @Component({
     selector: 'app-users-page',
     templateUrl: './users.component.html',
-    styleUrls: ['./users.component.css']
 })
 
 export class UsersComponent extends ParentComponent implements OnInit {

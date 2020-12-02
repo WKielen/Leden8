@@ -21,7 +21,7 @@
               <div fxFlex="0 0 66%">
                 <div fxLayout="column">
 
-                  <mat-form-field>
+                  <mat-form-field id="EmailName">
                     <input matInput type="text" placeholder="Naam mail" formControlName="EmailName"
                       [formControl]="EmailName">
                     <mat-error *ngIf="EmailName.hasError('required')">
@@ -29,7 +29,7 @@
                     </mat-error>
                   </mat-form-field>
 
-                  <mat-form-field class="EmailSubject">
+                  <mat-form-field id="EmailSubject">
                     <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject"
                       [formControl]="EmailSubject">
                     <mat-error *ngIf="EmailSubject.hasError('required')">
@@ -54,7 +54,7 @@
 
       </form>
     </mat-card>
-<br>
+
     <div class="flexcontainer" style="justify-content: space-between;">
       <mat-card style="flex-basis: 48%;">
         <mat-card-header>
@@ -91,9 +91,9 @@
       <mat-card-title>Leden</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-table #table [dataSource]="dataSource" class="mat-cell">
+    <table mat-table #table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="actions1">
+        <!-- <ng-container matColumnDef="actions1">
           <mat-header-cell *matHeaderCellDef>select</mat-header-cell>
           <mat-checkbox (change)="$event ? masterToggle() : null" color='primary'
             [checked]="selection.hasValue() && isAllSelected()"
@@ -109,13 +109,28 @@
         <ng-container matColumnDef="Naam">
           <mat-header-cell *matHeaderCellDef>Naam</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.Naam}}</mat-cell>
+        </ng-container> -->
+        <ng-container matColumnDef="Naam">
+          <th mat-header-cell *matHeaderCellDef> Naam </th>
+          <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
         </ng-container>
+  
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="actions1">
+          <th mat-header-cell *matHeaderCellDef class="cell-padding">Select</th>
+          <td mat-cell *matCellDef="let element" class="cell-padding">
+  
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="onCheckboxChange($event, element)" color='primary'
+              [checked]="selection.isSelected(element)" [aria-label]="checkboxLabel(element)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" >
+        </tr>
 
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-      </mat-table>
+      </table>
     </mat-card-content>
   </mat-card>
 </div>

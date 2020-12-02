@@ -61,7 +61,7 @@ export class ParamService extends DataService {
     paramItem.Value = btoa(Value);
     paramItem.Description = Description ? Description : '';
 
-    return this.update$(paramItem);
+    return super.update$(paramItem);
   }
 }
 

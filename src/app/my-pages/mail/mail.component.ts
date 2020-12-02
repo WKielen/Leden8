@@ -78,27 +78,27 @@ export class MailComponent extends ParentComponent implements OnInit {
 
   editorConfig: AngularEditorConfig = {
     editable: true,
-      spellcheck: true,
-      height: 'auto',
-      minHeight: '20',
-      maxHeight: 'auto',
-      // width: '800px',
-      width: 'auto',
-      minWidth: '0',
-      translate: 'yes',
-      enableToolbar: true,
-      showToolbar: true,
-      placeholder: 'Enter text here...',
-      defaultParagraphSeparator: '',
-      defaultFontName: '',
-      defaultFontSize: '',
-      fonts: [
-        {class: 'arial', name: 'Arial'},
-        {class: 'times-new-roman', name: 'Times New Roman'},
-        {class: 'calibri', name: 'Calibri'},
-        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-      ],
-      customClasses: [
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '20',
+    maxHeight: 'auto',
+    // width: '800px',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+    ],
+    customClasses: [
       {
         name: 'quote',
         class: 'quote',
@@ -118,15 +118,15 @@ export class MailComponent extends ParentComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['insertImage', 'insertVideo',    
-      'backgroundColor',
-      'customClasses',
-      'link',
-      'unlink',
-    
-    ],
+      ['insertImage', 'insertVideo',
+        'backgroundColor',
+        'customClasses',
+        'link',
+        'unlink',
+
+      ],
     ]
-};
+  };
   constructor(
     protected ledenService: LedenService,
     protected paramService: ParamService,
@@ -411,29 +411,26 @@ export class MailComponent extends ParentComponent implements OnInit {
   /***************************************************************************************************
   / Whether the number of selected elements matches the total number of rows.
   /***************************************************************************************************/
-  isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+  // isAllSelected(): boolean {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.data.length;
+  //   return numSelected === numRows;
+  // }
 
   /***************************************************************************************************
   / Selects all rows if they are not all selected; otherwise clear selection.
   /***************************************************************************************************/
-  masterToggle(): void {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-    this.determineMailToSend();
-  }
+  // masterToggle(): void {
+  //   this.isAllSelected() ?
+  //     this.selection.clear() :
+  //     this.dataSource.data.forEach(row => this.selection.select(row));
+  //   this.determineMailToSend();
+  // }
 
   /***************************************************************************************************
   / The label for the checkbox on the passed row. Voor als de regel wordt geklikt
   /***************************************************************************************************/
   checkboxLabel(row?: LedenItemExt): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.LidNr}`;
   }
 

@@ -114,7 +114,7 @@ export class NotificationService extends DataService {
   /***************************************************************************************************/
   public sendNotificationsForRole(audiance: string[], header: string, message: string): void {
     // console.log('sendNotificationsForRole', 'ik haal alle users op met rol' , audiance, header, message);
-    
+
     let sub = this.ledenService.getRol$()
       .subscribe((data: Array<LedenItem>) => {
         const ledenLijst: Array<LedenItem> = data;
@@ -176,7 +176,7 @@ export class NotificationService extends DataService {
           })
         }
       },
-      (error: AppError) => {
+        (error: AppError) => {
           console.log("error", error);
         })
     this.registerSubscription(sub);
@@ -204,19 +204,17 @@ export class NotificationService extends DataService {
   public sendNotification(token: string, header: string, message: string, sendwithvapidaud: string): void {
     // console.log('sendNotification', token, 'hier wordt notification$ aangeroepen'); 
 
-    let payload = { 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message), 'SendWithVapidAud': sendwithvapidaud};
+    let payload = { 'sub_token': token, 'message': NotificationService.Create_WS_Payload(header, message), 'SendWithVapidAud': sendwithvapidaud };
     // console.log('payload met sendwithvapid',payload);
-    
-    let sub = this.notification$(payload)
-      .subscribe((data: string) => {
-        let message: string = data['failed'];
-        if (message != null) {
 
-          if (message.indexOf('failed') !== -1 && (message.indexOf('404') !== -1 || message.indexOf('410') !== -1)) {
+    let sub = this.notification$(payload)
+      .subscribe((data) => {
+        if (data.hasOwnProperty('failed')) {
+          let message: string = data['failed'];
+          if (message.indexOf('401') !== -1) {
             let sub2 = this.deleteToken$(token).subscribe();
             this.registerSubscription(sub2);
           }
-          // console.log('failed text', data['failed']);  // todo if 410  or 404 dat weggooien
         }
       },
         (error: AppError) => {
@@ -239,12 +237,12 @@ export class NotificationService extends DataService {
     payload += ', "badge": "assets/icons/badge-logo.png"';
     payload += ', "vibrate": [100, 50, 100]';
     payload += ', "data": {"primaryKey": "3198048"}';
-    
+
     // payload += ', "actions": [{"action": "explore","title": "Go to the site"}]';
     payload += '}}';
     return payload;
   }
- }
+}
 
 /***************************************************************************************************
 / Record used for storing and reading the datbase

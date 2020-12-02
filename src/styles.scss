@@ -158,26 +158,6 @@ body {
 }
 
 
-
-
-
-// Voorbeeld van functies in SASS. Voor kleuren buiten het material theme om.
-// Hieronder wordt gebruikt in de login pagina
-$colors: (
-  primary-dark: darken(#005dff, 40%),
-  primary-yellow: #fbc02d,
-  primary-blue: #0d47a1,
-  primary-blue-light: lighten(#0d47a1, 40%),
-  primary-yellow-dark: darken(#fbc02d, 10%),
-);
-
-@function color($color-name) {
-  @return map-get($colors, $color-name);
-}
-
-
-
-
 //
 // Material boxes and dialogs
 //
@@ -187,6 +167,7 @@ $colors: (
     border-radius: 5px;
     box-shadow: 5px 10px 10px lightgrey !important;
     background: white;
+    margin-bottom: 10px;
   }
 
   mat-card-header {

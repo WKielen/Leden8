@@ -89,7 +89,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                             }
 
                             let message = "Nieuw lid: " + result.VolledigeNaam + " , " + result.Leeftijd + " jaar"
-                            this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
+                            this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministratie", message);
                         },
                             (error: AppError) => {
                                 if (error instanceof DuplicateKeyError) {
@@ -131,7 +131,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
                         }
 
                         let message = "Lid Opgezegd: " + LedenItem.getFullNameVtA(toBeDeleted.Voornaam, toBeDeleted.Tussenvoegsel, toBeDeleted.Achternaam);
-                        this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministrate", message);
+                        this.notificationService.sendNotificationsForRole([ROLES.BESTUUR], "Ledenadministratie", message);
                     },
                         (error: AppError) => {
                             if (error instanceof NotFoundError) {

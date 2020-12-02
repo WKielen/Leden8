@@ -43,6 +43,7 @@ import listPlugin from '@fullcalendar/list';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MasterzComponent } from './masterz/masterz.component';
 import { KomendeWeekComponent } from './komendeweek/komendeweek.component'; // the main connector. must go first
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -98,6 +99,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HttpClientModule,
     SharedModule,
     FullCalendarModule,
+    AngularEditorModule,
+
     // AngularIbanModule,
   ],
 })

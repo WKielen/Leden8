@@ -5,6 +5,7 @@ import { ReadTextFileService } from 'src/app/services/readtextfile.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
 import { MailDialogComponent } from './mail.dialog';
 import { ExternalMailApiRecord, MailItem } from 'src/app/services/mail.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
     selector: 'singlemail-dialog',
@@ -15,6 +16,58 @@ export class SingleMailDialogComponent implements OnInit {
     mailText: string = '';
     itemsToMail: Array<MailItem> = [];
     subject: string = '';
+
+    editorConfig: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: 'auto',
+        minHeight: '20',
+        maxHeight: 'auto',
+        // width: '800px',
+        width: 'auto',
+        minWidth: '0',
+        translate: 'yes',
+        enableToolbar: true,
+        showToolbar: true,
+        placeholder: 'Enter text here...',
+        defaultParagraphSeparator: '',
+        defaultFontName: '',
+        defaultFontSize: '',
+        fonts: [
+            { class: 'arial', name: 'Arial' },
+            { class: 'times-new-roman', name: 'Times New Roman' },
+            { class: 'calibri', name: 'Calibri' },
+            { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+        ],
+        customClasses: [
+            {
+                name: 'quote',
+                class: 'quote',
+            },
+            {
+                name: 'redText',
+                class: 'redText'
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1',
+            },
+        ],
+        uploadUrl: 'v1/image',
+        uploadWithCredentials: false,
+        sanitize: true,
+        toolbarPosition: 'top',
+        toolbarHiddenButtons: [
+            ['insertImage', 'insertVideo',
+                'backgroundColor',
+                'customClasses',
+                'link',
+                'unlink',
+
+            ],
+        ]
+    };
 
     constructor(
         public dialogRef: MatDialogRef<SingleMailDialogComponent>,

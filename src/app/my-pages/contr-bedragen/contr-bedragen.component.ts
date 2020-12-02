@@ -240,7 +240,12 @@ export class ContrBedragenComponent extends ParentComponent implements OnInit {
   }
   saveSecondaryParams(): void {
     let sub = this.paramService.saveParamData$("SecondaryFeeParams", JSON.stringify(this.secondaryFeeParams), 'Extra contributie parameters')
-      .subscribe();
+    .subscribe(data => {
+    },
+      (error: AppError) => {
+        if (error instanceof NoChangesMadeError) {
+        } else { throw error; }
+      });
     this.registerSubscription(sub);
   }
 
